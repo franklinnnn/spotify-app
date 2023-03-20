@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Menu from "../components/Menu";
 import Receipt from "../components/Receipt";
-import { getUserTopItems, getUserProfile } from "../util/spotify";
 
 const Home = ({ setToken, token }) => {
   const [list, setList] = useState([]);
@@ -20,7 +19,7 @@ const Home = ({ setToken, token }) => {
   };
 
   const getUserTopItems = async (type, length) => {
-    axios
+    await axios
       .get(
         `https://api.spotify.com/v1/me/top/${type}?time_range=${length}&limit=10`,
         {
@@ -35,7 +34,7 @@ const Home = ({ setToken, token }) => {
   };
 
   const getUserProfile = async () => {
-    axios
+    await axios
       .get(`https://api.spotify.com/v1/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
