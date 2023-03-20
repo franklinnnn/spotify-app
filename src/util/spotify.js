@@ -19,7 +19,6 @@ export const getUserTopItems = async (type, length, token) => {
     )
     .then((response) => {
       return response.data.items;
-      console.log(response.data.items);
     });
 };
 
