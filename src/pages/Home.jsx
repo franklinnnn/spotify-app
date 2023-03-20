@@ -56,7 +56,7 @@ const Home = ({ setToken, token }) => {
   const logout = () => {
     setToken("");
     window.localStorage.removeItem("token");
-    const url = "https://www.spotify.com/logout/";
+    const url = "https://accounts.spotify.com/en/status";
     const logoutWindow = window.open(
       url,
       "Spotify Logout",
