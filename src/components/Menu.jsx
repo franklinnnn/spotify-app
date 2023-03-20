@@ -2,7 +2,7 @@ import React from "react";
 
 const Menu = ({ type, length, handleGetList }) => {
   return (
-    <div className="w-full grid gap-1 p-2 mb-4 bg-slate-600">
+    <div className="w-full grid gap-1 p-2 mb-4 text-sm bg-slate-600 rounded-b-sm">
       <div className="grid grid-cols-2">
         <button
           className={

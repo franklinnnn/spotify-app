@@ -2,6 +2,7 @@ import React from "react";
 import Artists from "./Artists";
 import Tracks from "./Tracks";
 import html2canvas from "html2canvas";
+import barcode from "../assets/barcode.png";
 
 const Receipt = ({ list, type, length, user }) => {
   const getDate = () => {
@@ -63,11 +64,14 @@ const Receipt = ({ list, type, length, user }) => {
           <span>AUTH CODE: 1234</span>
           <span>CARDHOLDER: {user}</span>
         </div>
-        <div className="flex justify-center uppercase my-6">
+        <div className="flex justify-center uppercase mt-6 mb-2">
           thanks for visiting!
         </div>
+        <div className="mb-6">
+          <img src={barcode} alt="barcode" className="mix-blend-multiply" />
+        </div>
       </div>
-      <div className="w-full bg-slate-600 py-6 flex justify-center mt-4 mb-10">
+      <div className="w-full bg-slate-600 py-6 flex justify-center mt-4 mb-10 rounded-sm">
         <button
           className="text-xs uppercase bg-slate-700 p-2 rounded hover:bg-slate-900"
           onClick={exportImage}

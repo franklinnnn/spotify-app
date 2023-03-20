@@ -60,8 +60,8 @@ const Home = ({ setToken, token }) => {
   };
 
   return (
-    <div className="flex flex-col items-center h-full w-[24rem] my-4">
-      <div className="flex w-full bg-slate-800 p-2 justify-between items-center capitalize">
+    <div className="flex flex-col items-center h-full w-[24rem] my-4 ">
+      <div className="flex w-full bg-slate-800 p-2 justify-between items-center capitalize rounded-t-sm">
         <div className="flex flex-col capitalize text-sm">
           <span>Receiptify Not really</span>
           <span className="text-xs">top track generator</span>
