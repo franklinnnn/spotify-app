@@ -23,7 +23,7 @@ const Home = ({ setToken }) => {
     getUserProfile().then(setUser);
     setType(type);
     setLength(length);
-    getUserTopItems(type, length);
+    getUserTopItems(type, length).then(setList);
     setShowReceipt(true);
   }, []);
 
