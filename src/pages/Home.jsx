@@ -2,54 +2,28 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Menu from "../components/Menu";
 import Receipt from "../components/Receipt";
+import { getUserTopItems, getUserProfile } from "../util/spotify";
 
-const Home = ({ setToken, token }) => {
+const Home = ({ setToken }) => {
   const [list, setList] = useState([]);
   const [type, setType] = useState("tracks");
   const [length, setLength] = useState("short_term");
   const [user, setUser] = useState("");
   const [showReceipt, setShowReceipt] = useState(false);
 
-  const handleGetList = (type, length) => {
-    getUserTopItems(type, length);
+  const handleGetList = async (type, length) => {
     setType(type);
     setLength(length);
+    getUserTopItems(type, length).then(setList);
     setShowReceipt(true);
-    console.log(list);
-  };
-
-  const getUserTopItems = async (type, length) => {
-    await axios
-      .get(
-        `https://api.spotify.com/v1/me/top/${type}?time_range=${length}&limit=10`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((response) => {
-        setList(response.data.items);
-      });
-  };
-
-  const getUserProfile = async () => {
-    await axios
-      .get(`https://api.spotify.com/v1/me`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        setUser(response.data.display_name);
-      });
+    console.log(`type: ${type}, length: ${length}`);
   };
 
   useEffect(() => {
-    getUserProfile();
-    getUserTopItems(type, length);
+    getUserProfile().then(setUser);
     setType(type);
     setLength(length);
+    getUserTopItems(type, length);
     setShowReceipt(true);
   }, []);
 
