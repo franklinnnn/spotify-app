@@ -74,7 +74,7 @@ const Home = ({ setToken }) => {
             <Route path="about" element={<About />} />
           </Routes>
         </div>
-        {/* <Footer /> */}
+        <Footer />
       </MainContext.Provider>
     </div>
   );
