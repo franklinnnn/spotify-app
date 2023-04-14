@@ -1,62 +1,81 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import Menu from "../components/Menu";
-import Receipt from "../components/Receipt";
-import { getUserTopItems, getUserProfile } from "../util/spotify";
+import React, { createContext, useEffect, useRef, useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import Nav from "../components/Nav";
+import { getUserProfile, getUserTopItems } from "../util/spotify";
+import Artists from "./Artists";
+import Deck from "./Deck";
+import Recents from "./Recents";
+import Recommendations from "./Recommendations";
+import Tracks from "./Tracks";
+import RelatedArtists from "./RelatedArtists";
+import About from "./About";
+import Footer from "../components/Footer";
+
+export const MainContext = createContext("");
 
 const Home = ({ setToken }) => {
+  const [user, setUser] = useState({});
   const [list, setList] = useState([]);
+  const [deck, setDeck] = useState([]);
   const [type, setType] = useState("tracks");
   const [length, setLength] = useState("short_term");
-  const [user, setUser] = useState("");
-  const [showReceipt, setShowReceipt] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
 
   const handleGetList = async (type, length) => {
+    setList([]);
     setType(type);
     setLength(length);
     getUserTopItems(type, length).then(setList);
-    setShowReceipt(true);
     console.log(`type: ${type}, length: ${length}`);
   };
 
   useEffect(() => {
     getUserProfile().then(setUser);
-    setType(type);
-    setLength(length);
-    getUserTopItems(type, length).then(setList);
-    setShowReceipt(true);
   }, []);
 
-  const logout = () => {
-    setToken("");
-    window.localStorage.removeItem("token");
-    const url = "https://accounts.spotify.com/en/status";
-    const logoutWindow = window.open(
-      url,
-      "Spotify Logout",
-      "width=700, height=500, top=40, left=40"
-    );
-    setTimeout(() => logoutWindow.close(), 2000);
-  };
-
   return (
-    <div className="flex flex-col items-center h-full w-[24rem] my-4 ">
-      <div className="flex w-full bg-slate-800 p-2 justify-between items-center capitalize rounded-t-sm">
-        <div className="flex flex-col capitalize text-sm">
-          <span>Receiptify Not really</span>
-          <span className="text-xs">top track generator</span>
+    <div className="flex flex-col items-center h-full w-full ">
+      <MainContext.Provider
+        value={{
+          user,
+          setToken,
+          list,
+          setList,
+          type,
+          setType,
+          deck,
+          setDeck,
+          showDetails,
+          setShowDetails,
+        }}
+      >
+        <Nav />
+        <div className="md:w-[768px]">
+          <Routes>
+            <Route
+              path="/"
+              element={<Tracks handleGetList={handleGetList} />}
+            />
+            <Route
+              path="top-tracks"
+              element={<Tracks handleGetList={handleGetList} />}
+            />
+            <Route
+              path="top-artists"
+              element={<Artists handleGetList={handleGetList} />}
+            />
+            <Route path="recently-played" element={<Recents />} />
+            <Route
+              path="deck"
+              element={<Deck list={list} setList={setList} type={type} />}
+            />
+            <Route path="recommendations" element={<Recommendations />} />
+            <Route path="related-artists" element={<RelatedArtists />} />
+            <Route path="about" element={<About />} />
+          </Routes>
         </div>
-        <button
-          className="text-xs capitalize bg-slate-900 p-2 rounded hover:bg-slate-600"
-          onClick={logout}
-        >
-          logout
-        </button>
-      </div>
-      <Menu type={type} length={length} handleGetList={handleGetList} />
-      {showReceipt && (
-        <Receipt list={list} type={type} length={length} user={user} />
-      )}
+        {/* <Footer /> */}
+      </MainContext.Provider>
     </div>
   );
 };

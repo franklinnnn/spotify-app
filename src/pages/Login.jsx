@@ -5,7 +5,7 @@ import { loginUrl } from "../util/spotify";
 const Login = () => {
   return (
     <div className="flex flex-col items-center justify-center gap-2  h-[100vh]">
-      <h1 className="text-2xl mb-2">Copy of Receiptify</h1>
+      <h1 className="text-2xl mb-2">Card... ify or something</h1>
       <div>
         <a
           href={loginUrl}

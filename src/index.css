@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@300;400;600&family=Contrail+One&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -23,7 +24,7 @@
 html,
 body {
   height: 100%;
-  background: #100b00;
+  background: #161925;
 }
 /*
     Typographic tweaks!
@@ -72,4 +73,14 @@ h6 {
 #root,
 #__next {
   isolation: isolate;
+}
+
+:root {
+  --primary: #f70a8d;
+
+  /* --popularity-100: #d97706;
+  --popularity-80: #7c3aed,
+  --popularity-60: #0284c7,
+  --popularity-40: #059669,
+  --popularity-20: #475569 */
 }
