@@ -95,7 +95,7 @@ const ArtistDetails = ({ cardDetails }) => {
   return (
     <Tilt
       options={container}
-      className="group flex justify-center items-start box-border aspect-[2/3] h-[44rem]"
+      className="group flex justify-center items-start box-border md:aspect-[2/3] md:h-[44rem]"
       id="card"
     >
       <div

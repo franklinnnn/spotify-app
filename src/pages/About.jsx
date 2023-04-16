@@ -21,7 +21,7 @@ const About = () => {
     },
   };
   return (
-    <div className="relative w-full my-6">
+    <div className="relative w-full my-6 pb-12 max-sm:px-2">
       <motion.div
         className="relative flex flex-col gap-6"
         variants={pageMenu}
@@ -51,16 +51,28 @@ const About = () => {
             <div className="flex flex-col gap-2">
               <h2 className="text-xl">Recommendations</h2>
               <p>
-                A new hand of tracks can be generated through the 'Get Random
-                Cards' button, or through the 'Recommend' button in the menu of
-                the detailed card itself.
+                A new hand of tracks can be generated through the
+                <span className="p-1 rounded-sm bg-slate-500/20">
+                  Get Random Cards
+                </span>
+                button, or through the{" "}
+                <span className="p-1 rounded-sm bg-slate-500/20">
+                  Recommend
+                </span>{" "}
+                button in the menu of the detailed card itself.
               </p>
               <p>
-                The 'Get Random Cards' button generates a new hand from a
-                randomly chosen track out of 50, from a randomly chosen term
-                length &#40;last month, 6 months, or all time&#41;. The
-                'Recommend' button in the card generates a new hand from that
-                specific card.
+                The{" "}
+                <span className="p-1 rounded-sm bg-slate-500/20">
+                  Get Random Cards
+                </span>{" "}
+                button generates a new hand from a randomly chosen track out of
+                50, from a randomly chosen term length &#40;last month, 6
+                months, or all time&#41;. The
+                <span className="p-1 rounded-sm bg-slate-500/20">
+                  Recommend
+                </span>{" "}
+                button in the card generates a new hand from that specific card.
               </p>
             </div>
 
@@ -75,34 +87,37 @@ const About = () => {
                 Aside from viewing your top tracks and artists, this app can be
                 used to discover new music. Cards from recommendations and your
                 top listens can be previewed from the hand, which can then be
-                saved to a the deck like a playlist. The deck can then be saved
+                added to a the deck like a playlist. The deck can then be saved
                 to an actual playlist on Spotify.
               </p>
             </div>
 
             <div className="flex flex-col gap-2">
               <h2 className="text-xl">Track Card</h2>
-              <div className="flex gap-4">
+              <div className="md:flex gap-4">
                 <img
                   src={trackCardImg}
                   alt="track card example image"
-                  className="w-1/3"
+                  className="md:w-1/3"
                 />
-                <p className="w-2/3">
+                <p className="md:w-2/3">
                   Top icons have the card's type and the popularity. Cover image
                   with the track title, artist, and album sits under that. The
                   three values denote the track's tempo, length, and energy from
                   Spotify's audio analysis metric. The bottom menu has the
-                  'Recommend' button to generate a new hand of 9 cards, external
-                  links to Spotify, YouTube, and the option to add the current
-                  card to your deck.
+                  <span className="p-1 rounded-sm bg-slate-500/20">
+                    Recommend
+                  </span>{" "}
+                  button to generate a new hand of 9 cards, external links to
+                  Spotify, YouTube, and the option to add the current card to
+                  your deck.
                 </p>
               </div>
             </div>
             <div className="flex flex-col gap-2">
               <h2 className="text-xl">Artist Card</h2>
-              <div className="flex gap-4">
-                <p className="w-2/3">
+              <div className="md:flex gap-4">
+                <p className="md:w-2/3">
                   Icons on the top is the same as the track card with the type
                   and popularity. Artist image, then name and genre&#40;s&#41;
                   under it. The top four tracks are based on their popularity
@@ -115,12 +130,13 @@ const About = () => {
                 <img
                   src={artistCardImg}
                   alt="artist card example image"
-                  className="w-1/3"
+                  className="md:w-1/3"
                 />
               </div>
             </div>
           </div>
-          <div className="flex flex-col gap-4">
+
+          <div className="flex flex-col gap-4 my-4">
             <h1 className="text-xl">FAQ</h1>
             <div>
               <h2 className="text-lg">Why isn't this working?</h2>
@@ -166,6 +182,7 @@ const About = () => {
                 >
                   here
                 </a>
+                .
               </p>
             </div>
           </div>

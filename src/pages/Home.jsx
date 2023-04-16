@@ -34,7 +34,7 @@ const Home = ({ setToken }) => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center h-full w-full ">
+    <div className="relative flex flex-col items-center w-full ">
       <MainContext.Provider
         value={{
           user,
@@ -50,7 +50,7 @@ const Home = ({ setToken }) => {
         }}
       >
         <Nav />
-        <div className="md:w-[768px]">
+        <div className="md:w-[768px] min-h-[calc(100vh-5rem)] pb-4">
           <Routes>
             <Route
               path="/"
@@ -74,7 +74,9 @@ const Home = ({ setToken }) => {
             <Route path="about" element={<About />} />
           </Routes>
         </div>
-        <Footer />
+        {/* <div className="absolute bottom-0 w-full">
+          <Footer />
+        </div> */}
       </MainContext.Provider>
     </div>
   );

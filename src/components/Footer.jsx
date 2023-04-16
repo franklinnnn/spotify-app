@@ -24,32 +24,36 @@ const Footer = () => {
   return (
     <AnimatePresence>
       <motion.div
-        className="flex justify-center mt-6 mb-2 w-full px-4 text-xs  text-slate-400"
+        className="flex justify-center w-full gap-2 p-2 text-xs text-slate-400 max-sm:flex-col"
         variants={pageMenu}
         initial="hidden"
         animate="visible"
         exit="hidden"
       >
-        {year}
-        <span className="mx-4">
-          Cardify made by{" "}
-          <a
-            href="https://franklinnn.com"
-            target="_blank"
-            className="text-slate-200 hover:text-primary"
-          >
-            Franklin Assa
-          </a>
-        </span>
-        <span className="flex mx-6 gap-4">
-          <NavLink to="/" className="text-slate-200 hover:text-primary">
-            Home
-          </NavLink>
-          |
-          <NavLink to="/about" className="text-slate-200 hover:text-primary">
-            About
-          </NavLink>
-        </span>
+        <div className="flex gap-2">
+          <span>{year}</span>
+          <span className="md:mx-4">
+            Cardify made by{" "}
+            <a
+              href="https://franklinnn.com"
+              target="_blank"
+              className="text-slate-200 hover:text-primary"
+            >
+              Franklin Assa
+            </a>
+          </span>
+        </div>
+        <div className="flex justify-center">
+          <span className="flex mx-6 gap-4">
+            <NavLink to="/" className="text-slate-200 hover:text-primary">
+              Home
+            </NavLink>
+            |
+            <NavLink to="/about" className="text-slate-200 hover:text-primary">
+              About
+            </NavLink>
+          </span>
+        </div>
       </motion.div>
     </AnimatePresence>
   );
