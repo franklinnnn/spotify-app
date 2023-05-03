@@ -68,7 +68,7 @@ const Deck = () => {
   };
 
   return (
-    <div className="relative w-full my-6">
+    <section className="relative w-full my-6">
       <div className="w-full flex justify-center">
         <div
           className="absolute top-1/3 mx-auto flex justify-center items-center hover:scale-105 ease-in-out duration-300 z-20"
@@ -141,7 +141,7 @@ const Deck = () => {
         </AnimatePresence>
       </div>
 
-      <motion.div
+      <motion.header
         className={`relative flex items-center justify-between gap-6 px-6 ${
           showDetails || isSaveComponentVisible || isDelComponentVisible
             ? "opacity-60 blur-sm pointer-events-none"
@@ -174,7 +174,7 @@ const Deck = () => {
             Delete Deck
           </button>
         </div>
-      </motion.div>
+      </motion.header>
       {deck.length < 1 ? (
         <div className="text-center mt-6">
           <h1 className="text-2xl">Deck is empty!</h1>{" "}
@@ -202,7 +202,7 @@ const Deck = () => {
         theme="colored"
         limit={1}
       />
-    </div>
+    </section>
   );
 };
 

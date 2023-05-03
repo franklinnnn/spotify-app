@@ -30,8 +30,8 @@ const Recommendations = () => {
   };
 
   return (
-    <div className="w-full my-6">
-      <motion.div
+    <section className="w-full my-6">
+      <motion.header
         className={`relative flex items-center justify-between gap-6 px-6 ${
           showDetails ? "opacity-60 blur-sm pointer-events-none" : "opacity-100"
         } max-sm:flex-col max-sm:gap-2`}
@@ -47,9 +47,9 @@ const Recommendations = () => {
         >
           <FaRandom /> Get Random Cards
         </div>
-      </motion.div>
+      </motion.header>
       <CardsContainer list={list} type={type} />
-    </div>
+    </section>
   );
 };
 

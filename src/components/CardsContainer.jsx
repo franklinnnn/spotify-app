@@ -47,7 +47,7 @@ const CardsContainer = ({
   };
 
   return (
-    <div className="relative w-full">
+    <section className="relative w-full">
       <AnimatePresence>
         {isCardDetailsVisible && showDetails && (
           <div className="relative flex justify-center" ref={cardDetailsRef}>
@@ -117,7 +117,7 @@ const CardsContainer = ({
           })}
         </div>
       </AnimatePresence>
-    </div>
+    </section>
   );
 };
 

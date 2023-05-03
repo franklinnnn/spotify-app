@@ -4,9 +4,11 @@ import { loginUrl } from "../util/spotify";
 
 const Login = () => {
   return (
-    <div className="flex flex-col items-center justify-center gap-2  h-[100vh]">
-      <h1 className="text-2xl">Card... ify 🎴 or something</h1>
-      <span className="text-xs">title pending</span>
+    <section className="flex flex-col items-center justify-center gap-2  h-[100vh]">
+      <h1 className="flex items-center text-2xl text-light font-disp">
+        🎴<span className="text-[3rem]">SpotiDeck</span>
+      </h1>
+      <span className="text-xs my-1 capitalize">spotify playlist builder</span>
       <div>
         <a
           href={loginUrl}
@@ -19,7 +21,7 @@ const Login = () => {
         </a>
       </div>
       {/* <div>Get your top tracks and artists as a card hand</div> */}
-    </div>
+    </section>
   );
 };
 

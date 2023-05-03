@@ -16,7 +16,10 @@ module.exports = {
         paperbg: "url('/src/assets/paperbg.png')",
       },
       colors: {
-        primary: "#f70a8d",
+        primary: "#DC4141",
+        secondary: "#4E1834",
+        dark: "#08042E",
+        light: "#F9F9F9",
         popularity: {
           100: "#d97706",
           80: "#7c3aed",

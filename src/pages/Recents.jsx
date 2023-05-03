@@ -47,8 +47,8 @@ const Recents = () => {
   };
 
   return (
-    <div className="relative w-full my-6">
-      <motion.div
+    <section className="relative w-full my-6">
+      <motion.header
         className={`relative flex items-center justify-between gap-6 px-6 ${
           showDetails ? "opacity-60 blur-sm pointer-events-none" : "opacity-100"
         } max-sm:flex-col max-sm:gap-2`}
@@ -66,9 +66,9 @@ const Recents = () => {
           <FaRandom />
           Get Random Cards
         </div>
-      </motion.div>
+      </motion.header>
       <CardsContainer list={list} />
-    </div>
+    </section>
   );
 };
 

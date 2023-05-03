@@ -12,7 +12,7 @@ function App() {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-center w-full h-full  text-white text-bold">
+    <div className="flex flex-col justify-center items-center w-full h-full  text-light text-bold">
       <BrowserRouter>
         {token ? <Home setToken={setToken} /> : <Login />}
       </BrowserRouter>

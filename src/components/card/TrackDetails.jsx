@@ -125,13 +125,14 @@ const TrackDetails = ({ cardDetails }) => {
       <div
         className="bg-cover bg-center rounded-lg aspect-[2/3] h-[44rem]"
         style={{ backgroundImage: `url(${cardDetails.album.images[0].url})` }}
+        role="content container"
       >
-        <div
+        <article
           className="bg-gradient-to-t from-black to-transparent backdrop-blur-sm rounded-lg duration-300 group-hover:backdrop-blur-md box-border overflow-hidden"
           id="border"
         >
           {/* TOP BAR */}
-          <div className="relative flex justify-between px-2 py-1 z-10">
+          <header className="relative flex justify-between px-2 py-1 z-10">
             <span
               className="uppercase flex items-center gap-2 px-1 rounded-md font-num text-2xl  bg-slate-500/[0.6] ease-in-out duration-300 group-hover:scale-110 group-hover:translate-x-[-0.5rem] group-hover:translate-y-[-0.2rem] group-hover:shadow-[0_0.2rem_1rem_0_rgba(0,0,0,0.5)]"
               id="top"
@@ -150,19 +151,19 @@ const TrackDetails = ({ cardDetails }) => {
               </span>
               {cardDetails.popularity}
             </span>
-          </div>
+          </header>
 
           {/* IMAGE */}
-          <div className="flex justify-center items-center py-2 ease-in-out duration-500 group-hover:translate-y-[0.4rem] group-hover:scale-105">
+          <section className="flex justify-center items-center py-2 ease-in-out duration-500 group-hover:translate-y-[0.4rem] group-hover:scale-105">
             <img
               src={cardDetails.album.images[0].url}
               alt="cover"
               className="w-5/6 h-5/6 ease-in-out duration-700 group-hover:shadow-[0_35px_60px_-15px_rgba(0,0,0,0.8)]"
             />
-          </div>
+          </section>
 
           {/* TRACK INFO */}
-          <div className="p-4 flex flex-col justify-between mb-4 ">
+          <section className="p-4 flex flex-col justify-between mb-4 ">
             <div className="flex flex-col w-full h-full px-4 font-disp ease-in-out duration-500 group-hover:translate-y-2 group-hover:z-10 group-hover:scale-105">
               <span className="text-center text-4xl mt-4 mb-2">
                 {cardDetails.name}
@@ -211,15 +212,15 @@ const TrackDetails = ({ cardDetails }) => {
                 </div>
               </div>
             </div>
-          </div>
-          <div className="pt-8 ">
+          </section>
+          <footer className="pt-8 ">
             <CardButtons
               cardDetails={cardDetails}
               handleAddCardToDeck={handleAddCardToDeck}
               setShowConfirmRecommend={setShowConfirmRecommend}
               isInDeck={isInDeck}
             />
-          </div>
+          </footer>
           <ConfirmRecommend
             showConfirmRecommend={showConfirmRecommend}
             setShowConfirmRecommend={setShowConfirmRecommend}
@@ -227,7 +228,7 @@ const TrackDetails = ({ cardDetails }) => {
             handleGetNewList={handleGetNewList}
           />
           <ConfirmAddedToDeck cardAdded={cardAdded} />
-        </div>
+        </article>
       </div>
       <ToastContainer
         position="top-center"

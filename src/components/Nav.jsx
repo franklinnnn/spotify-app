@@ -36,31 +36,39 @@ const Nav = () => {
   };
 
   return (
-    <div
-      className="flex w-full bg-slate-800 p-2 px-4 justify-between items-center capitalize rounded-t-sm"
+    <nav
+      className="flex w-[900px] bg-slate-800/40 p-4 my-4 justify-between items-center capitalize rounded-md"
       ref={mobileMenuRef}
     >
-      <div className="flex flex-col capitalize text-sm">
-        <span className="text-2xl flex">
-          <span className="max-sm:hidden">Cardify</span> 🎴
+      <header className="flex flex-col capitalize text-sm">
+        <span className="text-2xl flex items-center">
+          🎴 <span className="max-sm:hidden font-disp text-4xl">SpotiDeck</span>
         </span>
-        <span className="text-xs max-sm:hidden">top track generator</span>
-      </div>
-      <div
-        className={`flex items-center justify-evenly gap-6 py-1 max-sm:gap-2
-        }`}
+        {/* <span className="text-xs max-sm:hidden">playlist builder</span> */}
+      </header>
+      <section
+        className="flex items-center justify-evenly gap-6 py-1 text-light/60 max-sm:gap-2
+        "
       >
         <NavLink
           to="/top-tracks"
-          className="flex flex-col justify-center items-center gap-1 text-3xl w-28 hover:cursor-pointer max-sm:w-8 max-sm:text-2xl"
+          className="flex flex-col justify-center items-center gap-1 text-3xl w-28 hover:cursor-pointer  duration-150 ease-in-out max-sm:w-8 max-sm:text-2xl"
           onClick={() => setActivePage("tracks")}
         >
           {activePage === "tracks" ? (
-            <HiMusicalNote />
+            <HiMusicalNote className="text-light" />
           ) : (
-            <HiOutlineMusicalNote className="hover:scale-110 easy-in-out duration-300" />
+            <HiOutlineMusicalNote className=" hover:scale-110 easy-in-out duration-300" />
           )}{" "}
-          <span className="text-xs max-sm:hidden">Top Tracks</span>
+          <span
+            className={
+              activePage === "tracks"
+                ? "text-light text-xs max-sm:hidden"
+                : "text-light/70 text-xs max-sm:hidden"
+            }
+          >
+            Top Tracks
+          </span>
         </NavLink>
         <NavLink
           to="/top-artists"
@@ -68,11 +76,19 @@ const Nav = () => {
           onClick={() => setActivePage("artists")}
         >
           {activePage === "artists" ? (
-            <HiMicrophone />
+            <HiMicrophone className="text-light" />
           ) : (
             <HiOutlineMicrophone className="hover:scale-110 easy-in-out duration-300" />
           )}{" "}
-          <span className="text-xs max-sm:hidden">Top Artists</span>
+          <span
+            className={
+              activePage === "artists"
+                ? "text-light text-xs max-sm:hidden"
+                : "text-light/70 text-xs max-sm:hidden"
+            }
+          >
+            Top Artists
+          </span>
         </NavLink>
         <NavLink
           to="/recently-played"
@@ -80,11 +96,19 @@ const Nav = () => {
           onClick={() => setActivePage("recents")}
         >
           {activePage === "recents" ? (
-            <HiClock />
+            <HiClock className="text-light" />
           ) : (
             <HiOutlineClock className="hover:scale-110 easy-in-out duration-300" />
           )}{" "}
-          <span className="text-xs max-sm:hidden">Recently Played</span>
+          <span
+            className={
+              activePage === "recents"
+                ? "text-light text-xs max-sm:hidden"
+                : "text-light/70 text-xs max-sm:hidden"
+            }
+          >
+            Recently Played
+          </span>
         </NavLink>
         <NavLink
           to="/deck"
@@ -92,36 +116,48 @@ const Nav = () => {
           onClick={() => setActivePage("deck")}
         >
           {activePage === "deck" ? (
-            <RiStackFill />
+            <RiStackFill className="text-light" />
           ) : (
             <RiStackLine className="hover:scale-110 easy-in-out duration-300" />
           )}{" "}
-          <span className="text-xs max-sm:hidden">Deck</span>
+          <span
+            className={
+              activePage === "deck"
+                ? "text-light text-xs max-sm:hidden"
+                : "text-light/70 text-xs max-sm:hidden"
+            }
+          >
+            Deck
+          </span>
         </NavLink>
-      </div>
-      <div className="flex gap-4 items-center text-xs max-sm:hidden">
+      </section>
+      <section className="flex gap-4 items-center text-xs text-light/60 max-sm:hidden">
         <NavLink
           to="/about"
           className="hover:text-primary"
-          onClick={() => setActivePage("")}
+          onClick={() => setActivePage("about")}
         >
-          About
+          <span
+            className={activePage === "about" ? "text-light" : "text-light/60"}
+          >
+            About
+          </span>
         </NavLink>
         <button
-          className="capitalize bg-slate-900 p-2 rounded hover:bg-slate-600"
+          className="capitalize p-2 rounded border-2 border-light/40 hover:bg-slate-600 hover:text-light"
           onClick={logout}
         >
           <span>logout</span>
         </button>
-      </div>
-      <div
+      </section>
+      <section
         className=" bg-slate-900 p-2 rounded hover:bg-slate-600  md:hidden"
         onClick={() => setIsMobileMenuComponentVisible(true)}
       >
         <span className="text-xl">
           <BiMenu />
         </span>
-      </div>
+      </section>
       <AnimatePresence>
         {isMobileMenuComponentVisible && (
           <motion.div
@@ -172,7 +208,7 @@ const Nav = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </nav>
   );
 };
 

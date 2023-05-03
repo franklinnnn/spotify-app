@@ -49,8 +49,8 @@ const Tracks = () => {
   };
 
   return (
-    <div className="relative w-full my-6">
-      <motion.div
+    <section className="relative w-full my-6">
+      <motion.header
         className={`relative flex items-center justify-between px-6 ${
           showDetails ? "opacity-60 blur-sm pointer-events-none" : "opacity-100"
         } max-sm:flex-col`}
@@ -108,9 +108,9 @@ const Tracks = () => {
           <FaRandom />
           Get Random Cards
         </div>
-      </motion.div>
+      </motion.header>
       <CardsContainer list={list} type={type} />
-    </div>
+    </section>
   );
 };
 

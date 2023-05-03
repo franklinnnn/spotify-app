@@ -24,8 +24,8 @@ const RelatedArtists = () => {
   };
 
   return (
-    <div className="w-full my-6">
-      <motion.div
+    <section className="w-full my-6">
+      <motion.header
         className={`relative flex items-center justify-left gap-6 px-6 ${
           showDetails ? "opacity-60 blur-sm pointer-events-none" : "opacity-100"
         }`}
@@ -35,9 +35,9 @@ const RelatedArtists = () => {
         exit="hidden"
       >
         <h1 className="text-2xl">Related Artists</h1>
-      </motion.div>
+      </motion.header>
       <CardsContainer list={list} type={type} />
-    </div>
+    </section>
   );
 };
 
