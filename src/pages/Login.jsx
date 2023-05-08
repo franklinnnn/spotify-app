@@ -21,7 +21,9 @@ const Login = () => {
 
         <span className="text-[3rem]">SpotiDecks</span>
       </h1>
-      <span className="text-xs my-1 capitalize">spotify playlist builder</span>
+      <span className="text-xs my-1 capitalize">
+        top track generator and playlist builder
+      </span>
       <div>
         <a
           href={loginUrl}
