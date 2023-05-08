@@ -9,6 +9,7 @@ import {
   useMotionValue,
   useTransform,
 } from "framer-motion";
+import { AiOutlineClose } from "react-icons/ai";
 
 const CardsContainer = ({
   list,
@@ -68,7 +69,7 @@ const CardsContainer = ({
                     setShowDetails(false);
                     setIsCardDetailsVisible(false);
                   }}
-                  className="flex justify-center items-center text-lg h-6 w-6 p-4 m-4 bg-slate-500/50 hover:bg-primary rounded-full"
+                  className="flex justify-center items-center text-lg h-6 w-6 p-4 m-4 text-light bg-slate-500/50 hover:bg-primary rounded-full"
                 >
                   X
                 </button>
@@ -88,7 +89,7 @@ const CardsContainer = ({
             (isCardDetailsVisible && showDetails) ||
             isSaveComponentVisible ||
             isDelComponentVisible
-              ? "opacity-60 blur-sm pointer-events-none"
+              ? "opacity-50 blur-sm pointer-events-none"
               : "opacity-100"
           } max-sm:grid-cols-1`}
         >

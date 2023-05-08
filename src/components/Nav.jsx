@@ -13,6 +13,7 @@ import { RiStackLine, RiStackFill } from "react-icons/ri";
 import { BiMenu } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
 import { AnimatePresence, motion } from "framer-motion";
+import logo from "../assets/logo.png";
 
 const Nav = () => {
   const { setToken } = useContext(MainContext);
@@ -37,34 +38,45 @@ const Nav = () => {
 
   return (
     <nav
-      className="flex w-[900px] bg-slate-800/40 p-4 my-4 justify-between items-center capitalize rounded-md"
+      className="flex w-[900px] max-sm:w-full bg-slate-800/40 p-4 my-4 justify-between items-center capitalize rounded-md"
       ref={mobileMenuRef}
     >
       <header className="flex flex-col capitalize text-sm">
-        <span className="text-2xl flex items-center">
-          🎴 <span className="max-sm:hidden font-disp text-4xl">SpotiDeck</span>
-        </span>
+        <div className="text-2xl flex items-center">
+          <div className="flex justify-center items-center w-10 h-10 mr-2 p-1 rounded-md bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/50 to-secondary/50">
+            <img
+              src={logo}
+              alt="SpotiDecks logo"
+              className="w-10 invert"
+              style={{
+                filter:
+                  "brightness(0) saturate(100%) invert(40%) sepia(92%) saturate(2553%) hue-rotate(337deg) brightness(91%) contrast(88%)",
+              }}
+            />
+          </div>
+          <span className="max-sm:hidden font-disp text-4xl">SpotiDecks</span>
+        </div>
         {/* <span className="text-xs max-sm:hidden">playlist builder</span> */}
       </header>
       <section
-        className="flex items-center justify-evenly gap-6 py-1 text-light/60 max-sm:gap-2
+        className="flex items-center justify-evenly gap-3 py-1 text-light/60 max-sm:gap-2
         "
       >
         <NavLink
           to="/top-tracks"
-          className="flex flex-col justify-center items-center gap-1 text-3xl w-28 hover:cursor-pointer  duration-150 ease-in-out max-sm:w-8 max-sm:text-2xl"
+          className="group/nav flex flex-col justify-center items-center gap-1 text-3xl w-28 hover:cursor-pointer  duration-150 ease-in-out max-sm:w-8 max-sm:text-2xl"
           onClick={() => setActivePage("tracks")}
         >
           {activePage === "tracks" ? (
             <HiMusicalNote className="text-light" />
           ) : (
-            <HiOutlineMusicalNote className=" hover:scale-110 easy-in-out duration-300" />
+            <HiOutlineMusicalNote className="group-hover/nav:text-light/80 group-hover/nav:scale-110 easy-in-out duration-300" />
           )}{" "}
           <span
             className={
               activePage === "tracks"
                 ? "text-light text-xs max-sm:hidden"
-                : "text-light/70 text-xs max-sm:hidden"
+                : "text-light/70 text-xs max-sm:hidden group-hover/nav:text-light/80 "
             }
           >
             Top Tracks
@@ -72,19 +84,19 @@ const Nav = () => {
         </NavLink>
         <NavLink
           to="/top-artists"
-          className="flex flex-col justify-center items-center gap-1 text-3xl w-28 hover:cursor-pointer max-sm:w-8 max-sm:text-2xl"
+          className="group/nav flex flex-col justify-center items-center gap-1 text-3xl w-28 hover:cursor-pointer max-sm:w-8 max-sm:text-2xl"
           onClick={() => setActivePage("artists")}
         >
           {activePage === "artists" ? (
             <HiMicrophone className="text-light" />
           ) : (
-            <HiOutlineMicrophone className="hover:scale-110 easy-in-out duration-300" />
+            <HiOutlineMicrophone className="group-hover/nav:text-light/80 group-hover/nav:scale-110 easy-in-out duration-300" />
           )}{" "}
           <span
             className={
               activePage === "artists"
                 ? "text-light text-xs max-sm:hidden"
-                : "text-light/70 text-xs max-sm:hidden"
+                : "text-light/70 text-xs max-sm:hidden group-hover/nav:text-light/80 "
             }
           >
             Top Artists
@@ -92,19 +104,19 @@ const Nav = () => {
         </NavLink>
         <NavLink
           to="/recently-played"
-          className="flex flex-col justify-center items-center gap-1 text-3xl w-28 hover:cursor-pointer max-sm:w-8 max-sm:text-2xl"
+          className="group/nav flex flex-col justify-center items-center gap-1 text-3xl w-28 hover:cursor-pointer max-sm:w-8 max-sm:text-2xl"
           onClick={() => setActivePage("recents")}
         >
           {activePage === "recents" ? (
             <HiClock className="text-light" />
           ) : (
-            <HiOutlineClock className="hover:scale-110 easy-in-out duration-300" />
+            <HiOutlineClock className="group-hover/nav:text-light/80 group-hover/nav:scale-110  easy-in-out duration-300" />
           )}{" "}
           <span
             className={
               activePage === "recents"
                 ? "text-light text-xs max-sm:hidden"
-                : "text-light/70 text-xs max-sm:hidden"
+                : "text-light/70 text-xs max-sm:hidden group-hover/nav:text-light/80 "
             }
           >
             Recently Played
@@ -112,19 +124,19 @@ const Nav = () => {
         </NavLink>
         <NavLink
           to="/deck"
-          className="flex flex-col justify-center items-center gap-1 text-3xl w-28 hover:cursor-pointer max-sm:w-8 max-sm:text-2xl"
+          className="group/nav flex flex-col justify-center items-center gap-1 text-3xl w-28 hover:cursor-pointer max-sm:w-8 max-sm:text-2xl"
           onClick={() => setActivePage("deck")}
         >
           {activePage === "deck" ? (
             <RiStackFill className="text-light" />
           ) : (
-            <RiStackLine className="hover:scale-110 easy-in-out duration-300" />
+            <RiStackLine className="group-hover/nav:text-light/80 group-hover/nav:scale-110  easy-in-out duration-300" />
           )}{" "}
           <span
             className={
               activePage === "deck"
                 ? "text-light text-xs max-sm:hidden"
-                : "text-light/70 text-xs max-sm:hidden"
+                : "text-light/70 text-xs max-sm:hidden group-hover/nav:text-light/80"
             }
           >
             Deck
@@ -138,7 +150,11 @@ const Nav = () => {
           onClick={() => setActivePage("about")}
         >
           <span
-            className={activePage === "about" ? "text-light" : "text-light/60"}
+            className={
+              activePage === "about"
+                ? "text-light"
+                : "text-light/60 hover:text-light"
+            }
           >
             About
           </span>

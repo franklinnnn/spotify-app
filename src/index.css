@@ -84,3 +84,38 @@ h6 {
   --popularity-40: #059669,
   --popularity-20: #475569 */
 }
+
+.main {
+  width: 100vw;
+  min-height: 100vh;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  padding: 120px 24px 160px 24px;
+  pointer-events: none;
+}
+
+.gradient {
+  height: fit-content;
+  z-index: 3;
+  width: 100%;
+  max-width: 640px;
+  background-image: radial-gradient(
+      at left top,
+      #83217e,
+      #4e1935,
+      transparent 45%
+    ),
+    radial-gradient(at 30% 10%, hsla(0, 69%, 56%, 1) 0px, transparent 15%),
+    radial-gradient(at 50% 30%, hsla(32, 95%, 44%, 1) 0px, transparent 25%),
+    radial-gradient(at 20% 90%, hsla(262, 83%, 58%, 1) 0px, transparent 25%),
+    radial-gradient(at 97% 96%, hsla(200, 98%, 39%, 1) 0px, transparent 25%),
+    radial-gradient(at 50% 80%, hsla(161, 94%, 30%, 1) 0px, transparent 25%);
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  filter: blur(100px) saturate(150%);
+  top: 80px;
+  opacity: 0.25;
+}

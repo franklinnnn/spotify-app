@@ -125,10 +125,13 @@ const Card = ({ item, image, setCardDetails, setIsCardDetailsVisible }) => {
 
   return (
     <div
-      className="group relative box-border m-1 ease-in-out duration-150 hover:scale-105 hover:shadow-[0_0.2rem_1rem_0.6rem_rgba(0,0,0,0.5)] hover:z-10 hover:cursor-pointer rounded-md bg-center"
+      className="group relative box-border m-1 ease-in-out duration-150 hover:scale-105 hover:shadow-[0_0.2rem_1rem_0.6rem_rgba(0,0,0,0.5)] hover:z-10 hover:cursor-pointer rounded-md bg-center
+      "
       style={
         imgLoaded
-          ? { backgroundImage: `url(${image})` }
+          ? {
+              backgroundImage: `url(${image})`,
+            }
           : { backgroundImage: null }
       }
     >

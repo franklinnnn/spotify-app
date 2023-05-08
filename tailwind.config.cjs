@@ -13,7 +13,8 @@ module.exports = {
         num: ["Big Shoulders Display", "display"],
       },
       backgroundImage: {
-        paperbg: "url('/src/assets/paperbg.png')",
+        "gradient-radial":
+          "radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))",
       },
       colors: {
         primary: "#DC4141",

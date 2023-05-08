@@ -35,7 +35,7 @@ const Home = ({ setToken }) => {
 
   return (
     <div
-      className="relative flex flex-col items-center w-full"
+      className="relative flex flex-col items-center w-full font-mono"
       role="container"
     >
       <MainContext.Provider

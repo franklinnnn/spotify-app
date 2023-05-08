@@ -107,38 +107,40 @@ const Deck = () => {
         </div>
       </div>
 
-      <div
-        className="absolute top-1/3 mx-auto flex justify-center items-center hover:scale-105 ease-in-out duration-300 z-20"
-        ref={delRef}
-      >
-        <AnimatePresence>
-          {isDelComponentVisible && (
-            <motion.div
-              className="flex flex-col gap-2 p-4 w-[20rem] max-w-[20rem] rounded-md bg-slate-500 shadow-[0_2rem_4rem_1rem_rgba(0,0,0,0.5)]"
-              variants={confirmBox}
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
-            >
-              <h1 className="text-2xl">Delete deck?</h1>
-              <span>This will clear all tracks saved.</span>
-              <div className="my-2 flex justify-evenly">
-                <button
-                  className="p-2 w-1/4 bg-slate-600 hover:bg-red-500 rounded-sm"
-                  onClick={handleDeleteDeck}
-                >
-                  Delete
-                </button>
-                <button
-                  className="p-2 w-1/4 bg-slate-600 hover:bg-slate-700 rounded-sm"
-                  onClick={() => setIsDelComponentVisible(false)}
-                >
-                  Cancel
-                </button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+      <div className="w-full flex justify-center">
+        <div
+          className="absolute top-1/3 mx-auto flex justify-center items-center hover:scale-105 ease-in-out duration-300 z-20"
+          ref={delRef}
+        >
+          <AnimatePresence>
+            {isDelComponentVisible && (
+              <motion.div
+                className="flex flex-col gap-2 p-4 w-[20rem] max-w-[20rem] rounded-md bg-slate-500 shadow-[0_2rem_4rem_1rem_rgba(0,0,0,0.5)]"
+                variants={confirmBox}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+              >
+                <h1 className="text-2xl">Delete deck?</h1>
+                <span>This will clear all tracks saved.</span>
+                <div className="my-2 flex justify-evenly">
+                  <button
+                    className="p-2 w-1/4 bg-slate-600 hover:bg-red-500 rounded-sm"
+                    onClick={handleDeleteDeck}
+                  >
+                    Delete
+                  </button>
+                  <button
+                    className="p-2 w-1/4 bg-slate-600 hover:bg-slate-700 rounded-sm"
+                    onClick={() => setIsDelComponentVisible(false)}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
 
       <motion.header

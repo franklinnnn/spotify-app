@@ -132,9 +132,9 @@ const TrackDetails = ({ cardDetails }) => {
           id="border"
         >
           {/* TOP BAR */}
-          <header className="relative flex justify-between px-2 py-1 z-10">
+          <header className="relative flex justify-between px-2 py-1 z-10 font-num">
             <span
-              className="uppercase flex items-center gap-2 px-1 rounded-md font-num text-2xl  bg-slate-500/[0.6] ease-in-out duration-300 group-hover:scale-110 group-hover:translate-x-[-0.5rem] group-hover:translate-y-[-0.2rem] group-hover:shadow-[0_0.2rem_1rem_0_rgba(0,0,0,0.5)]"
+              className="uppercase flex items-center gap-2 px-1 rounded-md text-2xl  bg-slate-500/[0.6] ease-in-out duration-300 group-hover:scale-110 group-hover:translate-x-[-0.5rem] group-hover:translate-y-[-0.2rem] group-hover:shadow-[0_0.2rem_1rem_0_rgba(0,0,0,0.5)]"
               id="top"
             >
               <span className="text-lg">
@@ -143,7 +143,7 @@ const TrackDetails = ({ cardDetails }) => {
               {cardDetails.type}
             </span>
             <span
-              className="flex items-center gap-2 px-1 rounded-md font-num text-2xl  bg-slate-500/[0.6] ease-in-out duration-300 group-hover:scale-110 group-hover:translate-x-[0.5rem] group-hover:translate-y-[-0.2rem] group-hover:shadow-[0_0.2rem_1rem_0_rgba(0,0,0,0.5)]"
+              className="flex items-center gap-2 px-1 rounded-md text-2xl  bg-slate-500/[0.6] ease-in-out duration-300 group-hover:scale-110 group-hover:translate-x-[0.5rem] group-hover:translate-y-[-0.2rem] group-hover:shadow-[0_0.2rem_1rem_0_rgba(0,0,0,0.5)]"
               id="top"
             >
               <span className="text-lg">

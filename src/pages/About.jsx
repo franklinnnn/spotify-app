@@ -30,7 +30,7 @@ const About = () => {
         exit="hidden"
       >
         <header>
-          <h1 className="text-2xl max-sm:text-xl">About SpotiDeck</h1>
+          <h1 className="text-2xl max-sm:text-xl">About SpotiDecks</h1>
           <p className="mb-6">
             SpotiDeck is an app to keep track of your top listened tracks and
             artists, along with your most recently played tracks on Spotify.
@@ -53,24 +53,26 @@ const About = () => {
             <h2 className="text-xl">Recommendations</h2>
             <p>
               A new hand of tracks can be generated through the
-              <span className="p-1 rounded-sm bg-slate-500/20">
+              <span className="p-1 mx-1 rounded-sm bg-slate-500/20">
                 Get Random Cards
               </span>
-              button, or through the{" "}
-              <span className="p-1 rounded-sm bg-slate-500/20">Recommend</span>{" "}
+              button, or through the
+              <span className="p-1 mx-1 rounded-sm bg-slate-500/20">
+                Recommend
+              </span>
               button in the menu of the detailed card itself.
             </p>
             <p>
-              The{" "}
-              <span className="p-1 rounded-sm bg-slate-500/20">
+              The
+              <span className="p-1 mx-1 rounded-sm bg-slate-500/20">
                 Get Random Cards
-              </span>{" "}
+              </span>
               button generates a new hand from a randomly chosen track out of
               50, from a randomly chosen term length &#40;last month, 6 months,
               or all time&#41;. The
-              <span className="p-1 rounded-sm bg-slate-500/20">
+              <span className="p-1 mx-1 rounded-sm bg-slate-500/20">
                 Recommend
-              </span>{" "}
+              </span>
               button in the card generates a new hand from that specific card.
             </p>
           </div>
@@ -183,6 +185,11 @@ const About = () => {
             </p>
           </div>
         </section>
+
+        <div>
+          gradient test
+          <div class="h-72 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-purple-600 to-transparent"></div>
+        </div>
       </motion.div>
     </article>
   );
