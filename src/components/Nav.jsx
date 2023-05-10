@@ -174,10 +174,12 @@ const Nav = () => {
           <BiMenu />
         </span>
       </section>
+
+      {/* Mobile menu */}
       <AnimatePresence>
         {isMobileMenuComponentVisible && (
           <motion.div
-            className="absolute top-2 right-4 flex flex-col items-end gap-2 p-2 w-[5rem] bg-slate-600 rounded text-sm md:hidden overflow-hidden z-20 shadow-[0_0.2rem_1rem_0.6rem_rgba(0,0,0,0.5)]"
+            className="absolute top-[2.2rem] right-4 flex flex-col items-end gap-2 p-2 w-[5rem] bg-slate-600 rounded text-sm md:hidden overflow-hidden z-20 shadow-[0_0.2rem_1rem_0.6rem_rgba(0,0,0,0.5)]"
             initial={{ opacity: 0, width: "5rem", height: 0 }}
             animate={{
               opacity: 1,
@@ -192,7 +194,7 @@ const Nav = () => {
             }}
           >
             <span
-              className="text-xl text-white"
+              className="text-xl text-white mr-1"
               onClick={() => setIsMobileMenuComponentVisible(false)}
             >
               <AiOutlineClose />

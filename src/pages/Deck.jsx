@@ -4,6 +4,7 @@ import { addToPlaylist, createPlaylist } from "../util/spotify";
 import { MainContext } from "./Home";
 import { ToastContainer, toast } from "react-toastify";
 import { AnimatePresence, motion } from "framer-motion";
+import TestCard from "../components/TestCard";
 
 const Deck = () => {
   const { user, deck, setDeck, showDetails, cardDetailsVisible } =

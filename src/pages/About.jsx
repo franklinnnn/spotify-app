@@ -185,11 +185,6 @@ const About = () => {
             </p>
           </div>
         </section>
-
-        <div>
-          gradient test
-          <div class="h-72 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-purple-600 to-transparent"></div>
-        </div>
       </motion.div>
     </article>
   );

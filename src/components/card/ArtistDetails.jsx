@@ -134,7 +134,7 @@ const ArtistDetails = ({ cardDetails }) => {
             <img
               src={artistImg}
               alt="cover"
-              className="w-5/6 h-5/6 ease-in-out duration-700 group-hover:shadow-[0_35px_60px_-15px_rgba(0,0,0,0.8)]"
+              className="w-5/6 h-5/6 object-cover ease-in-out duration-700 group-hover:shadow-[0_35px_60px_-15px_rgba(0,0,0,0.8)]"
               id="img"
             />
           </section>

@@ -122,7 +122,7 @@ const TrackDetails = ({ cardDetails }) => {
       className="group flex justify-center items-start"
       id="card"
     >
-      <div
+      <motion.div
         className="bg-cover bg-center rounded-lg aspect-[2/3] h-[44rem]"
         style={{ backgroundImage: `url(${cardDetails.album.images[0].url})` }}
         role="content container"
@@ -229,7 +229,7 @@ const TrackDetails = ({ cardDetails }) => {
           />
           <ConfirmAddedToDeck cardAdded={cardAdded} />
         </article>
-      </div>
+      </motion.div>
       <ToastContainer
         position="top-center"
         autoClose={1200}

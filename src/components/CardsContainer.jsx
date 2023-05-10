@@ -25,10 +25,18 @@ const CardsContainer = ({
   const { cardDetailsRef, isCardDetailsVisible, setIsCardDetailsVisible } =
     cardDetailsVisible(false);
 
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const rotateX = useTransform(y, [-100, 100], [-30, 30]);
-  const rotateY = useTransform(x, [-100, 100], [-30, 30]);
+  const [mouseCoords, setMouseCoords] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseCoords = (e) => {
+      setMouseCoords({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener("click", handleMouseCoords);
+
+    return () => {
+      window.removeEventListener("click", handleMouseCoords);
+    };
+  }, []);
 
   const cardList = {
     hidden: {
@@ -47,21 +55,40 @@ const CardsContainer = ({
     },
   };
 
+  const cardShow = {
+    hidden: {
+      scale: 0.4,
+      opacity: 0,
+      rotateY: 180,
+    },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      rotateY: 350,
+      transition: { duration: 0.5 },
+    },
+    exit: {
+      scale: 0.6,
+      opacity: 0,
+      originY: -2,
+    },
+  };
+
   return (
     <section className="relative w-full">
       <AnimatePresence>
         {isCardDetailsVisible && showDetails && (
-          <div className="relative flex justify-center" ref={cardDetailsRef}>
+          <div
+            className="relative flex justify-center max-sm:h-screen"
+            ref={cardDetailsRef}
+          >
             <motion.div
               className="absolute top-[-3rem] mx-auto flex flex-col justify-start items-center z-20"
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0, opacity: 0 }}
-              style={{ x, y, rotateX, rotateY, z: 100 }}
-              drag
-              dragElastic={0.08}
-              dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
-              whileTap={{ cursor: "grabbing" }}
+              key="details"
+              variants={cardShow}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
             >
               <div className="w-full flex justify-end">
                 <button
