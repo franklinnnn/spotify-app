@@ -19,7 +19,7 @@ const Login = () => {
           />
         </div>
 
-        <span className="text-[3rem] font-num font-bold tracking-wider uppercase">
+        <span className="text-[3rem] font-disp font-bold tracking-wide uppercase">
           Decksio
         </span>
       </h1>
