@@ -33,7 +33,7 @@ const Footer = () => {
         <div className="flex gap-2">
           <span>{year}</span>
           <span className="md:mx-4">
-            SpotiDecks made by{" "}
+            Decksio made by{" "}
             <a
               href="https://franklinnn.com"
               target="_blank"

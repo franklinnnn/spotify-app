@@ -46,7 +46,7 @@ const Nav = () => {
           <div className="flex justify-center items-center w-10 h-10 mr-2 p-1 rounded-md bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/50 to-secondary/50">
             <img
               src={logo}
-              alt="SpotiDecks logo"
+              alt="logo"
               className="w-10 invert"
               style={{
                 filter:
@@ -54,7 +54,9 @@ const Nav = () => {
               }}
             />
           </div>
-          <span className="max-sm:hidden font-disp text-4xl">SpotiDecks</span>
+          <span className="max-sm:hidden font-disp tracking-wide uppercase text-[2.4rem]">
+            Decksio
+          </span>
         </div>
         {/* <span className="text-xs max-sm:hidden">playlist builder</span> */}
       </header>

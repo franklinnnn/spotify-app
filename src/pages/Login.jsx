@@ -19,7 +19,9 @@ const Login = () => {
           />
         </div>
 
-        <span className="text-[3rem]">SpotiDecks</span>
+        <span className="text-[3rem] font-num font-bold tracking-wider uppercase">
+          Decksio
+        </span>
       </h1>
       <span className="text-xs my-1 capitalize">
         top track generator and playlist builder
@@ -35,7 +37,6 @@ const Login = () => {
           </span>
         </a>
       </div>
-      {/* <div>Get your top tracks and artists as a card hand</div> */}
     </section>
   );
 };
