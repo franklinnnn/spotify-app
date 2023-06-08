@@ -32,7 +32,7 @@ const About = () => {
         <header>
           <h1 className="text-2xl max-sm:text-xl">About Decksio</h1>
           <p className="mb-6">
-            SpotiDeck is an app to keep track of your top listened tracks and
+            Decksio is an app to keep track of your top listened tracks and
             artists, along with your most recently played tracks on Spotify.
           </p>
         </header>
