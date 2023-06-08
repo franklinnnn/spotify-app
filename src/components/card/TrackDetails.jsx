@@ -122,14 +122,17 @@ const TrackDetails = ({ cardDetails }) => {
       className="group flex justify-center items-start"
       id="card"
     >
-      <motion.div
-        className="bg-cover bg-center rounded-lg aspect-[2/3] h-[44rem]"
+      <div
+        className="bg-cover bg-center rounded-lg w-[30rem] h-[45rem]"
         style={{ backgroundImage: `url(${cardDetails.album.images[0].url})` }}
         role="content container"
       >
         <article
           className="bg-gradient-to-t from-black to-transparent backdrop-blur-sm rounded-lg duration-300 group-hover:backdrop-blur-md box-border overflow-hidden"
           id="border"
+          style={{
+            border: `4px solid ${handleMainColor(cardDetails.popularity)}`,
+          }}
         >
           {/* TOP BAR */}
           <header className="relative flex justify-between px-2 py-1 z-10 font-num">
@@ -172,7 +175,7 @@ const TrackDetails = ({ cardDetails }) => {
                 className="flex flex-col gap-2 text-2xl text-slate-300 items-center border-b-[1px]
                border-slate-500/20 pb-4"
               >
-                <span className="text-center">{artists}</span>
+                <span className="text-center truncate">{artists}</span>
                 <span className="text-base text-center text-slate-400">
                   {cardDetails.album.name}
                   {" ("}
@@ -185,6 +188,7 @@ const TrackDetails = ({ cardDetails }) => {
                 <div
                   className="flex items-center justify-center gap-2 w-[5rem] p-1 rounded-md font-num  bg-slate-500/[0.4] ease-in-out duration-300 group-hover:shadow-[0_0.2rem_1rem_0_rgba(0,0,0,0.5)]"
                   id="stat"
+                  title="Tempo"
                 >
                   <span className="text-[1.4rem]">
                     <RiRunFill />
@@ -195,6 +199,7 @@ const TrackDetails = ({ cardDetails }) => {
                 <div
                   className="flex items-center justify-center gap-2 w-[5rem] p-1 rounded-md font-num  bg-slate-500/[0.4] ease-in-out duration-300 group-hover:shadow-[0_0.2rem_1rem_0_rgba(0,0,0,0.5)]"
                   id="stat"
+                  title="Length"
                 >
                   <span className="text-lg">
                     <MdAccessTimeFilled />
@@ -204,6 +209,7 @@ const TrackDetails = ({ cardDetails }) => {
                 <div
                   className="flex items-center justify-center gap-2 w-[5rem] p-1 rounded-md font-num  bg-slate-500/[0.4] ease-in-out duration-300 group-hover:shadow-[0_0.2rem_1rem_0_rgba(0,0,0,0.5)]"
                   id="stat"
+                  title="Energy"
                 >
                   <span className="text-lg">
                     <FaBolt />
@@ -229,7 +235,7 @@ const TrackDetails = ({ cardDetails }) => {
           />
           <ConfirmAddedToDeck cardAdded={cardAdded} />
         </article>
-      </motion.div>
+      </div>
       <ToastContainer
         position="top-center"
         autoClose={1200}
@@ -256,7 +262,7 @@ const ConfirmRecommend = ({
   return (
     <AnimatePresence>
       <motion.div
-        className={`absolute left-0 bottom-0 flex flex-col w-full bg-gradient-to-t from-black to-transparent text-sm px-4 py-2 gap-2 rounded-b-lg ${
+        className={`absolute left-0 bottom-0 flex flex-col w-full bg-gradient-to-t from-black to-transparent text-sm px-4 py-2 gap-2 rounded-b-sm ${
           showConfirmRecommend ? "block" : "hidden"
         }`}
         id="confirm"
@@ -290,7 +296,7 @@ const ConfirmAddedToDeck = ({ cardAdded }) => {
   return (
     <AnimatePresence>
       <motion.div
-        className={`absolute left-0 bottom-0 flex flex-col w-full bg-gradient-to-t from-black to-transparent text-sm px-4 py-6 gap-2 rounded-b-lg ${
+        className={`absolute left-0 bottom-0 flex flex-col w-full bg-gradient-to-t from-black to-transparent text-sm px-4 py-6 gap-2 ${
           cardAdded ? "block" : "hidden"
         }`}
         id="confirm"

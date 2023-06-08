@@ -29,7 +29,7 @@ export const getUserToken = () => {
 export const getUserTopItems = async (type, length) => {
   const token = getUserToken();
   const response = await axios.get(
-    `https://api.spotify.com/v1/me/top/${type}?time_range=${length}&limit=9`,
+    `https://api.spotify.com/v1/me/top/${type}?time_range=${length}&limit=7`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -121,7 +121,7 @@ export const getRecommendations = async (artistId, trackId) => {
   const token = getUserToken();
   const genres = getArtistGenre(artistId);
   const response = await axios.get(
-    `https://api.spotify.com/v1/recommendations?seed_artists=${artistId}&seed_genres=${genres}&seed_tracks=${trackId}&limit=9`,
+    `https://api.spotify.com/v1/recommendations?seed_artists=${artistId}&seed_genres=${genres}&seed_tracks=${trackId}&limit=20`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -174,7 +174,7 @@ export const getRandomTrackRecommendations = async () => {
 export const getRecentlyPlayed = async () => {
   const token = getUserToken();
   const response = await axios.get(
-    `https://api.spotify.com/v1/me/player/recently-played/?limit=9`,
+    `https://api.spotify.com/v1/me/player/recently-played/?limit=7`,
     {
       headers: {
         Authorization: `Bearer ${token}`,

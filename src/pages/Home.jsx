@@ -20,6 +20,7 @@ const Home = ({ setToken }) => {
   const [type, setType] = useState("tracks");
   const [length, setLength] = useState("short_term");
   const [showDetails, setShowDetails] = useState(false);
+  const [cardHand, setCardHand] = useState("fanned");
 
   const handleGetList = async (type, length) => {
     setList([]);
@@ -50,10 +51,12 @@ const Home = ({ setToken }) => {
           setDeck,
           showDetails,
           setShowDetails,
+          cardHand,
+          setCardHand,
         }}
       >
         <Nav />
-        <main className="md:w-[768px] min-h-[calc(100vh-8rem)] pb-4">
+        <main className="md:w-[900px] min-h-[calc(100vh-10rem)] pb-4 over">
           <Routes>
             <Route
               path="/"

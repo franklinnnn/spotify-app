@@ -16,7 +16,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import logo from "../assets/logo.png";
 
 const Nav = () => {
-  const { setToken } = useContext(MainContext);
+  const { setToken, setCardHand } = useContext(MainContext);
   const {
     mobileMenuRef,
     isMobileMenuComponentVisible,
@@ -127,7 +127,10 @@ const Nav = () => {
         <NavLink
           to="/deck"
           className="group/nav flex flex-col justify-center items-center gap-1 text-3xl w-28 hover:cursor-pointer max-sm:w-8 max-sm:text-2xl"
-          onClick={() => setActivePage("deck")}
+          onClick={() => {
+            setActivePage("deck");
+            setCardHand("spread");
+          }}
         >
           {activePage === "deck" ? (
             <RiStackFill className="text-light" />

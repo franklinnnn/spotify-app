@@ -78,6 +78,7 @@ const Deck = () => {
             {isSaveComponentVisible && (
               <motion.div
                 className="flex flex-col gap-2 p-4 w-[20rem] max-w-[20rem] rounded-md bg-slate-500 shadow-[0_2rem_4rem_1rem_rgba(0,0,0,0.5)]"
+                key={isSaveComponentVisible}
                 variants={confirmBox}
                 initial="hidden"
                 animate="visible"
@@ -116,6 +117,7 @@ const Deck = () => {
             {isDelComponentVisible && (
               <motion.div
                 className="flex flex-col gap-2 p-4 w-[20rem] max-w-[20rem] rounded-md bg-slate-500 shadow-[0_2rem_4rem_1rem_rgba(0,0,0,0.5)]"
+                key={isDelComponentVisible}
                 variants={confirmBox}
                 initial="hidden"
                 animate="visible"
@@ -149,6 +151,7 @@ const Deck = () => {
             ? "opacity-60 blur-sm pointer-events-none"
             : "opacity-100"
         } max-sm:flex-col`}
+        key="header"
         variants={pageMenu}
         initial="hidden"
         animate="visible"
@@ -204,6 +207,8 @@ const Deck = () => {
         theme="colored"
         limit={1}
       />
+
+      {/* card flip */}
     </section>
   );
 };

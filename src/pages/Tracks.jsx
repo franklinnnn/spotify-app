@@ -54,6 +54,7 @@ const Tracks = () => {
         className={`relative flex items-center justify-between px-6 ${
           showDetails ? "opacity-60 blur-sm pointer-events-none" : "opacity-100"
         } max-sm:flex-col`}
+        key="tracks page"
         variants={pageMenu}
         initial="hidden"
         animate="visible"

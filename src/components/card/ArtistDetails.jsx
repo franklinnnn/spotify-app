@@ -90,12 +90,10 @@ const ArtistDetails = ({ cardDetails }) => {
     max: 12,
   };
 
-  // const artists = cardDetails.artists.map((artist) => artist.name);
-
   return (
     <Tilt
       options={container}
-      className="group flex justify-center items-start box-border md:aspect-[2/3] md:h-[44rem]"
+      className="group flex justify-center items-start box-border w-[30rem] max-h-[45rem]"
       id="card"
     >
       <div
@@ -106,6 +104,9 @@ const ArtistDetails = ({ cardDetails }) => {
         <article
           className="bg-gradient-to-t from-black to-transparent backdrop-blur-sm rounded-lg duration-300 group-hover:backdrop-blur-md "
           id="border"
+          style={{
+            border: `3px solid ${handleMainColor(cardDetails.popularity)}`,
+          }}
         >
           {/* TOP BAR */}
           <header className="relative flex justify-between px-2 py-1 z-10">
@@ -142,7 +143,7 @@ const ArtistDetails = ({ cardDetails }) => {
           {/* ARTIST INFO */}
           <section className="px-4 flex flex-col justify-between mb-6">
             <div className="flex flex-col w-full h-full px-4 font-disp ease-in-out duration-500 group-hover:translate-y-2 group-hover:z-10 group-hover:scale-105 ">
-              <span className="text-center text-4xl mt-4 mb-2">
+              <span className="text-center text-4xl mt-4 mb-2 truncate">
                 {cardDetails.name}
               </span>
             </div>
@@ -204,7 +205,7 @@ const ConfirmRecommend = ({
   return (
     <AnimatePresence>
       <motion.div
-        className={`absolute left-0 bottom-0 flex flex-col w-full bg-gradient-to-t from-black to-transparent text-sm px-4 py-2 gap-2 rounded-b-lg ${
+        className={`absolute left-0 bottom-0 flex flex-col w-full bg-gradient-to-t from-black to-transparent text-sm px-4 py-2 gap-2 rounded-b-sm ${
           showConfirmRecommend ? "block" : "hidden"
         }`}
         id="confirm"

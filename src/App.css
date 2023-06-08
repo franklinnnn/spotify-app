@@ -22,3 +22,79 @@
 #confirm {
   background: var(--popularity);
 }
+
+.cardfan-container {
+  white-space: nowrap;
+}
+
+.cardfan {
+  position: relative;
+  transition: transform 0.2s;
+}
+.cardfan:nth-child(1) {
+  transform: translateY(0px) rotate(-24deg);
+  left: 200px;
+  top: 75px;
+}
+.cardfan:nth-child(2) {
+  transform: translateY(0px) rotate(-16deg);
+  left: 140px;
+  top: 35px;
+}
+.cardfan:nth-child(3) {
+  transform: translateY(0px) rotate(-8deg);
+  left: 70px;
+  top: 10px;
+}
+.cardfan:nth-child(4) {
+  transform: translateY(0px) rotate(1deg);
+  left: 0px;
+  top: 0px;
+}
+.cardfan:nth-child(5) {
+  right: 70px;
+  top: 10px;
+  transform: translateY(0px) rotate(8deg);
+}
+.cardfan:nth-child(6) {
+  transform: translateY(0px) rotate(16deg);
+  right: 140px;
+  top: 35px;
+}
+.cardfan:nth-child(7) {
+  transform: translateY(0px) rotate(24deg);
+  right: 200px;
+  top: 75px;
+}
+
+.cardfan:nth-child(1):hover {
+  z-index: 2;
+  transform: translate(1px, -60px) rotate(-10deg) scale(1.25);
+}
+
+.cardfan:nth-child(2):hover {
+  z-index: 2;
+  transform: translateY(-60px) rotate(-7deg) scale(1.25);
+}
+.cardfan:nth-child(3):hover {
+  z-index: 2;
+  transform: translate(1px, -60px) rotate(-3deg) scale(1.25);
+}
+
+.cardfan:nth-child(4):hover {
+  z-index: 2;
+  transform: translateY(-60px) rotate(1deg) scale(1.25);
+}
+.cardfan:nth-child(5):hover {
+  z-index: 2;
+  transform: translate(1px, -60px) rotate(3deg) scale(1.25);
+}
+
+.cardfan:nth-child(6):hover {
+  z-index: 2;
+  transform: translateY(-60px) rotate(7deg) scale(1.25);
+}
+.cardfan:nth-child(7):hover {
+  z-index: 2;
+  transform: translate(1px, -60px) rotate(10deg) scale(1.25);
+}

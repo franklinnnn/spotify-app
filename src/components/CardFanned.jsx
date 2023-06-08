@@ -3,9 +3,16 @@ import { MdMusicOff } from "react-icons/md";
 import { MainContext } from "../pages/Home";
 import { BsPlayFill } from "react-icons/bs";
 import { HiArrowLongRight } from "react-icons/hi2";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
+import { dealFannedAnimation } from "../util/motion";
 
-const Card = ({ item, image, setCardDetails, setIsCardDetailsVisible }) => {
+const CardFanned = ({
+  item,
+  index,
+  image,
+  setCardDetails,
+  setIsCardDetailsVisible,
+}) => {
   const { setShowDetails } = useContext(MainContext);
   const [isPlaying, setIsPlaying] = useState(false);
   const [imgLoaded, setImgLoaded] = useState(false);
@@ -47,10 +54,6 @@ const Card = ({ item, image, setCardDetails, setIsCardDetailsVisible }) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     setIsCardDetailsVisible(true);
     setShowDetails(true);
-    // setTimeout(() => {
-    //   window.scrollTo({ top: 0, behavior: "smooth" });
-    //   setIsCardDetailsVisible(true);
-    // }, 200);
   };
 
   const handlePopularityTag = () => {
@@ -79,18 +82,26 @@ const Card = ({ item, image, setCardDetails, setIsCardDetailsVisible }) => {
     setImgLoaded(true);
   };
 
-  const releaseDate = item.album ? item.album.release_date : null;
-  // console.log("release date", Date.parse(releaseDate));
-  const today = new Date();
-  // console.log("now", Date.now());
-  const lastWeek = new Date(Date.now() - 604800000);
-  // console.log("last week", Date.parse(lastWeek));
-
-  // if (releaseDate < lastWeek && releaseDate > today) {
-  //   console.log(item.name, releaseDate, "in between");
-  // } else {
-  //   console.log(item.name, releaseDate, "outside");
-  // }
+  const handleMainColor = (popularity) => {
+    let color = "";
+    if (popularity >= 81 && popularity <= 100) {
+      color = "#d97706";
+      document.documentElement.style.setProperty("--popularity", color);
+    } else if (popularity >= 61 && popularity <= 80) {
+      color = "#7c3aed";
+      document.documentElement.style.setProperty("--popularity", color);
+    } else if (popularity >= 41 && popularity <= 60) {
+      color = "#0284c7";
+      document.documentElement.style.setProperty("--popularity", color);
+    } else if (popularity >= 21 && popularity <= 40) {
+      color = "#059669";
+      document.documentElement.style.setProperty("--popularity", color);
+    } else if (popularity >= 0 && popularity <= 20) {
+      color = "#475569";
+      document.documentElement.style.setProperty("--popularity", color);
+    }
+    return color;
+  };
 
   const imgVariant = {
     hidden: {
@@ -124,9 +135,8 @@ const Card = ({ item, image, setCardDetails, setIsCardDetailsVisible }) => {
   };
 
   return (
-    <div
-      className="group relative box-border m-1 ease-in-out duration-150 hover:scale-105 hover:shadow-[0_0.2rem_1rem_0.6rem_rgba(0,0,0,0.5)] hover:z-10 hover:cursor-pointer rounded-md bg-center
-      "
+    <motion.div
+      className="cardfan inline-block aspect-[2/3] w-[11rem] rounded-md cursor-pointer group"
       style={
         imgLoaded
           ? {
@@ -134,8 +144,13 @@ const Card = ({ item, image, setCardDetails, setIsCardDetailsVisible }) => {
             }
           : { backgroundImage: null }
       }
+      key="card"
+      {...dealFannedAnimation(index)}
     >
-      <div className="max-w-[16rem] aspect-[3/4] font-disp p-2 bg-slate-300/60 rounded-md bg-gradient-to-t from-black/60 to-transparent backdrop-blur-sm box-border duration-300">
+      <div
+        className="h-full font-disp p-2 bg-slate-300/60 rounded-md bg-gradient-to-t from-black/60 to-transparent backdrop-blur-sm box-border duration-300 "
+        style={{ border: `3px solid ${handleMainColor(item.popularity)}` }}
+      >
         <div
           className="group/preview flex justify-center items-center aspect-square bg-cover hover:cursor-pointer"
           onClick={item.type === "artist" ? handleCardDetails : preview}
@@ -158,25 +173,26 @@ const Card = ({ item, image, setCardDetails, setIsCardDetailsVisible }) => {
             </div>
           )}
 
-          <AnimatePresence>
-            {showPopularityTag && (
-              <motion.span
-                className="absolute top-0 z-100 left-0 p-1 flex items-center text-center rounded-md bg-primary shadow-[0_0.2rem_1rem_0_rgba(0,0,0,0.5)]"
-                variants={tagVariant}
-                initial="hidden"
-                animate="visible"
-                exit="hidden"
-              >
-                {popularityTag}
-              </motion.span>
-            )}
-          </AnimatePresence>
+          {showPopularityTag && (
+            <motion.span
+              className="absolute top-0 z-100 left-0 p-1 flex items-center text-center rounded-md bg-primary shadow-[0_0.2rem_1rem_0_rgba(0,0,0,0.5)]"
+              key="popularity tag"
+              variants={tagVariant}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              {popularityTag}
+            </motion.span>
+          )}
 
           <motion.img
             src={image}
             alt="album cover"
             ref={imgRef}
-            className="box-border aspect-square object-cover"
+            className={`box-border object-cover ${
+              item.type === "artist" ? "aspect-[5/6]" : "aspect-square"
+            }`}
             style={
               imgLoaded ? { display: "inline-block" } : { display: "none" }
             }
@@ -187,24 +203,22 @@ const Card = ({ item, image, setCardDetails, setIsCardDetailsVisible }) => {
           />
         </div>
         <div
-          className=" flex flex-col text-xl text-slate-200 my-2 mr-2 p-1 overflow-hidden group-hover:translate-x-2 duration-300"
+          className="flex flex-col text-xl text-slate-200 my-2 mr-2 p-1 duration-300"
           onClick={handleCardDetails}
         >
-          <span className="whitespace-nowrap md:text-2xl">{title}</span>
-          <span className="whitespace-nowrap text-lg text-slate-300">
-            {subtitle}
-          </span>
+          <span className="md:text-xl truncate">{title}</span>
+          <span className="text-lg text-slate-300 truncate">{subtitle}</span>
         </div>
         <button
-          className="absolute bottom-2 right-4 flex justify-end w-full p-1 text-2xl text-right group-hover:text-primary group-hover:text-3xl group-hover:right-2 easy-in-out duration-300 "
+          className="absolute bottom-0 right-4 flex justify-end w-full p-1 text-2xl text-right group-hover:text-primary group-hover:text-3xl group-hover:right-2 easy-in-out duration-300 "
           onClick={handleCardDetails}
           // ref={refCard}
         >
           <HiArrowLongRight />
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
-export default Card;
+export default CardFanned;
