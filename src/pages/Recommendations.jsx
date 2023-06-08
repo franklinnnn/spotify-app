@@ -40,12 +40,13 @@ const Recommendations = () => {
         animate="visible"
         exit="hidden"
       >
-        <h1 className="text-2xl">Random cards</h1>
+        <h1 className="text-2xl">Recommended</h1>
         <div
           className="flex gap-2 items-center px-2 py-1 rounded-sm bg-slate-700 hover:bg-primary hover:cursor-pointer max-sm:text-sm"
           onClick={handleGetRandomCards}
         >
-          <FaRandom /> Get Random Cards
+          <FaRandom />
+          Recommend Cards
         </div>
       </motion.header>
       <CardsContainer list={list} type={type} />
