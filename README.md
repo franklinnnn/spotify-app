@@ -6,3 +6,5 @@ Track Spotify top listened tracks and artists, plus most recently played tracks.
 - Styling: Tailwind CSS
 - Animations: Framer Motion
 - API: Spotify API
+
+## [Try it here](https://decksio.vercel.app/)
