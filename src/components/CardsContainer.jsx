@@ -70,38 +70,40 @@ const CardsContainer = ({
 
   return (
     <section className="relative w-full">
-      {isCardDetailsVisible && showDetails && (
-        <div
-          className="relative flex justify-center max-sm:h-screen"
-          ref={cardDetailsRef}
-        >
-          <motion.div
-            className="absolute top-[-3rem] mx-auto flex flex-col justify-start items-center z-20"
-            key="card detail"
-            variants={cardShow}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
+      <AnimatePresence>
+        {isCardDetailsVisible && showDetails && (
+          <div
+            className="relative flex justify-center max-sm:h-screen"
+            ref={cardDetailsRef}
           >
-            <div className="w-full flex justify-end">
-              <button
-                onClick={() => {
-                  setShowDetails(false);
-                  setIsCardDetailsVisible(false);
-                }}
-                className="flex justify-center items-center text-lg h-6 w-6 p-4 m-4 text-light bg-slate-500/50 hover:bg-primary rounded-full"
-              >
-                X
-              </button>
-            </div>
-            {type === "artists" ? (
-              <ArtistDetails cardDetails={cardDetails} setList={setList} />
-            ) : (
-              <TrackDetails cardDetails={cardDetails} />
-            )}
-          </motion.div>
-        </div>
-      )}
+            <motion.div
+              className="absolute top-[-3rem] mx-auto flex flex-col justify-start items-center z-20"
+              key="card detail"
+              variants={cardShow}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              <div className="w-full flex justify-end">
+                <button
+                  onClick={() => {
+                    setShowDetails(false);
+                    setIsCardDetailsVisible(false);
+                  }}
+                  className="flex justify-center items-center text-lg h-6 w-6 p-4 m-4 text-light bg-slate-500/50 hover:bg-primary rounded-full"
+                >
+                  X
+                </button>
+              </div>
+              {type === "artists" ? (
+                <ArtistDetails cardDetails={cardDetails} setList={setList} />
+              ) : (
+                <TrackDetails cardDetails={cardDetails} />
+              )}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
       <div className="w-full my-4 grid items-center justify-center">
         <motion.div

@@ -64,7 +64,7 @@ const Recents = () => {
           onClick={handleGetRandomCards}
         >
           <FaRandom />
-          Get Random Cards
+          Recommend Cards
         </div>
       </motion.header>
       <CardsContainer list={list} />

@@ -54,7 +54,7 @@ const About = () => {
             <p>
               A new hand of tracks can be generated through the
               <span className="p-1 mx-1 rounded-sm bg-slate-500/20">
-                Get Random Cards
+                Recommend Cards
               </span>
               button, or through the
               <span className="p-1 mx-1 rounded-sm bg-slate-500/20">
@@ -65,7 +65,7 @@ const About = () => {
             <p>
               The
               <span className="p-1 mx-1 rounded-sm bg-slate-500/20">
-                Get Random Cards
+                Recommend Cards
               </span>
               button generates a new hand from a randomly chosen track out of
               50, from a randomly chosen term length &#40;last month, 6 months,
