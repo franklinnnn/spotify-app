@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import trackCardImg from "../assets/card_track.png";
 import artistCardImg from "../assets/card_artist.png";
 import deckImg from "../assets/deck.png";
+import { FaRandom } from "react-icons/fa";
 
 const About = () => {
   const pageMenu = {
@@ -43,7 +44,7 @@ const About = () => {
             <p>
               Top tracks and artists can be filtered from the last month, last 6
               months, or all time. Inspired by card collecting and deck building
-              games, the hand of tracks and artists are generated 9 at a time.
+              games, the hand of tracks and artists are generated 7 at a time.
               Details are are displayed in a card design with colors denoting
               the level of popularity.
             </p>

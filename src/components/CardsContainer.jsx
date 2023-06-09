@@ -4,7 +4,7 @@ import CardSpread from "./CardSpread";
 import CardFanned from "./CardFanned";
 import ArtistDetails from "./card/ArtistDetails";
 import TrackDetails from "./card/TrackDetails";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 const CardsContainer = ({
   list,

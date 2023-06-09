@@ -42,7 +42,11 @@ const Nav = () => {
       ref={mobileMenuRef}
     >
       <header className="flex flex-col capitalize text-sm">
-        <div className="text-2xl flex items-center">
+        <NavLink
+          to="/top-tracks"
+          className="text-2xl flex items-center"
+          onClick={() => setActivePage("tracks")}
+        >
           <div className="flex justify-center items-center w-10 h-10 mr-2 p-1 rounded-md bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/50 to-secondary/50">
             <img
               src={logo}
@@ -57,7 +61,7 @@ const Nav = () => {
           <span className="max-sm:hidden font-disp tracking-wide uppercase text-[2.4rem]">
             Decksio
           </span>
-        </div>
+        </NavLink>
         {/* <span className="text-xs max-sm:hidden">playlist builder</span> */}
       </header>
       <section
