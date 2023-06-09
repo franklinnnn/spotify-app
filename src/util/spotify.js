@@ -1,7 +1,7 @@
 import axios from "axios";
 const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
-export const REDIRECT_URI = "http://127.0.0.1:5173/";
-// export const REDIRECT_URI = "https://decksio.vercel.app/";
+// export const REDIRECT_URI = "http://127.0.0.1:5173/";
+export const REDIRECT_URI = "https://decksio.vercel.app/";
 export const ACCESS_TOKEN = "https://accounts.spotify.com/api/token";
 export const AUTH_URL = "https://accounts.spotify.com/authorize";
 export const SCOPE =
