@@ -104,9 +104,6 @@ const ArtistDetails = ({ cardDetails }) => {
         <article
           className="bg-gradient-to-t from-black to-transparent backdrop-blur-sm rounded-lg duration-300 group-hover:backdrop-blur-md "
           id="border"
-          style={{
-            border: `3px solid ${handleMainColor(cardDetails.popularity)}`,
-          }}
         >
           {/* TOP BAR */}
           <header className="relative flex justify-between px-2 py-1 z-10">

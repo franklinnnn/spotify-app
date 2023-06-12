@@ -3,6 +3,10 @@
   /* border: 4px solid var(--popularity); */
 }
 
+#card #border {
+  border: 4px solid var(--popularity);
+}
+
 #card:hover #top {
   background: var(--popularity);
 }
