@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import CardsContainer from "../components/CardsContainer";
 import {
   getRecentlyPlayed,
@@ -6,7 +6,9 @@ import {
 } from "../util/spotify";
 
 import { useNavigate } from "react-router-dom";
-import { MainContext } from "./Home";
+// import { MainContext } from "./Home";
+import { MainContext } from "../MainContext";
+
 import { motion } from "framer-motion";
 import { FaRandom } from "react-icons/fa";
 
@@ -49,9 +51,7 @@ const Recents = () => {
   return (
     <section className="relative w-full my-6">
       <motion.header
-        className={`relative flex items-center justify-between gap-6 px-6 ${
-          showDetails ? "opacity-60 blur-sm pointer-events-none" : "opacity-100"
-        } max-sm:flex-col max-sm:gap-2`}
+        className="relative flex items-center justify-between gap-6 px-6 max-sm:flex-col max-sm:gap-2"
         variants={pageMenu}
         initial="hidden"
         animate="visible"

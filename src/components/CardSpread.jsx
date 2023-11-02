@@ -1,18 +1,13 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { MdMusicOff } from "react-icons/md";
-import { MainContext } from "../pages/Home";
+import { MainContext } from "../MainContext";
+
 import { BsPlayFill } from "react-icons/bs";
 import { HiArrowLongRight } from "react-icons/hi2";
 import { motion } from "framer-motion";
 import { dealSpreadAnimation } from "../util/motion";
 
-const CardSpread = ({
-  item,
-  index,
-  image,
-  setCardDetails,
-  setIsCardDetailsVisible,
-}) => {
+const CardSpread = ({ item, index, image, setCardDetails }) => {
   const { setShowDetails } = useContext(MainContext);
   const [isPlaying, setIsPlaying] = useState(false);
   const [imgLoaded, setImgLoaded] = useState(false);
@@ -26,8 +21,6 @@ const CardSpread = ({
   }, []);
 
   const trackPreview = item.preview_url;
-  // const albumImg = item.album.images ? item.album.images[1].url : null;
-  // const artistImg = item.images ? item.images[1].url : null;
   const title = item.name;
   const subtitle = item.artists ? item.artists[0].name : null;
 
@@ -52,7 +45,6 @@ const CardSpread = ({
   const handleCardDetails = () => {
     setCardDetails(item);
     window.scrollTo({ top: 0, behavior: "smooth" });
-    setIsCardDetailsVisible(true);
     setShowDetails(true);
   };
 
@@ -130,7 +122,7 @@ const CardSpread = ({
   };
   return (
     <motion.div
-      className="group relative box-border m-1 ease-in-out duration-150 hover:scale-105 hover:shadow-[0_0.2rem_1rem_0.6rem_rgba(0,0,0,0.5)] hover:z-10 hover:cursor-pointer rounded-md bg-center
+      className="group relative box-border my-2 mx-4 md:m-1 ease-in-out duration-150 hover:shadow-[0_0.2rem_1rem_0.6rem_rgba(0,0,0,0.5)] hover:z-10 hover:cursor-pointer rounded-md bg-center
       "
       style={
         imgLoaded

@@ -1,9 +1,7 @@
-import React from "react";
 import { motion } from "framer-motion";
 import trackCardImg from "../assets/card_track.png";
 import artistCardImg from "../assets/card_artist.png";
 import deckImg from "../assets/deck.png";
-import { FaRandom } from "react-icons/fa";
 
 const About = () => {
   const pageMenu = {

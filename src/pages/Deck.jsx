@@ -1,40 +1,25 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import CardsContainer from "../components/CardsContainer";
-import { addToPlaylist, createPlaylist } from "../util/spotify";
-import { MainContext } from "./Home";
-import { ToastContainer, toast } from "react-toastify";
-import { AnimatePresence, motion } from "framer-motion";
+// import { MainContext } from "./Home";
+import { MainContext } from "../MainContext";
+
+import { toast } from "react-toastify";
+import { motion } from "framer-motion";
+import { Dialog } from "@headlessui/react";
+import SavePlaylist from "../components/SavePlaylist";
 
 const Deck = () => {
-  const { user, deck, setDeck, showDetails, cardDetailsVisible } =
-    useContext(MainContext);
+  const { deck, setDeck } = useContext(MainContext);
 
-  const { saveRef, isSaveComponentVisible, setIsSaveComponentVisible } =
-    saveComponentVisible(false);
-  const { delRef, isDelComponentVisible, setIsDelComponentVisible } =
-    delComponentVisible(false);
+  const [showSavePlaylist, setShowSavePlaylist] = useState(false);
+  const [showDeletePlaylist, setShowDeletePlaylist] = useState(false);
 
   const type = "tracks";
 
-  const uris = deck.map((track) => track.uri);
-
-  const handleSaveToPlaylist = () => {
-    createPlaylist(user.id).then((response) => {
-      addToPlaylist(response.id, uris);
-      console.log(`${deck.length} tracks added to playlist ${response.name}`);
-    });
-    const notify = () => toast("playlist created successfully!");
-    notify();
-    setTimeout(() => {
-      setIsSaveComponentVisible(false);
-    }, 2000);
-  };
-
   const handleDeleteDeck = () => {
     setDeck([]);
-    const notify = () => toast("Deck deleted");
-    notify();
-    setIsDelComponentVisible(false);
+    toast.success("Deck deleted");
+    setShowDeletePlaylist(false);
   };
 
   const pageMenu = {
@@ -69,55 +54,36 @@ const Deck = () => {
 
   return (
     <section className="relative w-full my-6">
-      <div className="w-full flex justify-center">
-        <div
-          className="absolute top-1/3 mx-auto flex justify-center items-center hover:scale-105 ease-in-out duration-300 z-20"
-          ref={saveRef}
-        >
-          <AnimatePresence>
-            {isSaveComponentVisible && (
-              <motion.div
-                className="flex flex-col gap-2 p-4 w-[20rem] max-w-[20rem] rounded-md bg-slate-500 shadow-[0_2rem_4rem_1rem_rgba(0,0,0,0.5)]"
-                key={isSaveComponentVisible}
-                variants={confirmBox}
-                initial="hidden"
-                animate="visible"
-                exit="hidden"
-              >
-                <h1 className="text-2xl">Save deck?</h1>
-                <span>
-                  This will create a new playlist with your saved tracks
-                </span>
-                <div className="my-2 flex justify-evenly">
-                  <button
-                    className="p-2 w-1/4 bg-slate-600 hover:bg-primary rounded-sm"
-                    onClick={handleSaveToPlaylist}
-                  >
-                    Save
-                  </button>
-                  <button
-                    className="p-2 w-1/4 bg-slate-600 hover:bg-slate-700 rounded-sm"
-                    onClick={() => setIsSaveComponentVisible(false)}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+      <Dialog
+        open={showSavePlaylist}
+        onClose={() => {
+          setShowSavePlaylist(false);
+        }}
+        className="relative z-50"
+      >
+        <div className="fixed inset-0 bg-slate-500/50" aria-hidden="true" />
+        <div className="fixed inset-0 flex items-center justify-center p-4">
+          <Dialog.Panel>
+            <div className="-mt-12 text-white">
+              <SavePlaylist />
+            </div>
+          </Dialog.Panel>
         </div>
-      </div>
+      </Dialog>
 
-      <div className="w-full flex justify-center">
-        <div
-          className="absolute top-1/3 mx-auto flex justify-center items-center hover:scale-105 ease-in-out duration-300 z-20"
-          ref={delRef}
-        >
-          <AnimatePresence>
-            {isDelComponentVisible && (
+      <Dialog
+        open={showDeletePlaylist}
+        onClose={() => {
+          setShowDeletePlaylist(false);
+        }}
+        className="relative z-50"
+      >
+        <div className="fixed inset-0 bg-slate-500/50" aria-hidden="true" />
+        <div className="fixed inset-0 flex items-center justify-center p-4">
+          <Dialog.Panel>
+            <div className="-mt-12 text-white">
               <motion.div
-                className="flex flex-col gap-2 p-4 w-[20rem] max-w-[20rem] rounded-md bg-slate-500 shadow-[0_2rem_4rem_1rem_rgba(0,0,0,0.5)]"
-                key={isDelComponentVisible}
+                className="flex flex-col gap-2 p-4 w-[20rem] max-w-[20rem] rounded-md bg-slate-500 shadow-[0_2rem_4rem_1rem_rgba(0,0,0,0.5)] font-mono"
                 variants={confirmBox}
                 initial="hidden"
                 animate="visible"
@@ -134,23 +100,19 @@ const Deck = () => {
                   </button>
                   <button
                     className="p-2 w-1/4 bg-slate-600 hover:bg-slate-700 rounded-sm"
-                    onClick={() => setIsDelComponentVisible(false)}
+                    onClick={() => setShowDeletePlaylist(false)}
                   >
                     Cancel
                   </button>
                 </div>
               </motion.div>
-            )}
-          </AnimatePresence>
+            </div>
+          </Dialog.Panel>
         </div>
-      </div>
+      </Dialog>
 
       <motion.header
-        className={`relative flex items-center justify-between gap-6 px-6 ${
-          showDetails || isSaveComponentVisible || isDelComponentVisible
-            ? "opacity-60 blur-sm pointer-events-none"
-            : "opacity-100"
-        } max-sm:flex-col`}
+        className="relative flex items-center justify-between gap-6 px-6 max-sm:flex-col"
         key="header"
         variants={pageMenu}
         initial="hidden"
@@ -168,13 +130,13 @@ const Deck = () => {
         >
           <button
             className="p-2 rounded-sm bg-slate-700 hover:bg-primary hover:cursor-pointer  max-sm:text-sm"
-            onClick={() => setIsSaveComponentVisible(true)}
+            onClick={() => setShowSavePlaylist(true)}
           >
             Save to Playlist
           </button>
           <button
             className="p-2 rounded-sm bg-slate-700 hover:bg-primary hover:cursor-pointer  max-sm:text-sm"
-            onClick={() => setIsDelComponentVisible(true)}
+            onClick={() => setShowDeletePlaylist(true)}
           >
             Delete Deck
           </button>
@@ -186,69 +148,10 @@ const Deck = () => {
           <span>Add cards from your top tracks or get recommendations</span>
         </div>
       ) : (
-        <CardsContainer
-          list={deck}
-          type={type}
-          isSaveComponentVisible={isSaveComponentVisible}
-          isDelComponentVisible={isDelComponentVisible}
-        />
+        <CardsContainer list={deck} type={type} />
       )}
-
-      <ToastContainer
-        position="top-center"
-        autoClose={1200}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss={false}
-        draggable={false}
-        pauseOnHover
-        theme="colored"
-        limit={1}
-      />
-
-      {/* card flip */}
     </section>
   );
-};
-
-const saveComponentVisible = (initialVisible) => {
-  const [isSaveComponentVisible, setIsSaveComponentVisible] =
-    useState(initialVisible);
-
-  const saveRef = useRef();
-  const handleClickOutside = (e) => {
-    if (saveRef.current && !saveRef.current.contains(e.target)) {
-      setIsSaveComponentVisible(false);
-    }
-  };
-  useEffect(() => {
-    document.addEventListener("click", handleClickOutside, true);
-    return () => {
-      document.removeEventListener("click", handleClickOutside, true);
-    };
-  }, []);
-  return { saveRef, isSaveComponentVisible, setIsSaveComponentVisible };
-};
-
-const delComponentVisible = (initialVisible) => {
-  const [isDelComponentVisible, setIsDelComponentVisible] =
-    useState(initialVisible);
-
-  const delRef = useRef();
-  const handleClickOutside = (e) => {
-    if (delRef.current && !delRef.current.contains(e.target)) {
-      setIsDelComponentVisible(false);
-    }
-  };
-  useEffect(() => {
-    document.addEventListener("click", handleClickOutside, true);
-    return () => {
-      document.removeEventListener("click", handleClickOutside, true);
-    };
-  }, []);
-  return { delRef, isDelComponentVisible, setIsDelComponentVisible };
 };
 
 export default Deck;

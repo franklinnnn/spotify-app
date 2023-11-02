@@ -4,7 +4,7 @@ import { AiFillHeart } from "react-icons/ai";
 import { BsSpotify, BsYoutube } from "react-icons/bs";
 import { HiSaveAs } from "react-icons/hi";
 import { MdRecommend } from "react-icons/md";
-import { MainContext } from "../../pages/Home";
+// import { MainContext } from "../../pages/Home";
 
 const CardButtons = ({
   cardDetails,

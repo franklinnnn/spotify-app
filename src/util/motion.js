@@ -128,3 +128,39 @@ export const dealSpreadAnimation = (index) => {
     whileHover: { ...cardHover },
   };
 };
+
+export const dealDetailViewAnimation = (index) => {
+  return {
+    initial: {
+      opacity: 0,
+      y: -150,
+    },
+    animate: {
+      opacity: 1,
+      y: 0,
+      transition: { type: "spring", duration: 0.15, delay: index * 0.075 },
+    },
+    exit: {
+      opacity: 0,
+    },
+    whileHover: { scale: 1.05, transition: { type: "spring", duration: 0.05 } },
+  };
+};
+
+export const myPlaylistsAnimation = (index) => {
+  return {
+    initial: {
+      opacity: 0,
+      x: -150,
+    },
+    animate: {
+      opacity: 1,
+      x: 0,
+      transition: { type: "spring", duration: 0.25, delay: index * 0.1 },
+    },
+    exit: {
+      opacity: 0,
+    },
+    whileHover: { scale: 1.05, transition: { type: "spring", duration: 0.05 } },
+  };
+};

@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import CardsContainer from "../components/CardsContainer";
 import { getUserTopItems } from "../util/spotify";
-import { MainContext } from "./Home";
+// import { MainContext } from "./Home";
+
+import { MainContext } from "../MainContext";
 import { motion } from "framer-motion";
 
 const Artists = () => {
-  const { list, setList, showDetails } = useContext(MainContext);
+  const { list, setList } = useContext(MainContext);
   const [activeTab, setActiveTab] = useState("short");
   const type = "artists";
   useEffect(() => {
@@ -36,9 +38,7 @@ const Artists = () => {
   return (
     <section className="w-full my-6">
       <motion.header
-        className={`relative flex items-center justify-left px-6 ${
-          showDetails ? "opacity-60 blur-sm pointer-events-none" : "opacity-100"
-        } max-sm:flex-col`}
+        className="relative flex items-center justify-left px-6 max-sm:flex-col"
         variants={pageMenu}
         initial="hidden"
         animate="visible"

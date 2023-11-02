@@ -5,7 +5,7 @@ export const REDIRECT_URI = "https://decksio.vercel.app/";
 export const ACCESS_TOKEN = "https://accounts.spotify.com/api/token";
 export const AUTH_URL = "https://accounts.spotify.com/authorize";
 export const SCOPE =
-  "user-read-private user-read-email user-read-playback-state user-modify-playback-state user-read-recently-played user-top-read user-follow-read user-follow-modify playlist-modify-public playlist-modify-private";
+  "user-read-private user-read-email user-read-playback-state user-modify-playback-state user-read-recently-played user-top-read user-follow-read user-follow-modify playlist-read-private playlist-modify-public playlist-modify-private";
 export const RESPONSE_TYPE = "token";
 
 export const loginUrl = `${AUTH_URL}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`;
@@ -205,8 +205,8 @@ export const createPlaylist = async (userId) => {
   const token = getUserToken();
   const date = new Date().toLocaleDateString();
   const data = {
-    name: `Cardify Deck ${date}`,
-    description: "Playlist created from Cardify deck build",
+    name: `Decksio Deck ${date}`,
+    description: "Playlist created from Decksio deck build",
   };
   const config = {
     headers: {
@@ -267,6 +267,20 @@ export const isFollowingCheck = async (artistId) => {
   };
   const response = await axios.get(
     `https://api.spotify.com/v1/me/following/contains/?type=artist&ids=${artistId}`,
+    config
+  );
+  return response.data;
+};
+
+export const getUserPlaylists = async () => {
+  const token = getUserToken();
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const response = await axios.get(
+    `https://api.spotify.com/v1/me/playlists`,
     config
   );
   return response.data;

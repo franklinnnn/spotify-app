@@ -1,18 +1,14 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { MdMusicOff } from "react-icons/md";
-import { MainContext } from "../pages/Home";
+// import { MainContext } from "../pages/Home";
+import { MainContext } from "../MainContext";
+
 import { BsPlayFill } from "react-icons/bs";
 import { HiArrowLongRight } from "react-icons/hi2";
 import { motion } from "framer-motion";
 import { dealFannedAnimation } from "../util/motion";
 
-const CardFanned = ({
-  item,
-  index,
-  image,
-  setCardDetails,
-  setIsCardDetailsVisible,
-}) => {
+const CardFanned = ({ item, index, image, setCardDetails }) => {
   const { setShowDetails } = useContext(MainContext);
   const [isPlaying, setIsPlaying] = useState(false);
   const [imgLoaded, setImgLoaded] = useState(false);
@@ -52,7 +48,6 @@ const CardFanned = ({
   const handleCardDetails = () => {
     setCardDetails(item);
     window.scrollTo({ top: 0, behavior: "smooth" });
-    setIsCardDetailsVisible(true);
     setShowDetails(true);
   };
 

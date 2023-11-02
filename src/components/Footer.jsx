@@ -24,13 +24,13 @@ const Footer = () => {
   return (
     <AnimatePresence>
       <motion.div
-        className="flex justify-center w-full gap-2 p-2 text-xs text-slate-400 max-sm:flex-col"
+        className="flex flex-col md:flex-row justify-center w-full gap-2 p-2 text-xs text-slate-400 max-sm:flex-col"
         variants={pageMenu}
         initial="hidden"
         animate="visible"
         exit="hidden"
       >
-        <div className="flex gap-2">
+        <div className="flex justify-center gap-2">
           <span>{year}</span>
           <span className="md:mx-4">
             Decksio made by{" "}

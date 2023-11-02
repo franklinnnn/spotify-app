@@ -2,7 +2,9 @@ import React, { useContext } from "react";
 import { FaRandom } from "react-icons/fa";
 import CardsContainer from "../components/CardsContainer";
 import { getRandomTrackRecommendations } from "../util/spotify";
-import { MainContext } from "./Home";
+// import { MainContext } from "./Home";
+import { MainContext } from "../MainContext";
+
 import { motion } from "framer-motion";
 
 const Recommendations = () => {

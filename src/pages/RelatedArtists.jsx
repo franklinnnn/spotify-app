@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import CardsContainer from "../components/CardsContainer";
-import { MainContext } from "./Home";
+// import { MainContext } from "./Home";
+import { MainContext } from "../MainContext";
+
 import { motion } from "framer-motion";
 
 const RelatedArtists = () => {

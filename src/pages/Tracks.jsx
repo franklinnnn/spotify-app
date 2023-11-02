@@ -5,12 +5,14 @@ import {
   getUserTopItems,
 } from "../util/spotify";
 import { useNavigate } from "react-router-dom";
-import { MainContext } from "./Home";
+// import { MainContext } from "./Home";
+import { MainContext } from "../MainContext";
+
 import { AnimatePresence, motion } from "framer-motion";
 import { FaRandom } from "react-icons/fa";
 
 const Tracks = () => {
-  const { list, setList, setType, showDetails } = useContext(MainContext);
+  const { list, setList } = useContext(MainContext);
 
   const [activeTab, setActiveTab] = useState("short");
   const navigate = useNavigate();
@@ -51,9 +53,7 @@ const Tracks = () => {
   return (
     <section className="relative w-full my-6">
       <motion.header
-        className={`relative flex items-center justify-between px-6 ${
-          showDetails ? "opacity-60 blur-sm pointer-events-none" : "opacity-100"
-        } max-sm:flex-col`}
+        className="relative flex items-center justify-between px-6 max-sm:flex-col"
         key="tracks page"
         variants={pageMenu}
         initial="hidden"

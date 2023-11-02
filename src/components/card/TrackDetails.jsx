@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { getRecommendations, getAudioFeatures } from "../../util/spotify";
 import { useNavigate } from "react-router-dom";
-import { MainContext } from "../../pages/Home";
+// import { MainContext } from "../../pages/Home";
+import { MainContext } from "../../MainContext";
+
 import CardButtons from "./CardButtons";
 import VanillaTilt from "vanilla-tilt";
 
@@ -123,8 +125,11 @@ const TrackDetails = ({ cardDetails }) => {
       id="card"
     >
       <div
-        className="bg-cover bg-center rounded-lg w-[30rem] h-[45rem]"
-        style={{ backgroundImage: `url(${cardDetails.album.images[0].url})` }}
+        className="bg-cover bg-center rounded-lg w-[98%] md:w-[30rem] md:max-h-[45rem] "
+        style={{
+          backgroundImage: `url(${cardDetails.album.images[0].url}`,
+          backgroundSize: "cover",
+        }}
         role="content container"
       >
         <article
@@ -191,7 +196,7 @@ const TrackDetails = ({ cardDetails }) => {
                     <RiRunFill />
                   </span>
 
-                  <span>{bpm}</span>
+                  <span>{bpm ? bpm : "--"}</span>
                 </div>
                 <div
                   className="flex items-center justify-center gap-2 w-[5rem] p-1 rounded-md font-num  bg-slate-500/[0.4] ease-in-out duration-300 group-hover:shadow-[0_0.2rem_1rem_0_rgba(0,0,0,0.5)]"
@@ -211,7 +216,7 @@ const TrackDetails = ({ cardDetails }) => {
                   <span className="text-lg">
                     <FaBolt />
                   </span>
-                  <span>{energy}</span>
+                  <span>{energy ? energy : "--"}</span>
                 </div>
               </div>
             </div>

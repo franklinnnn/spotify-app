@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { MainContext } from "../pages/Home";
+import { useContext, useState } from "react";
+import { MainContext } from "../MainContext";
 import { NavLink } from "react-router-dom";
 import {
   HiMusicalNote,
@@ -11,17 +11,13 @@ import {
 } from "react-icons/hi2";
 import { RiStackLine, RiStackFill } from "react-icons/ri";
 import { BiMenu } from "react-icons/bi";
-import { AiOutlineClose } from "react-icons/ai";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import logo from "../assets/logo.png";
+import { ToastContainer } from "react-toastify";
+import { Menu } from "@headlessui/react";
 
-const Nav = () => {
-  const { setToken, setCardHand } = useContext(MainContext);
-  const {
-    mobileMenuRef,
-    isMobileMenuComponentVisible,
-    setIsMobileMenuComponentVisible,
-  } = mobileMenuComponentVisible(false);
+const Nav = ({ setToken }) => {
+  const { setCardHand } = useContext(MainContext);
   const [activePage, setActivePage] = useState("tracks");
 
   const logout = () => {
@@ -37,10 +33,7 @@ const Nav = () => {
   };
 
   return (
-    <nav
-      className="flex w-[900px] max-sm:w-full bg-slate-800/40 p-4 my-4 justify-between items-center capitalize rounded-md"
-      ref={mobileMenuRef}
-    >
+    <nav className="flex w-full md:w-[900px] bg-slate-800/40 p-4 my-4 justify-between items-center capitalize rounded-md">
       <header className="flex flex-col capitalize text-sm">
         <NavLink
           to="/top-tracks"
@@ -62,11 +55,10 @@ const Nav = () => {
             Decksio
           </span>
         </NavLink>
-        {/* <span className="text-xs max-sm:hidden">playlist builder</span> */}
       </header>
-      <section
-        className="flex items-center justify-evenly gap-3 py-1 text-light/60 max-sm:gap-2
-        "
+      <div
+        className="flex items-center justify-evenly gap-2 md:gap-3 py-1 text-light/60
+         w-full"
       >
         <NavLink
           to="/top-tracks"
@@ -151,8 +143,8 @@ const Nav = () => {
             Deck
           </span>
         </NavLink>
-      </section>
-      <section className="flex gap-4 items-center text-xs text-light/60 max-sm:hidden">
+      </div>
+      <div className="flex gap-4 items-center text-xs text-light/60 max-sm:hidden">
         <NavLink
           to="/about"
           className="hover:text-primary"
@@ -174,42 +166,19 @@ const Nav = () => {
         >
           <span>logout</span>
         </button>
-      </section>
-      <section
-        className=" bg-slate-900 p-2 rounded hover:bg-slate-600  md:hidden"
-        onClick={() => setIsMobileMenuComponentVisible(true)}
-      >
-        <span className="text-xl">
-          <BiMenu />
-        </span>
-      </section>
+      </div>
 
-      {/* Mobile menu */}
-      <AnimatePresence>
-        {isMobileMenuComponentVisible && (
-          <motion.div
-            className="absolute top-[2.2rem] right-4 flex flex-col items-end gap-2 p-2 w-[5rem] bg-slate-600 rounded text-sm md:hidden overflow-hidden z-20 shadow-[0_0.2rem_1rem_0.6rem_rgba(0,0,0,0.5)]"
-            initial={{ opacity: 0, width: "5rem", height: 0 }}
-            animate={{
-              opacity: 1,
-              width: "5rem",
-              height: "auto",
-              transition: { duration: 0.15 },
-            }}
-            exit={{
-              opacity: 0,
-              width: "4rem",
-              height: 0,
-            }}
-          >
-            <span
-              className="text-xl text-white mr-1"
-              onClick={() => setIsMobileMenuComponentVisible(false)}
-            >
-              <AiOutlineClose />
-            </span>
+      <div className="block md:hidden mt-1">
+        <Menu>
+          <Menu.Button>
+            <BiMenu
+              size={28}
+              className="rounded-full hover:bg-slate-600 px-1 w-8 transition"
+            />
+          </Menu.Button>
+          <Menu.Items>
             <motion.div
-              className="flex flex-col text-right gap-2"
+              className="absolute right-4 top-9 flex flex-col items-end gap-1 bg-slate-600 rounded-md overflow-hidden"
               initial={{ opacity: 0, y: -1, width: 0 }}
               animate={{
                 opacity: 1,
@@ -219,47 +188,50 @@ const Nav = () => {
               }}
               exit={{ opacity: 0, y: -1 }}
             >
-              <span>
-                <NavLink
-                  to="/about"
-                  onClick={() => {
-                    setActivePage("");
-                    setIsMobileMenuComponentVisible(false);
-                  }}
-                >
-                  About
-                </NavLink>
-              </span>
-              <button onClick={logout}>Logout</button>
+              <Menu.Item>
+                {({ active }) => (
+                  <NavLink
+                    className={`${
+                      active && "bg-slate-700/50"
+                    } w-full text-right py-1 px-2`}
+                    to="/about"
+                  >
+                    About
+                  </NavLink>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    className={`${
+                      active && "bg-slate-700/50"
+                    } w-full text-right py-1 px-2`}
+                    onClick={logout}
+                  >
+                    Logout
+                  </button>
+                )}
+              </Menu.Item>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </Menu.Items>
+        </Menu>
+      </div>
+
+      <ToastContainer
+        position="top-center"
+        autoClose={500}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover
+        theme="colored"
+        limit={1}
+      />
     </nav>
   );
-};
-
-const mobileMenuComponentVisible = (initialVisible) => {
-  const [isMobileMenuComponentVisible, setIsMobileMenuComponentVisible] =
-    useState(initialVisible);
-
-  const mobileMenuRef = useRef();
-  const handleClickOutside = (e) => {
-    if (mobileMenuRef.current && !mobileMenuRef.current.contains(e.target)) {
-      setIsMobileMenuComponentVisible(false);
-    }
-  };
-  useEffect(() => {
-    document.addEventListener("click", handleClickOutside, true);
-    return () => {
-      document.removeEventListener("click", handleClickOutside, true);
-    };
-  }, []);
-  return {
-    mobileMenuRef,
-    isMobileMenuComponentVisible,
-    setIsMobileMenuComponentVisible,
-  };
 };
 
 export default Nav;

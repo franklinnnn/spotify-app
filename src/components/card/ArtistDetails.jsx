@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { BsPersonFill } from "react-icons/bs";
 import { MdStars } from "react-icons/md";
-import { MainContext } from "../../pages/Home";
+// import { MainContext } from "../../pages/Home";
+import { MainContext } from "../../MainContext";
+
 import {
   getRelatedArtists,
   getArtistAlbums,
@@ -93,11 +95,11 @@ const ArtistDetails = ({ cardDetails }) => {
   return (
     <Tilt
       options={container}
-      className="group flex justify-center items-start box-border w-[30rem] max-h-[45rem]"
+      className="group flex justify-center items-start box-border"
       id="card"
     >
       <div
-        className="bg-cover bg-center rounded-lg hover:cursor-default"
+        className="bg-cover bg-center rounded-lg w-[98%] md:w-[30rem] md:max-h-[45rem] hover:cursor-default"
         style={{ backgroundImage: `url(${artistImg})` }}
         role="content container"
       >
