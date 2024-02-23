@@ -10,15 +10,59 @@ import {
   HiOutlineClock,
 } from "react-icons/hi2";
 import { RiStackLine, RiStackFill } from "react-icons/ri";
-import { BiMenu } from "react-icons/bi";
+import { BiMenu, BiSearch } from "react-icons/bi";
 import { motion } from "framer-motion";
 import logo from "../assets/logo.png";
 import { ToastContainer } from "react-toastify";
 import { Menu } from "@headlessui/react";
 
 const Nav = ({ setToken }) => {
-  const { setCardHand } = useContext(MainContext);
+  const { cardHand, setCardHand } = useContext(MainContext);
   const [activePage, setActivePage] = useState("tracks");
+
+  const navLinks = [
+    {
+      name: "Tracks",
+      url: "/top-tracks",
+      icon: <HiMusicalNote />,
+      activeIcon: <HiOutlineMusicalNote />,
+      activePage: "tracks",
+      cardHand: cardHand,
+    },
+    {
+      name: "Artists",
+      url: "/top-artists",
+      icon: <HiMicrophone />,
+      activeIcon: <HiOutlineMicrophone />,
+      activePage: "artists",
+      cardHand: cardHand,
+    },
+    {
+      name: "History",
+      url: "/recently-played",
+      cardHand: cardHand,
+      icon: <HiClock />,
+      activeIcon: <HiOutlineClock />,
+      activePage: "recents",
+      cardHand: cardHand,
+    },
+    {
+      name: "Deck",
+      url: "/deck",
+      icon: <RiStackFill />,
+      activeIcon: <RiStackLine />,
+      activePage: "deck",
+      cardHand: "spread",
+    },
+    {
+      name: "Search",
+      url: "/search",
+      icon: <BiSearch />,
+      activeIcon: <BiSearch />,
+      activePage: "search",
+      cardHand: "spread",
+    },
+  ];
 
   const logout = () => {
     setToken("");
@@ -33,8 +77,8 @@ const Nav = ({ setToken }) => {
   };
 
   return (
-    <nav className="flex w-full md:w-[900px] bg-slate-800/40 p-4 my-4 justify-between items-center capitalize rounded-md">
-      <header className="flex flex-col capitalize text-sm">
+    <nav className="flex w-full md:w-[1000px] bg-slate-800/40 p-4 my-4 justify-between items-center capitalize rounded-md">
+      <div className="flex flex-col capitalize text-sm">
         <NavLink
           to="/top-tracks"
           className="text-2xl flex items-center"
@@ -51,98 +95,43 @@ const Nav = ({ setToken }) => {
               }}
             />
           </div>
-          <span className="max-sm:hidden font-disp tracking-wide uppercase text-[2.4rem]">
+          <span className="hidden md:block font-disp tracking-wide uppercase text-[2.4rem]">
             Decksio
           </span>
         </NavLink>
-      </header>
+      </div>
       <div
-        className="flex items-center justify-evenly gap-2 md:gap-3 py-1 text-light/60
+        className="flex items-center justify-evenly py-1 text-light/60
          w-full"
       >
-        <NavLink
-          to="/top-tracks"
-          className="group/nav flex flex-col justify-center items-center gap-1 text-3xl w-28 hover:cursor-pointer  duration-150 ease-in-out max-sm:w-8 max-sm:text-2xl"
-          onClick={() => setActivePage("tracks")}
-        >
-          {activePage === "tracks" ? (
-            <HiMusicalNote className="text-light" />
-          ) : (
-            <HiOutlineMusicalNote className="group-hover/nav:text-light/80 group-hover/nav:scale-110 easy-in-out duration-300" />
-          )}{" "}
-          <span
-            className={
-              activePage === "tracks"
-                ? "text-light text-xs max-sm:hidden"
-                : "text-light/70 text-xs max-sm:hidden group-hover/nav:text-light/80 "
-            }
+        {navLinks.map((nav) => (
+          <NavLink
+            to={nav.url}
+            key={nav.url}
+            onClick={() => {
+              setActivePage(nav.activePage);
+              setCardHand(nav.cardHand);
+            }}
+            className="group/nav flex flex-col justify-center items-center gap-1 text-3xl w-28 hover:cursor-pointer duration-150 ease-in-out max-sm:w-8 max-sm:text-2xl"
           >
-            Top Tracks
-          </span>
-        </NavLink>
-        <NavLink
-          to="/top-artists"
-          className="group/nav flex flex-col justify-center items-center gap-1 text-3xl w-28 hover:cursor-pointer max-sm:w-8 max-sm:text-2xl"
-          onClick={() => setActivePage("artists")}
-        >
-          {activePage === "artists" ? (
-            <HiMicrophone className="text-light" />
-          ) : (
-            <HiOutlineMicrophone className="group-hover/nav:text-light/80 group-hover/nav:scale-110 easy-in-out duration-300" />
-          )}{" "}
-          <span
-            className={
-              activePage === "artists"
-                ? "text-light text-xs max-sm:hidden"
-                : "text-light/70 text-xs max-sm:hidden group-hover/nav:text-light/80 "
-            }
-          >
-            Top Artists
-          </span>
-        </NavLink>
-        <NavLink
-          to="/recently-played"
-          className="group/nav flex flex-col justify-center items-center gap-1 text-3xl w-28 hover:cursor-pointer max-sm:w-8 max-sm:text-2xl"
-          onClick={() => setActivePage("recents")}
-        >
-          {activePage === "recents" ? (
-            <HiClock className="text-light" />
-          ) : (
-            <HiOutlineClock className="group-hover/nav:text-light/80 group-hover/nav:scale-110  easy-in-out duration-300" />
-          )}{" "}
-          <span
-            className={
-              activePage === "recents"
-                ? "text-light text-xs max-sm:hidden"
-                : "text-light/70 text-xs max-sm:hidden group-hover/nav:text-light/80 "
-            }
-          >
-            Recently Played
-          </span>
-        </NavLink>
-        <NavLink
-          to="/deck"
-          className="group/nav flex flex-col justify-center items-center gap-1 text-3xl w-28 hover:cursor-pointer max-sm:w-8 max-sm:text-2xl"
-          onClick={() => {
-            setActivePage("deck");
-            setCardHand("spread");
-          }}
-        >
-          {activePage === "deck" ? (
-            <RiStackFill className="text-light" />
-          ) : (
-            <RiStackLine className="group-hover/nav:text-light/80 group-hover/nav:scale-110  easy-in-out duration-300" />
-          )}{" "}
-          <span
-            className={
-              activePage === "deck"
-                ? "text-light text-xs max-sm:hidden"
-                : "text-light/70 text-xs max-sm:hidden group-hover/nav:text-light/80"
-            }
-          >
-            Deck
-          </span>
-        </NavLink>
+            {activePage === nav.activePage ? (
+              <div className="text-light">{nav.icon}</div>
+            ) : (
+              <div className="group-hover/nav:text-light/80 group-hover/nav:scale-110 easy-in-out duration-300">
+                {nav.activeIcon}
+              </div>
+            )}
+            <span
+              className={`${
+                activePage === nav.activePage
+                  ? "text-light"
+                  : "text-light/70 group-hover/nav:text-light:80"
+              } text-[11px] text-center hidden md:block`}
+            >
+              {nav.name}
+            </span>
+          </NavLink>
+        ))}
       </div>
       <div className="flex gap-4 items-center text-xs text-light/60 max-sm:hidden">
         <NavLink
@@ -219,15 +208,15 @@ const Nav = ({ setToken }) => {
 
       <ToastContainer
         position="top-center"
-        autoClose={500}
+        autoClose={300}
         hideProgressBar
-        newestOnTop={false}
+        newestOnTop={true}
         closeOnClick
         rtl={false}
         pauseOnFocusLoss={false}
         draggable={false}
         pauseOnHover
-        theme="colored"
+        theme="dark"
         limit={1}
       />
     </nav>

@@ -20,6 +20,7 @@ const Tracks = () => {
   const type = "tracks";
 
   useEffect(() => {
+    setList([]);
     handleGetTopTracks("tracks", "short_term");
   }, []);
 

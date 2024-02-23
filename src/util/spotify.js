@@ -1,7 +1,7 @@
 import axios from "axios";
 const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
-// export const REDIRECT_URI = "http://127.0.0.1:5173/";
-export const REDIRECT_URI = "https://decksio.vercel.app/";
+export const REDIRECT_URI = "http://localhost:5173/";
+// export const REDIRECT_URI = "https://decksio.vercel.app/";
 export const ACCESS_TOKEN = "https://accounts.spotify.com/api/token";
 export const AUTH_URL = "https://accounts.spotify.com/authorize";
 export const SCOPE =
@@ -281,6 +281,20 @@ export const getUserPlaylists = async () => {
   };
   const response = await axios.get(
     `https://api.spotify.com/v1/me/playlists`,
+    config
+  );
+  return response.data;
+};
+
+export const searchForTrack = async (query) => {
+  const token = getUserToken();
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const response = await axios.get(
+    `https://api.spotify.com/v1/search?q=${query}&type=track&limit=10`,
     config
   );
   return response.data;

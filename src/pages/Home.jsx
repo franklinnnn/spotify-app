@@ -12,6 +12,7 @@ import About from "./About";
 import Footer from "../components/Footer";
 import { useContext } from "react";
 import { MainContext } from "../MainContext";
+import Search from "./Search";
 
 const Home = ({ setToken }) => {
   const { list, setList, type, setType, length, setLength, setUser } =
@@ -51,6 +52,7 @@ const Home = ({ setToken }) => {
             path="deck"
             element={<Deck list={list} setList={setList} type={type} />}
           />
+          <Route path="search" element={<Search />} />
           <Route path="recommendations" element={<Recommendations />} />
           <Route path="related-artists" element={<RelatedArtists />} />
           <Route path="about" element={<About />} />

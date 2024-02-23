@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { MainContext } from "../MainContext";
 
 import CardSpread from "./CardSpread";
@@ -7,7 +7,7 @@ import ArtistDetails from "./card/ArtistDetails";
 import TrackDetails from "./card/TrackDetails";
 import { motion } from "framer-motion";
 import CardDetailView from "./CardDetailView";
-import { Dialog } from "@headlessui/react";
+import { Dialog, Transition } from "@headlessui/react";
 
 const CardsContainer = ({ list, type }) => {
   const { setList, showDetails, setShowDetails, cardHand, setCardHand } =
@@ -50,26 +50,41 @@ const CardsContainer = ({ list, type }) => {
 
   return (
     <section className="relative w-full mb-20 md:mb-10">
-      <Dialog
-        open={showDetails}
-        onClose={() => {
-          setShowDetails(false);
-        }}
-        className="relative z-50"
-      >
-        <div className="fixed inset-0 bg-slate-500/50" aria-hidden="true" />
-        <div className="fixed inset-0 flex items-center justify-center p-4">
-          <Dialog.Panel>
-            <div className="-mt-12 text-white">
-              {type === "artists" ? (
-                <ArtistDetails cardDetails={cardDetails} setList={setList} />
-              ) : (
-                <TrackDetails cardDetails={cardDetails} />
-              )}
-            </div>
-          </Dialog.Panel>
-        </div>
-      </Dialog>
+      <Transition appear show={showDetails} as={Fragment}>
+        <Dialog
+          open={showDetails}
+          onClose={() => {
+            setShowDetails(false);
+          }}
+          className="relative z-50"
+        >
+          <div className="fixed inset-0 bg-slate-500/80" aria-hidden="true" />
+          <div className="fixed inset-0 flex items-center justify-center p-2">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <Dialog.Panel>
+                <div className="-mt-12 text-white">
+                  {type === "artists" ? (
+                    <ArtistDetails
+                      cardDetails={cardDetails}
+                      setList={setList}
+                    />
+                  ) : (
+                    <TrackDetails cardDetails={cardDetails} />
+                  )}
+                </div>
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
+        </Dialog>
+      </Transition>
 
       <div className="w-full my-4 grid items-center justify-center">
         {/* CARD HAND VIEW OPTIONS */}
@@ -87,12 +102,12 @@ const CardsContainer = ({ list, type }) => {
                 ? "border-b-primary"
                 : "border-b-transparent"
             } ${
-              list.length > 7 || isMobile
+              list?.length > 7 || isMobile
                 ? "text-light/50 hover:border-b-transparent"
                 : "text-white"
             }`}
             onClick={() => setCardHand("fanned")}
-            disabled={list.length > 7 || isMobile}
+            disabled={list?.length > 7 || isMobile}
           >
             fanned
           </button>
@@ -101,9 +116,11 @@ const CardsContainer = ({ list, type }) => {
               cardHand === "spread"
                 ? "border-b-primary"
                 : "border-b-transparent"
-            } ${list.length > 7 && "text-light/50 hover:border-b-transparent"}`}
+            } ${
+              list?.length > 7 && "text-light/50 hover:border-b-transparent"
+            }`}
             onClick={() => setCardHand("spread")}
-            disabled={list.length > 7}
+            disabled={list?.length > 7}
           >
             spread
           </button>
@@ -128,7 +145,7 @@ const CardsContainer = ({ list, type }) => {
                 : "grid grid-cols-4 justify-center"
             } max-sm:grid-cols-1`}
         >
-          {list.length > 7
+          {list?.length > 7
             ? list.map((item, index) => {
                 setCardHand("detail");
                 const image =
@@ -150,7 +167,7 @@ const CardsContainer = ({ list, type }) => {
                 );
               })
             : list
-                .map((item, index) => {
+                ?.map((item, index) => {
                   const image =
                     item.type === "track"
                       ? item.album.images[0].url

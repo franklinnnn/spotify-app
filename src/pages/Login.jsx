@@ -4,6 +4,7 @@ import { loginUrl } from "../util/spotify";
 import logo from "../assets/logo.png";
 
 const Login = () => {
+  console.log(loginUrl);
   return (
     <section className="flex flex-col items-center justify-center gap-2 h-[100vh]">
       <h1 className="flex items-center text-2xl text-light font-disp">
