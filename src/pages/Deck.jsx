@@ -1,23 +1,21 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import CardsContainer from "../components/CardsContainer";
-// import { MainContext } from "./Home";
-import { MainContext } from "../MainContext";
 
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import { Dialog } from "@headlessui/react";
 import SavePlaylist from "../components/SavePlaylist";
+import useDeck from "../util/useDeck";
 
 const Deck = () => {
-  const { deck, setDeck } = useContext(MainContext);
-
+  const { deck, deleteDeck } = useDeck();
   const [showSavePlaylist, setShowSavePlaylist] = useState(false);
   const [showDeletePlaylist, setShowDeletePlaylist] = useState(false);
 
   const type = "tracks";
 
   const handleDeleteDeck = () => {
-    setDeck([]);
+    deleteDeck();
     toast.success("Deck deleted");
     setShowDeletePlaylist(false);
   };
@@ -125,7 +123,7 @@ const Deck = () => {
 
         <div
           className={`w-full  flex justify-end gap-2 ${
-            deck.length < 1 ? "hidden" : "visible"
+            deck?.length < 1 ? "hidden" : "visible"
           } max-sm:justify-center`}
         >
           <button
@@ -142,7 +140,7 @@ const Deck = () => {
           </button>
         </div>
       </motion.header>
-      {deck.length < 1 ? (
+      {deck?.length < 1 ? (
         <div className="text-center mt-6">
           <h1 className="text-2xl">Deck is empty!</h1>{" "}
           <span>Add cards from your top tracks or get recommendations</span>
@@ -150,6 +148,22 @@ const Deck = () => {
       ) : (
         <CardsContainer list={deck} type={type} />
       )}
+
+      {/* <div>
+        <h1 className="text-xl">Test Deck</h1>
+        <button
+          onClick={() => addSongToDeck(testSong)}
+          className="border-2 border-primary px-4 hover:bg-primary"
+        >
+          Test Add object
+        </button>
+        <button
+          onClick={deleteDeck}
+          className="border-2 border-primary px-4 hover:bg-primary"
+        >
+          Delete Deck
+        </button>
+      </div> */}
     </section>
   );
 };

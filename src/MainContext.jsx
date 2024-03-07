@@ -10,6 +10,7 @@ const MainProvider = ({ children }) => {
   const [length, setLength] = useState("short_term");
   const [showDetails, setShowDetails] = useState(false);
   const [cardHand, setCardHand] = useState("fanned");
+
   const [loading, setLoading] = useState(false);
 
   return (

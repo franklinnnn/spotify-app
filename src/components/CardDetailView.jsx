@@ -11,9 +11,11 @@ import { dealDetailViewAnimation } from "../util/motion";
 import { AiOutlineCheck, AiOutlinePlus } from "react-icons/ai";
 import { toast } from "react-toastify";
 import albumPlaceholder from "../assets/album-placeholder.jpg";
+import useDeck from "../util/useDeck";
 
 const CardDetailView = ({ item, index, image, setCardDetails }) => {
-  const { setShowDetails, deck, setDeck } = useContext(MainContext);
+  const { setShowDetails } = useContext(MainContext);
+  const { deck, addSongToDeck } = useDeck();
   const [isPlaying, setIsPlaying] = useState(false);
   const [features, setFeatures] = useState({});
   const [loading, setLoading] = useState(false);
@@ -50,6 +52,14 @@ const CardDetailView = ({ item, index, image, setCardDetails }) => {
       getAudioFeatures(item.id).then(setFeatures);
     } else return;
   };
+
+  useEffect(() => {
+    handleGetAudioFeatures();
+    const cardInDeck = deck.some((track) => track.name === item.name);
+    if (cardInDeck) {
+      setIsInDeck(true);
+    }
+  }, [item.type, item.id]);
 
   const bpm = Math.round(features.tempo);
   const ms = new Date(item.duration_ms);
@@ -98,9 +108,8 @@ const CardDetailView = ({ item, index, image, setCardDetails }) => {
   };
 
   const handleAddCardToDeck = () => {
-    !isInDeck && setDeck((prevDeck) => [...prevDeck, item]);
-
-    console.log("card saved to deck");
+    // !isInDeck && setDeck((prevDeck) => [...prevDeck, item]);
+    !isInDeck && addSongToDeck(item);
     toast.success("Card saved to deck");
     setCardAdded(true);
     setTimeout(() => {
@@ -108,14 +117,6 @@ const CardDetailView = ({ item, index, image, setCardDetails }) => {
     }, 1600);
     setIsInDeck(true);
   };
-
-  useEffect(() => {
-    handleGetAudioFeatures();
-    const cardInDeck = deck.some((track) => track.id === item.id);
-    if (cardInDeck) {
-      setIsInDeck(true);
-    }
-  }, [item.type, item.id]);
 
   return (
     <motion.div
@@ -156,7 +157,7 @@ const CardDetailView = ({ item, index, image, setCardDetails }) => {
 
       {/* details */}
       <div
-        className="flex flex-col md:flex-row md:justify-between w-[200px] md:w-full pb-1 ml-1 md:ml-2"
+        className="flex flex-col md:flex-row md:justify-between w-[200px] md:w-full pb-1 ml-1 md:ml-2 hover:cursor-pointer"
         onClick={handleCardDetails}
       >
         <div className="flex flex-col gap-1 truncate md:max-w-[500px] p-1 md:p-2 text-sm md:text-xl">

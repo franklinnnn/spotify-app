@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { getRecommendations, getAudioFeatures } from "../../util/spotify";
 import { useNavigate } from "react-router-dom";
-// import { MainContext } from "../../pages/Home";
 import { MainContext } from "../../MainContext";
 
 import CardButtons from "./CardButtons";
@@ -20,10 +19,11 @@ import {
   useMotionValue,
   useTransform,
 } from "framer-motion";
+import useDeck from "../../util/useDeck";
 
 const TrackDetails = ({ cardDetails }) => {
-  const { setList, setShowDetails, deck, setDeck } = useContext(MainContext);
-
+  const { setList, setShowDetails } = useContext(MainContext);
+  const { deck, addSongToDeck } = useDeck();
   const [features, setFeatures] = useState({});
   const [isInDeck, setIsInDeck] = useState(false);
   const [showConfirmRecommend, setShowConfirmRecommend] = useState(false);
@@ -41,7 +41,8 @@ const TrackDetails = ({ cardDetails }) => {
   };
 
   const handleAddCardToDeck = () => {
-    !isInDeck && setDeck((prevDeck) => [...prevDeck, cardDetails]);
+    // !isInDeck && setDeck((prevDeck) => [...prevDeck, cardDetails]);
+    !isInDeck && addSongToDeck(cardDetails);
 
     console.log("card saved to deck");
     setCardAdded(true);

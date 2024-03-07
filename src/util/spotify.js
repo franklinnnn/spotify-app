@@ -1,6 +1,6 @@
 import axios from "axios";
 const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
-export const REDIRECT_URI = "http://localhost:5173/";
+export const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI;
 // export const REDIRECT_URI = "https://decksio.vercel.app/";
 export const ACCESS_TOKEN = "https://accounts.spotify.com/api/token";
 export const AUTH_URL = "https://accounts.spotify.com/authorize";
@@ -298,4 +298,17 @@ export const searchForTrack = async (query) => {
     config
   );
   return response.data;
+};
+
+export const addSongToDeck = (song) => {
+  let deck = localStorage.getItem("deck");
+  if (!deck || deck === null) {
+    let newDeck = [song];
+    deck = localStorage.setItem("deck", JSON.stringify(newDeck));
+  }
+
+  let updatedDeck = JSON.parse(deck);
+  updatedDeck.push(song);
+
+  localStorage.setItem("deck", JSON.stringify(updatedDeck));
 };

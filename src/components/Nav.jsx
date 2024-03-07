@@ -101,7 +101,7 @@ const Nav = ({ setToken }) => {
         </NavLink>
       </div>
       <div
-        className="flex items-center justify-evenly py-1 text-light/60
+        className="flex items-center justify-center py-1 text-light/60
          w-full"
       >
         {navLinks.map((nav) => (
@@ -112,7 +112,7 @@ const Nav = ({ setToken }) => {
               setActivePage(nav.activePage);
               setCardHand(nav.cardHand);
             }}
-            className="group/nav flex flex-col justify-center items-center gap-1 text-3xl w-28 hover:cursor-pointer duration-150 ease-in-out max-sm:w-8 max-sm:text-2xl"
+            className="group/nav flex flex-col justify-center items-center gap-1 text-3xl w-24 hover:cursor-pointer duration-150 ease-in-out max-sm:w-8 max-sm:text-2xl"
           >
             {activePage === nav.activePage ? (
               <div className="text-light">{nav.icon}</div>

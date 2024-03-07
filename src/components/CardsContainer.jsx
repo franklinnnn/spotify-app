@@ -146,7 +146,7 @@ const CardsContainer = ({ list, type }) => {
             } max-sm:grid-cols-1`}
         >
           {list?.length > 7
-            ? list.map((item, index) => {
+            ? list?.map((item, index) => {
                 setCardHand("detail");
                 const image =
                   item.type === "track"
