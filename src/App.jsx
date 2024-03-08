@@ -1,11 +1,11 @@
+import "./App.css";
 import { useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
+import { getUserToken } from "./util/spotify";
+import MainProvider from "./MainContext";
+
 import Login from "./pages/Login";
 import Home from "./pages/Home";
-import { getUserToken } from "./util/spotify";
-import "./App.css";
-import MainProvider, { MainContext } from "./MainContext";
-import { useContext } from "react";
 
 function App() {
   // const { token, setToken } = useContext(MainContext);

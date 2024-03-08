@@ -1,52 +1,12 @@
-import { useContext, useEffect } from "react";
-import CardsContainer from "../components/CardsContainer";
-import {
-  getRecentlyPlayed,
-  getRandomTrackRecommendations,
-} from "../util/spotify";
-
-import { useNavigate } from "react-router-dom";
-// import { MainContext } from "./Home";
-import { MainContext } from "../MainContext";
-
 import { motion } from "framer-motion";
 import { FaRandom } from "react-icons/fa";
 
+import useHistory from "../hooks/useHistory";
+import { pageMenu } from "../util/motion";
+import CardsContainer from "../components/CardsContainer";
+
 const Recents = () => {
-  const { list, setList, showDetails } = useContext(MainContext);
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    handleGetRecents();
-  }, []);
-
-  const handleGetRecents = () => {
-    setList([]);
-    getRecentlyPlayed().then(setList);
-  };
-
-  const handleGetRandomCards = () => {
-    setList([]);
-    getRandomTrackRecommendations().then(setList);
-    navigate("/recommendations");
-  };
-
-  const pageMenu = {
-    hidden: {
-      x: -10,
-      opacity: 0,
-    },
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        mass: 0.5,
-      },
-    },
-  };
+  const { list, getRandomTracks } = useHistory();
 
   return (
     <section className="relative w-full my-6">
@@ -61,7 +21,7 @@ const Recents = () => {
 
         <div
           className="flex gap-2 items-center px-2 py-1 rounded-sm  bg-slate-700 hover:bg-primary hover:cursor-pointer max-sm:text-sm"
-          onClick={handleGetRandomCards}
+          onClick={getRandomTracks}
         >
           <FaRandom />
           Recommend Cards

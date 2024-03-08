@@ -1,55 +1,16 @@
-import React, { useContext, useEffect, useState } from "react";
-import CardsContainer from "../components/CardsContainer";
-import {
-  getRandomTrackRecommendations,
-  getUserTopItems,
-} from "../util/spotify";
-import { useNavigate } from "react-router-dom";
-// import { MainContext } from "./Home";
-import { MainContext } from "../MainContext";
-
-import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import { FaRandom } from "react-icons/fa";
 
+import useTracks from "../hooks/useTracks";
+import { pageMenu } from "../util/motion";
+import CardsContainer from "../components/CardsContainer";
+
 const Tracks = () => {
-  const { list, setList } = useContext(MainContext);
-
   const [activeTab, setActiveTab] = useState("short");
-  const navigate = useNavigate();
 
+  const { list, getTopTracks, getRandomTracks } = useTracks();
   const type = "tracks";
-
-  useEffect(() => {
-    setList([]);
-    handleGetTopTracks("tracks", "short_term");
-  }, []);
-
-  const handleGetTopTracks = (type, length) => {
-    setList([]);
-    getUserTopItems(type, length).then(setList);
-  };
-
-  const handleGetRandomCards = () => {
-    setList([]);
-    getRandomTrackRecommendations().then(setList);
-    navigate("/recommendations");
-  };
-
-  const pageMenu = {
-    hidden: {
-      x: -10,
-      opacity: 0,
-    },
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        mass: 0.5,
-      },
-    },
-  };
 
   return (
     <section className="relative w-full my-6">
@@ -66,7 +27,7 @@ const Tracks = () => {
           <div className="flex gap-4 max-sm:text-sm">
             <button
               onClick={() => {
-                handleGetTopTracks("tracks", "short_term");
+                getTopTracks("tracks", "short_term");
                 setActiveTab("short");
               }}
               className={`border-b-2 hover:border-b-primary ${
@@ -79,7 +40,7 @@ const Tracks = () => {
             </button>
             <button
               onClick={() => {
-                handleGetTopTracks("tracks", "medium_term");
+                getTopTracks("tracks", "medium_term");
                 setActiveTab("medium");
               }}
               className={`border-b-2 hover:border-b-primary ${
@@ -92,7 +53,7 @@ const Tracks = () => {
             </button>
             <button
               onClick={() => {
-                handleGetTopTracks("tracks", "long_term");
+                getTopTracks("tracks", "long_term");
                 setActiveTab("long");
               }}
               className={`border-b-2 hover:border-b-primary ${
@@ -105,7 +66,7 @@ const Tracks = () => {
         </div>
         <div
           className="flex gap-2 items-center px-2 py-1 rounded-sm bg-slate-700 hover:bg-primary hover:cursor-pointer max-sm:text-sm"
-          onClick={handleGetRandomCards}
+          onClick={getRandomTracks}
         >
           <FaRandom />
           Recommend Cards

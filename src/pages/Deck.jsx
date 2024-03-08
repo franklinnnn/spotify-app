@@ -1,14 +1,18 @@
 import { useState } from "react";
-import CardsContainer from "../components/CardsContainer";
-
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import { Dialog } from "@headlessui/react";
+import { FaRandom } from "react-icons/fa";
+
+import useDeck from "../hooks/useDeck";
+import useRecommend from "../hooks/useRecommend";
+import { pageMenu } from "../util/motion";
 import SavePlaylist from "../components/SavePlaylist";
-import useDeck from "../util/useDeck";
+import CardsContainer from "../components/CardsContainer";
 
 const Deck = () => {
   const { deck, deleteDeck } = useDeck();
+  const { getRandomTracks } = useRecommend();
   const [showSavePlaylist, setShowSavePlaylist] = useState(false);
   const [showDeletePlaylist, setShowDeletePlaylist] = useState(false);
 
@@ -18,22 +22,6 @@ const Deck = () => {
     deleteDeck();
     toast.success("Deck deleted");
     setShowDeletePlaylist(false);
-  };
-
-  const pageMenu = {
-    hidden: {
-      x: -10,
-      opacity: 0,
-    },
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        mass: 0.5,
-      },
-    },
   };
 
   const confirmBox = {
@@ -144,26 +132,19 @@ const Deck = () => {
         <div className="text-center mt-6">
           <h1 className="text-2xl">Deck is empty!</h1>{" "}
           <span>Add cards from your top tracks or get recommendations</span>
+          <div className="flex justify-center w-full p-2">
+            <button
+              className="flex gap-2 items-center w-54 px-2 py-1 rounded-sm bg-slate-700 hover:bg-primary hover:cursor-pointer max-sm:text-sm"
+              onClick={getRandomTracks}
+            >
+              <FaRandom />
+              Recommend Cards
+            </button>
+          </div>
         </div>
       ) : (
         <CardsContainer list={deck} type={type} />
       )}
-
-      {/* <div>
-        <h1 className="text-xl">Test Deck</h1>
-        <button
-          onClick={() => addSongToDeck(testSong)}
-          className="border-2 border-primary px-4 hover:bg-primary"
-        >
-          Test Add object
-        </button>
-        <button
-          onClick={deleteDeck}
-          className="border-2 border-primary px-4 hover:bg-primary"
-        >
-          Delete Deck
-        </button>
-      </div> */}
     </section>
   );
 };

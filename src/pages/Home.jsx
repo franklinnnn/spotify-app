@@ -1,30 +1,24 @@
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
+import { useContext } from "react";
+
+import { MainContext } from "../MainContext";
+import { getUserProfile } from "../util/spotify";
+
 import Nav from "../components/Nav";
-import { getUserProfile, getUserTopItems } from "../util/spotify";
-import Artists from "./Artists";
-import Deck from "./Deck";
-import Recents from "./Recents";
-import Recommendations from "./Recommendations";
+import Footer from "../components/Footer";
+
 import Tracks from "./Tracks";
+import Artists from "./Artists";
+import Recents from "./Recents";
+import Deck from "./Deck";
+import Recommendations from "./Recommendations";
 import RelatedArtists from "./RelatedArtists";
 import About from "./About";
-import Footer from "../components/Footer";
-import { useContext } from "react";
-import { MainContext } from "../MainContext";
 import Search from "./Search";
 
 const Home = ({ setToken }) => {
-  const { list, setList, type, setType, length, setLength, setUser } =
-    useContext(MainContext);
-
-  const handleGetList = async (type, length) => {
-    setList([]);
-    setType(type);
-    setLength(length);
-    getUserTopItems(type, length).then(setList);
-    console.log(`type: ${type}, length: ${length}`);
-  };
+  const { setUser } = useContext(MainContext);
 
   useEffect(() => {
     getUserProfile().then(setUser);
@@ -38,20 +32,11 @@ const Home = ({ setToken }) => {
       <Nav setToken={setToken} />
       <main className="md:w-[900px] min-h-[calc(100vh-10rem)] pb-4 over">
         <Routes>
-          <Route path="/" element={<Tracks handleGetList={handleGetList} />} />
-          <Route
-            path="top-tracks"
-            element={<Tracks handleGetList={handleGetList} />}
-          />
-          <Route
-            path="top-artists"
-            element={<Artists handleGetList={handleGetList} />}
-          />
+          <Route path="/" element={<Tracks />} />
+          <Route path="top-tracks" element={<Tracks />} />
+          <Route path="top-artists" element={<Artists />} />
           <Route path="recently-played" element={<Recents />} />
-          <Route
-            path="deck"
-            element={<Deck list={list} setList={setList} type={type} />}
-          />
+          <Route path="deck" element={<Deck />} />
           <Route path="search" element={<Search />} />
           <Route path="recommendations" element={<Recommendations />} />
           <Route path="related-artists" element={<RelatedArtists />} />

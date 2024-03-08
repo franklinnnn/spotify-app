@@ -1,39 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
-import CardsContainer from "../components/CardsContainer";
-import { getUserTopItems } from "../util/spotify";
-// import { MainContext } from "./Home";
-
-import { MainContext } from "../MainContext";
+import { useState } from "react";
 import { motion } from "framer-motion";
 
+import useArtists from "../hooks/useArtists";
+import { pageMenu } from "../util/motion";
+import CardsContainer from "../components/CardsContainer";
+
 const Artists = () => {
-  const { list, setList } = useContext(MainContext);
+  const { list, getTopArtists } = useArtists();
   const [activeTab, setActiveTab] = useState("short");
   const type = "artists";
-  useEffect(() => {
-    handleGetTopArtists("artists", "short_term");
-  }, []);
-
-  const handleGetTopArtists = (type, length) => {
-    setList([]);
-    getUserTopItems(type, length).then(setList);
-  };
-
-  const pageMenu = {
-    hidden: {
-      x: -10,
-      opacity: 0,
-    },
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        mass: 0.5,
-      },
-    },
-  };
 
   return (
     <section className="w-full my-6">
@@ -49,7 +24,7 @@ const Artists = () => {
           <div className="flex gap-4 max-sm:text-sm">
             <button
               onClick={() => {
-                handleGetTopArtists("artists", "short_term");
+                getTopArtists("artists", "short_term");
                 setActiveTab("short");
               }}
               className={`border-b-2 hover:border-b-primary ${
@@ -62,7 +37,7 @@ const Artists = () => {
             </button>
             <button
               onClick={() => {
-                handleGetTopArtists("artists", "medium_term");
+                getTopArtists("artists", "medium_term");
                 setActiveTab("medium");
               }}
               className={`border-b-2 hover:border-b-primary ${
@@ -75,7 +50,7 @@ const Artists = () => {
             </button>
             <button
               onClick={() => {
-                handleGetTopArtists("artists", "long_term");
+                getTopArtists("artists", "long_term");
                 setActiveTab("long");
               }}
               className={`border-b-2 hover:border-b-primary ${

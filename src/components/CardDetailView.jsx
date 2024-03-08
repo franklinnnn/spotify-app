@@ -11,7 +11,7 @@ import { dealDetailViewAnimation } from "../util/motion";
 import { AiOutlineCheck, AiOutlinePlus } from "react-icons/ai";
 import { toast } from "react-toastify";
 import albumPlaceholder from "../assets/album-placeholder.jpg";
-import useDeck from "../util/useDeck";
+import useDeck from "../hooks/useDeck";
 
 const CardDetailView = ({ item, index, image, setCardDetails }) => {
   const { setShowDetails } = useContext(MainContext);

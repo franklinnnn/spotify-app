@@ -1,42 +1,21 @@
-import React, { useContext } from "react";
+import { motion } from "framer-motion";
 import { FaRandom } from "react-icons/fa";
+
+import { pageMenu } from "../util/motion";
+import useRecommend from "../hooks/useRecommend";
 import CardsContainer from "../components/CardsContainer";
-import { getRandomTrackRecommendations } from "../util/spotify";
-// import { MainContext } from "./Home";
+import { useContext } from "react";
 import { MainContext } from "../MainContext";
 
-import { motion } from "framer-motion";
-
 const Recommendations = () => {
-  const { list, setList, showDetails } = useContext(MainContext);
+  const { list } = useContext(MainContext);
+  const { loading, getRandomTracks } = useRecommend();
   const type = "tracks";
-  const handleGetRandomCards = () => {
-    setList([]);
-    getRandomTrackRecommendations().then(setList);
-  };
-
-  const pageMenu = {
-    hidden: {
-      x: -10,
-      opacity: 0,
-    },
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        mass: 0.5,
-      },
-    },
-  };
 
   return (
     <section className="w-full my-6">
       <motion.header
-        className={`relative flex items-center justify-between gap-6 px-6 ${
-          showDetails ? "opacity-60 blur-sm pointer-events-none" : "opacity-100"
-        } max-sm:flex-col max-sm:gap-2`}
+        className="relative flex items-center justify-between gap-6 px-6 max-sm:flex-col"
         variants={pageMenu}
         initial="hidden"
         animate="visible"
@@ -45,13 +24,19 @@ const Recommendations = () => {
         <h1 className="text-2xl">Recommended</h1>
         <div
           className="flex gap-2 items-center px-2 py-1 rounded-sm bg-slate-700 hover:bg-primary hover:cursor-pointer max-sm:text-sm"
-          onClick={handleGetRandomCards}
+          onClick={getRandomTracks}
         >
           <FaRandom />
           Recommend Cards
         </div>
       </motion.header>
-      <CardsContainer list={list} type={type} />
+      {loading ? (
+        <div className="flex justify-center items-center w-full p-4 text-2xl text-white font-mono">
+          Getting songs...
+        </div>
+      ) : (
+        <CardsContainer list={list} type={type} />
+      )}
     </section>
   );
 };

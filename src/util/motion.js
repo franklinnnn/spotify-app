@@ -1,3 +1,19 @@
+export const pageMenu = {
+  hidden: {
+    x: -10,
+    opacity: 0,
+  },
+  visible: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      mass: 0.5,
+    },
+  },
+};
+
 export const drawFannedInitial = { opacity: 0, translateY: 150 };
 export const drawFannedAnimate = { opacity: 1, translateY: 0 };
 export const drawFannedExit = { opacity: 0, translateY: 150 };

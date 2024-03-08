@@ -1,25 +1,24 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { getRecommendations, getAudioFeatures } from "../../util/spotify";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { MainContext } from "../../MainContext";
-
-import CardButtons from "./CardButtons";
 import VanillaTilt from "vanilla-tilt";
-
-import { FaBolt } from "react-icons/fa";
-import { BsDiscFill } from "react-icons/bs";
-import { MdAccessTimeFilled, MdStars } from "react-icons/md";
-import { RiRunFill } from "react-icons/ri";
-
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import {
   AnimatePresence,
   motion,
   useMotionValue,
   useTransform,
 } from "framer-motion";
-import useDeck from "../../util/useDeck";
+import { FaBolt } from "react-icons/fa";
+import { BsDiscFill } from "react-icons/bs";
+import { MdAccessTimeFilled, MdStars } from "react-icons/md";
+import { RiRunFill } from "react-icons/ri";
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import { MainContext } from "../../MainContext";
+import { getRecommendations, getAudioFeatures } from "../../util/spotify";
+import useDeck from "../../hooks/useDeck";
+import CardButtons from "./CardButtons";
 
 const TrackDetails = ({ cardDetails }) => {
   const { setList, setShowDetails } = useContext(MainContext);
