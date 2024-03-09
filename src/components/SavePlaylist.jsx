@@ -10,9 +10,8 @@ import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import { myPlaylistsAnimation } from "../util/motion";
 
-const SavePlaylist = () => {
-  const { user, deck, setDeck, showDetails, cardDetailsVisible } =
-    useContext(MainContext);
+const SavePlaylist = ({ deck }) => {
+  const { user, showDetails, cardDetailsVisible } = useContext(MainContext);
   const [playlists, setPlaylists] = useState([]);
   const [selectPlaylistId, setSelectPlaylistId] = useState("");
 

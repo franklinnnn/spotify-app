@@ -8,8 +8,8 @@ import { useContext } from "react";
 import { MainContext } from "../MainContext";
 
 const Recommendations = () => {
-  const { list } = useContext(MainContext);
-  const { loading, getRandomTracks } = useRecommend();
+  // const { list } = useContext(MainContext);
+  const { list, loading, getRandomTracks } = useRecommend();
   const type = "tracks";
 
   return (

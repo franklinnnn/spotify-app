@@ -51,7 +51,7 @@ const Deck = () => {
         <div className="fixed inset-0 flex items-center justify-center p-4">
           <Dialog.Panel>
             <div className="-mt-12 text-white">
-              <SavePlaylist />
+              <SavePlaylist deck={deck} />
             </div>
           </Dialog.Panel>
         </div>
