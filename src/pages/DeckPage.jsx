@@ -5,12 +5,12 @@ import { Dialog } from "@headlessui/react";
 import { FaRandom } from "react-icons/fa";
 
 import useDeck from "../hooks/useDeck";
-import useRecommend from "../hooks/useRecommend";
+import useRecommend from "../hooks/useRandomRecommendations";
 import { pageMenu } from "../util/motion";
 import SavePlaylist from "../components/SavePlaylist";
 import CardsContainer from "../components/CardsContainer";
 
-const Deck = () => {
+const DeckPage = () => {
   const { deck, deleteDeck } = useDeck();
   const { getRandomTracks } = useRecommend();
   const [showSavePlaylist, setShowSavePlaylist] = useState(false);
@@ -51,7 +51,10 @@ const Deck = () => {
         <div className="fixed inset-0 flex items-center justify-center p-4">
           <Dialog.Panel>
             <div className="-mt-12 text-white">
-              <SavePlaylist deck={deck} />
+              <SavePlaylist
+                deck={deck}
+                setShowSavePlaylist={setShowSavePlaylist}
+              />
             </div>
           </Dialog.Panel>
         </div>
@@ -149,4 +152,4 @@ const Deck = () => {
   );
 };
 
-export default Deck;
+export default DeckPage;

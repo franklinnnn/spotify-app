@@ -5,7 +5,7 @@ import useHistory from "../hooks/useHistory";
 import { pageMenu } from "../util/motion";
 import CardsContainer from "../components/CardsContainer";
 
-const Recents = () => {
+const HistoryPage = () => {
   const { list, getRandomTracks } = useHistory();
 
   return (
@@ -27,9 +27,9 @@ const Recents = () => {
           Recommend Cards
         </div>
       </motion.header>
-      <CardsContainer list={list} />
+      <CardsContainer list={list} type="tracks" />
     </section>
   );
 };
 
-export default Recents;
+export default HistoryPage;

@@ -1,12 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import VanillaTilt from "vanilla-tilt";
-import {
-  AnimatePresence,
-  motion,
-  useMotionValue,
-  useTransform,
-} from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { FaBolt } from "react-icons/fa";
 import { BsDiscFill } from "react-icons/bs";
 import { MdAccessTimeFilled, MdStars } from "react-icons/md";
@@ -16,14 +11,15 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { MainContext } from "../../MainContext";
-import { getRecommendations, getAudioFeatures } from "../../util/spotify";
 import useDeck from "../../hooks/useDeck";
 import CardButtons from "./CardButtons";
+import useTrack from "../../hooks/useTrack";
+import { setCardColor } from "../../util/color";
 
 const TrackDetails = ({ cardDetails }) => {
   const { setList, setShowDetails } = useContext(MainContext);
+  const { artists, artistId, bpm, length, energy } = useTrack(cardDetails);
   const { deck, addSongToDeck } = useDeck();
-  const [features, setFeatures] = useState({});
   const [isInDeck, setIsInDeck] = useState(false);
   const [showConfirmRecommend, setShowConfirmRecommend] = useState(false);
   const [cardAdded, setCardAdded] = useState(false);
@@ -34,15 +30,12 @@ const TrackDetails = ({ cardDetails }) => {
     //   isPlaying && audio.pause();
     setShowConfirmRecommend(false);
     setList([]);
-    getRecommendations(artistId, trackId).then(setList);
     setShowDetails(false);
-    navigate("/recommendations");
+    navigate(`/recommendations/${artistId}/${cardDetails.id}`);
   };
 
   const handleAddCardToDeck = () => {
-    // !isInDeck && setDeck((prevDeck) => [...prevDeck, cardDetails]);
     !isInDeck && addSongToDeck(cardDetails);
-
     console.log("card saved to deck");
     setCardAdded(true);
     setTimeout(() => {
@@ -51,40 +44,12 @@ const TrackDetails = ({ cardDetails }) => {
     setIsInDeck(true);
   };
 
-  const handleGetAudioFeatures = () => {
-    setFeatures({});
-    getAudioFeatures(trackId).then(setFeatures);
-  };
-
   useEffect(() => {
-    handleGetAudioFeatures();
-    handleMainColor(cardDetails.popularity);
     const cardInDeck = deck.some((track) => track.id === cardDetails.id);
     if (cardInDeck) {
       setIsInDeck(true);
     }
   }, []);
-
-  const handleMainColor = (popularity) => {
-    let color = "";
-    if (popularity >= 81 && popularity <= 100) {
-      color = "#d97706";
-      document.documentElement.style.setProperty("--popularity", color);
-    } else if (popularity >= 61 && popularity <= 80) {
-      color = "#7c3aed";
-      document.documentElement.style.setProperty("--popularity", color);
-    } else if (popularity >= 41 && popularity <= 60) {
-      color = "#0284c7";
-      document.documentElement.style.setProperty("--popularity", color);
-    } else if (popularity >= 21 && popularity <= 40) {
-      color = "#059669";
-      document.documentElement.style.setProperty("--popularity", color);
-    } else if (popularity >= 0 && popularity <= 20) {
-      color = "#475569";
-      document.documentElement.style.setProperty("--popularity", color);
-    }
-    return color;
-  };
 
   const Tilt = (props) => {
     const { options, ...rest } = props;
@@ -101,22 +66,6 @@ const TrackDetails = ({ cardDetails }) => {
     perspective: 5000,
     max: 12,
   };
-
-  const artistId = cardDetails.artists ? cardDetails.artists[0].id : null;
-  const trackId = cardDetails.id;
-  const artists = cardDetails.artists?.map(
-    (artist, index) => (index ? ", " : "") + artist.name
-  );
-
-  const bpm = Math.round(features.tempo);
-  const ms = new Date(cardDetails.duration_ms);
-  const length = `${ms.getMinutes()}.${ms.getSeconds()}`;
-  const energy = Math.round(features.energy * 100) / 100;
-
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const rotateX = useTransform(y, [-100, 100], [30, -30]);
-  const rotateY = useTransform(x, [-100, 100], [30, -30]);
 
   return (
     <Tilt

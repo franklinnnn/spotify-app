@@ -4,8 +4,8 @@ import { BrowserRouter } from "react-router-dom";
 import { getUserToken } from "./util/spotify";
 import MainProvider from "./MainContext";
 
-import Login from "./pages/Login";
-import Home from "./pages/Home";
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   // const { token, setToken } = useContext(MainContext);
@@ -22,7 +22,7 @@ function App() {
       </div>
       <BrowserRouter>
         <MainProvider>
-          {token ? <Home setToken={setToken} /> : <Login />}
+          {token ? <HomePage setToken={setToken} /> : <LoginPage />}
         </MainProvider>
       </BrowserRouter>
     </div>

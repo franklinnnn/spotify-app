@@ -3,7 +3,7 @@ import { BsSpotify } from "react-icons/bs";
 import { loginUrl } from "../util/spotify";
 import logo from "../assets/logo.png";
 
-const Login = () => {
+const LoginPage = () => {
   // console.log(loginUrl);
   return (
     <section className="flex flex-col items-center justify-center gap-2 h-[100vh]">
@@ -42,4 +42,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

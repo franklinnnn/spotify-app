@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getRandomTrackRecommendations } from "../util/spotify";
 import { useNavigate } from "react-router-dom";
 
-const useRecommend = () => {
+const useRandomRecommendations = () => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -29,4 +29,4 @@ const useRecommend = () => {
   };
 };
 
-export default useRecommend;
+export default useRandomRecommendations;

@@ -1,24 +1,10 @@
 import { motion } from "framer-motion";
+import { pageMenu } from "../util/motion";
 import trackCardImg from "../assets/card_track.png";
 import artistCardImg from "../assets/card_artist.png";
 import deckImg from "../assets/deck.png";
 
-const About = () => {
-  const pageMenu = {
-    hidden: {
-      x: -10,
-      opacity: 0,
-    },
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        mass: 0.5,
-      },
-    },
-  };
+const AboutPage = () => {
   return (
     <article className="relative w-full my-6 pb-12 max-sm:px-2">
       <motion.div
@@ -189,4 +175,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default AboutPage;

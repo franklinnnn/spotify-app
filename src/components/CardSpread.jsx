@@ -6,6 +6,7 @@ import { BsPlayFill } from "react-icons/bs";
 import { HiArrowLongRight } from "react-icons/hi2";
 import { motion } from "framer-motion";
 import { dealSpreadAnimation } from "../util/motion";
+import { setCardColor } from "../util/color";
 
 const CardSpread = ({ item, index, image, setCardDetails }) => {
   const { setShowDetails } = useContext(MainContext);
@@ -135,13 +136,17 @@ const CardSpread = ({ item, index, image, setCardDetails }) => {
     >
       <div
         className="h-full font-disp p-2 bg-slate-300/60 rounded-md bg-gradient-to-t from-black/60 to-transparent backdrop-blur-sm box-border duration-300"
-        style={{ border: `3px solid ${handleMainColor(item.popularity)}` }}
+        style={{
+          border: `3px solid ${setCardColor(
+            item.popularity ? item.popularity : "0"
+          )}`,
+        }}
       >
         <div
           className="group/preview flex justify-center items-center aspect-square bg-cover hover:cursor-pointer"
           onClick={item.type === "artist" ? handleCardDetails : preview}
         >
-          {item.type === "artist" ? null : (
+          {item.type === "artist" || item.type === "album" ? null : (
             <div className="absolute top-0 left-0 right-0 bottom-20 flex justify-center items-center ">
               {!trackPreview ? (
                 <span className="hidden group-hover/preview:block rounded-full bg-primary text-4xl p-4">

@@ -9,7 +9,7 @@ const MainProvider = ({ children }) => {
   const [length, setLength] = useState("short_term");
   const [showDetails, setShowDetails] = useState(false);
   const [cardHand, setCardHand] = useState("fanned");
-
+  const [isPlayingPreview, setIsPlayingPreview] = useState(false);
   const [loading, setLoading] = useState(false);
 
   return (
@@ -27,6 +27,8 @@ const MainProvider = ({ children }) => {
         setShowDetails,
         cardHand,
         setCardHand,
+        isPlayingPreview,
+        setIsPlayingPreview,
         loading,
         setLoading,
       }}

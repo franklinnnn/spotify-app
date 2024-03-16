@@ -8,6 +8,7 @@ import TrackDetails from "./card/TrackDetails";
 import { motion } from "framer-motion";
 import CardDetailView from "./CardDetailView";
 import { Dialog, Transition } from "@headlessui/react";
+import AlbumDetails from "./card/AlbumDetails";
 
 const CardsContainer = ({ list, type }) => {
   const { setList, showDetails, setShowDetails, cardHand, setCardHand } =
@@ -71,13 +72,17 @@ const CardsContainer = ({ list, type }) => {
             >
               <Dialog.Panel>
                 <div className="-mt-12 text-white">
-                  {type === "artists" ? (
+                  {type === "artists" && (
                     <ArtistDetails
                       cardDetails={cardDetails}
                       setList={setList}
                     />
-                  ) : (
+                  )}
+                  {type === "tracks" && (
                     <TrackDetails cardDetails={cardDetails} />
+                  )}
+                  {type === "albums" && (
+                    <AlbumDetails cardDetails={cardDetails} />
                   )}
                 </div>
               </Dialog.Panel>

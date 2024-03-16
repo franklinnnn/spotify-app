@@ -49,17 +49,45 @@ export const getUserProfile = async () => {
   return response.data;
 };
 
-export const getNew = async () => {
+export const getNew = async (offset) => {
   const token = getUserToken();
   const response = await axios.get(
-    `https://api.spotify.com/v1/search?q=tag:new&type=album,track&market=JP&limit=50&`,
+    `https://api.spotify.com/v1/search?q=tag:new&type=album&market=JP&limit=7&offset=${offset}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     }
   );
-  return response;
+  return response.data.albums.items;
+};
+
+export const getNewReleases = async () => {
+  const token = getUserToken();
+  const response = await axios.get(
+    `https://api.spotify.com/v1/browse/new-releases?offset=0&limit=7
+  `,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  return response.data.albums.items;
+};
+
+export const getAlbum = async (albumId) => {
+  const token = getUserToken();
+  const response = await axios.get(
+    `https://api.spotify.com/v1/albums/${albumId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return response.data;
 };
 
 export const getRelatedArtists = async (artistId) => {
@@ -294,21 +322,8 @@ export const searchForTrack = async (query) => {
     },
   };
   const response = await axios.get(
-    `https://api.spotify.com/v1/search?q=${query}&type=track&limit=10`,
+    `https://api.spotify.com/v1/search?q=${query}&type=track%2Cartist&limit=10`,
     config
   );
   return response.data;
-};
-
-export const addSongToDeck = (song) => {
-  let deck = localStorage.getItem("deck");
-  if (!deck || deck === null) {
-    let newDeck = [song];
-    deck = localStorage.setItem("deck", JSON.stringify(newDeck));
-  }
-
-  let updatedDeck = JSON.parse(deck);
-  updatedDeck.push(song);
-
-  localStorage.setItem("deck", JSON.stringify(updatedDeck));
 };

@@ -9,8 +9,13 @@ import {
   HiClock,
   HiOutlineClock,
 } from "react-icons/hi2";
-import { RiStackLine, RiStackFill } from "react-icons/ri";
-import { BiMenu, BiSearch } from "react-icons/bi";
+import {
+  RiStackLine,
+  RiStackFill,
+  RiSearchLine,
+  RiSearchFill,
+} from "react-icons/ri";
+import { BiMenu } from "react-icons/bi";
 import { motion } from "framer-motion";
 import logo from "../assets/logo.png";
 import { ToastContainer } from "react-toastify";
@@ -39,11 +44,11 @@ const Nav = ({ setToken }) => {
     },
     {
       name: "History",
-      url: "/recently-played",
+      url: "/history",
       cardHand: cardHand,
       icon: <HiClock />,
       activeIcon: <HiOutlineClock />,
-      activePage: "recents",
+      activePage: "history",
       cardHand: cardHand,
     },
     {
@@ -57,10 +62,10 @@ const Nav = ({ setToken }) => {
     {
       name: "Search",
       url: "/search",
-      icon: <BiSearch />,
-      activeIcon: <BiSearch />,
+      icon: <RiSearchFill />,
+      activeIcon: <RiSearchLine />,
       activePage: "search",
-      cardHand: "spread",
+      cardHand: cardHand,
     },
   ];
 

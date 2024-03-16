@@ -7,6 +7,7 @@ import { BsPlayFill } from "react-icons/bs";
 import { HiArrowLongRight } from "react-icons/hi2";
 import { motion } from "framer-motion";
 import { dealFannedAnimation } from "../util/motion";
+import { setCardColor } from "../util/color";
 
 const CardFanned = ({ item, index, image, setCardDetails }) => {
   const { setShowDetails } = useContext(MainContext);
@@ -77,22 +78,6 @@ const CardFanned = ({ item, index, image, setCardDetails }) => {
     setImgLoaded(true);
   };
 
-  const handleMainColor = (popularity) => {
-    let color = "";
-    if (popularity >= 81 && popularity <= 100) {
-      color = "#d97706";
-    } else if (popularity >= 61 && popularity <= 80) {
-      color = "#7c3aed";
-    } else if (popularity >= 41 && popularity <= 60) {
-      color = "#0284c7";
-    } else if (popularity >= 21 && popularity <= 40) {
-      color = "#059669";
-    } else if (popularity >= 0 && popularity <= 20) {
-      color = "#475569";
-    }
-    return color;
-  };
-
   const imgVariant = {
     hidden: {
       opacity: 0,
@@ -140,13 +125,17 @@ const CardFanned = ({ item, index, image, setCardDetails }) => {
       <div
         className="h-full font-disp p-2 bg-slate-300/60 rounded-md bg-gradient-to-t from-black/60 to-transparent backdrop-blur-sm box-border duration-300"
         id="card_border"
-        style={{ border: `3px solid ${handleMainColor(item.popularity)}` }}
+        style={{
+          border: `3px solid ${setCardColor(
+            item.popularity ? item.popularity : "0"
+          )}`,
+        }}
       >
         <div
           className="group/preview flex justify-center items-center aspect-square bg-cover hover:cursor-pointer"
           onClick={item.type === "artist" ? handleCardDetails : preview}
         >
-          {item.type === "artist" ? null : (
+          {item.type === "artist" || item.type === "album" ? null : (
             <div className="absolute top-0 left-0 right-0 bottom-20 flex justify-center items-center ">
               {!trackPreview ? (
                 <span className="hidden group-hover/preview:block rounded-full bg-primary text-4xl p-4">

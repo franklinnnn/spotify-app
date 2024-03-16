@@ -1,30 +1,32 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { FaRandom } from "react-icons/fa";
 
-import useArtists from "../hooks/useArtists";
+import useTracks from "../hooks/useTracks";
 import { pageMenu } from "../util/motion";
 import CardsContainer from "../components/CardsContainer";
 
-const Artists = () => {
-  const { list, getTopArtists } = useArtists();
+const TracksPage = () => {
   const [activeTab, setActiveTab] = useState("short");
-  const type = "artists";
+
+  const { list, getTopTracks, getRandomTracks } = useTracks();
 
   return (
-    <section className="w-full my-6">
+    <section className="relative w-full my-6">
       <motion.header
-        className="relative flex items-center justify-left px-6 max-sm:flex-col"
+        className="relative flex items-center justify-between px-6 max-sm:flex-col"
+        key="tracks page"
         variants={pageMenu}
         initial="hidden"
         animate="visible"
         exit="hidden"
       >
         <div className="flex items-center gap-6 max-sm:flex-col max-sm:gap-2 max-sm:mb-2">
-          <h1 className="text-2xl max-sm:text-xl">Top Artists</h1>
+          <h1 className="text-2xl max-sm:text-xl">Top Tracks</h1>
           <div className="flex gap-4 max-sm:text-sm">
             <button
               onClick={() => {
-                getTopArtists("artists", "short_term");
+                getTopTracks("tracks", "short_term");
                 setActiveTab("short");
               }}
               className={`border-b-2 hover:border-b-primary ${
@@ -37,7 +39,7 @@ const Artists = () => {
             </button>
             <button
               onClick={() => {
-                getTopArtists("artists", "medium_term");
+                getTopTracks("tracks", "medium_term");
                 setActiveTab("medium");
               }}
               className={`border-b-2 hover:border-b-primary ${
@@ -50,7 +52,7 @@ const Artists = () => {
             </button>
             <button
               onClick={() => {
-                getTopArtists("artists", "long_term");
+                getTopTracks("tracks", "long_term");
                 setActiveTab("long");
               }}
               className={`border-b-2 hover:border-b-primary ${
@@ -61,10 +63,17 @@ const Artists = () => {
             </button>
           </div>
         </div>
+        <div
+          className="flex gap-2 items-center px-2 py-1 rounded-sm bg-slate-700 hover:bg-primary hover:cursor-pointer max-sm:text-sm"
+          onClick={getRandomTracks}
+        >
+          <FaRandom />
+          Recommend Cards
+        </div>
       </motion.header>
-      <CardsContainer list={list} type={type} />
+      <CardsContainer list={list} type="tracks" />
     </section>
   );
 };
 
-export default Artists;
+export default TracksPage;

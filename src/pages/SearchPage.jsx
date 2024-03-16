@@ -1,21 +1,25 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CardsContainer from "../components/CardsContainer";
 import { MainContext } from "../MainContext";
 import { motion } from "framer-motion";
 import { BiSearch } from "react-icons/bi";
-import { getRandomTrackRecommendations, searchForTrack } from "../util/spotify";
+import { getNew, searchForTrack } from "../util/spotify";
+import { pageMenu } from "../util/motion";
 
-const Search = () => {
-  const { list, setList, showDetails, loading, setLoading } =
+const SearchPage = () => {
+  const { list, setList, cardHand, loading, setLoading } =
     useContext(MainContext);
   const [searchList, setSearchList] = useState([]);
   const [query, setQuery] = useState("");
-  const type = "tracks";
+  const [type, setType] = useState("albums");
+  const [offset, setOffset] = useState(0);
 
-  //   useEffect(() => {
-  //     setList([]);
-  //     getRandomTrackRecommendations().then(setList);
-  //   }, []);
+  useEffect(() => {
+    setList([]);
+    getNew(offset).then((data) => {
+      setList(data);
+    });
+  }, [offset]);
 
   const handleSearchQuery = (e) => {
     e.preventDefault();
@@ -24,26 +28,16 @@ const Search = () => {
     searchForTrack(query).then((res) => {
       setTimeout(() => {
         setSearchList(res.tracks.items), 1;
+        setType("tracks");
       }, 500);
       setLoading(false);
     });
   };
 
-  const pageMenu = {
-    hidden: {
-      x: -10,
-      opacity: 0,
-    },
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        mass: 0.5,
-      },
-    },
+  const handleMoreNewReleases = () => {
+    setOffset(offset + 7);
   };
+
   return (
     <section className="relative w-full my-6">
       <motion.header
@@ -79,13 +73,29 @@ const Search = () => {
           Loading...
         </div>
       ) : (
-        <CardsContainer
-          list={searchList.length > 1 ? searchList : list}
-          type={type}
-        />
+        <>
+          <CardsContainer
+            list={searchList.length > 1 ? searchList : list}
+            type={type}
+          />
+          {type === "albums" && (
+            <div
+              className={`w-full flex justify-center ${
+                cardHand === "fanned" && "mt-24"
+              }`}
+            >
+              <button
+                onClick={handleMoreNewReleases}
+                className="flex gap-2 items-center px-2 py-1 rounded-sm bg-slate-700 hover:bg-primary hover:cursor-pointer max-sm:text-s"
+              >
+                More new releases
+              </button>
+            </div>
+          )}
+        </>
       )}
     </section>
   );
 };
 
-export default Search;
+export default SearchPage;

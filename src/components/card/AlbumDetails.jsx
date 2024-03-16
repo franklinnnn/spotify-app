@@ -1,36 +1,27 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { BsPersonFill } from "react-icons/bs";
-import { MdStars } from "react-icons/md";
+import { BsDiscFill } from "react-icons/bs";
+import { MdAccessTimeFilled } from "react-icons/md";
+import { FaCalendar, FaListOl } from "react-icons/fa";
 
-import { MainContext } from "../../MainContext";
-import { getRelatedArtists } from "../../util/spotify";
-import useArtist from "../../hooks/useArtist";
 import CardButtons from "./CardButtons";
 
-const ArtistDetails = ({ cardDetails }) => {
-  const { setList, setShowDetails } = useContext(MainContext);
+import { testAlbum } from "../../util/testData";
+import useAlbum from "../../hooks/useAlbum";
+
+const AlbumDetails = ({ cardDetails }) => {
   const {
-    artistId,
-    artistGenres,
-    artistImg,
-    topAlbums,
-    topTracks,
-    followedArtist,
-    isFollowed,
-    handleFollowArtist,
-  } = useArtist(cardDetails);
+    albumType,
+    album,
+    albumImg,
+    artists,
+    releaseDate,
+    tracks,
+    albumLength,
+  } = useAlbum(cardDetails);
   const [showConfirmRecommend, setShowConfirmRecommend] = useState(false);
   const navigate = useNavigate();
-
-  const handleGetRelatedArtists = async () => {
-    setShowConfirmRecommend(false);
-    setList([]);
-    getRelatedArtists(artistId).then(setList);
-    setShowDetails(false);
-    navigate(`/related-artists/${artistId}`);
-  };
 
   const Tilt = (props) => {
     const { options, ...rest } = props;
@@ -56,7 +47,7 @@ const ArtistDetails = ({ cardDetails }) => {
     >
       <div
         className="bg-cover bg-center rounded-lg w-[98%] md:w-[30rem] md:max-h-[45rem] hover:cursor-default"
-        style={{ backgroundImage: `url(${artistImg})` }}
+        style={{ backgroundImage: `url(${albumImg})` }}
         role="content container"
       >
         <article
@@ -70,81 +61,80 @@ const ArtistDetails = ({ cardDetails }) => {
               id="top"
             >
               <span className="text-lg">
-                <BsPersonFill />
+                <BsDiscFill />
               </span>
-              {cardDetails.type}
+              {albumType}
             </span>
             <span
               className="flex items-center gap-2 pl-1 pr-2 rounded-md font-num text-2xl  bg-slate-500/[0.6] ease-in-out duration-300 group-hover:scale-110 group-hover:translate-x-[0.5rem] group-hover:translate-y-[-0.2rem] group-hover:shadow-[0_0.2rem_1rem_0_rgba(0,0,0,0.5)]"
               id="top"
             >
               <span className="text-lg">
-                <MdStars />
+                <FaCalendar />
               </span>
-              {cardDetails.popularity}
+              {releaseDate.substring(0, 4)}
             </span>
           </header>
 
           {/* IMAGE */}
           <section className="flex justify-center items-center py-2 ease-in-out duration-500 group-hover:translate-y-[0.4rem] group-hover:scale-105">
             <img
-              src={artistImg}
+              src={albumImg}
               alt="cover"
               className="w-5/6 h-5/6 object-cover ease-in-out duration-700 group-hover:shadow-[0_35px_60px_-15px_rgba(0,0,0,0.8)]"
               id="img"
             />
           </section>
 
-          {/* ARTIST INFO */}
+          {/* ALBUM INFO */}
           <section className="px-4 flex flex-col justify-between mb-6">
             <div className="flex flex-col w-full h-full px-4 font-disp ease-in-out duration-500 group-hover:translate-y-2 group-hover:z-10 group-hover:scale-105 ">
               <span className="text-center text-4xl mt-4 mb-2 truncate">
-                {cardDetails.name}
+                {album}
               </span>
-            </div>
-            <div className="w-full flex justify-center">
-              <div>
-                {artistGenres
-                  .map((genre) => (
-                    <span
-                      key={genre}
-                      className="mx-1 my-2 text-xs px-2 py-1 bg-slate-500/[0.6] rounded-md duration-300"
-                      id="genres"
-                    >
-                      {genre}
-                    </span>
-                  ))
-                  .splice(0, 3)}
+              <div
+                className="flex flex-col gap-2 text-2xl text-slate-300 items-center border-b-[1px]
+               border-slate-500/20 pb-4"
+              >
+                <span className="text-center truncate">{artists}</span>
+                <span className="text-base text-center text-slate-400">
+                  {releaseDate}
+                </span>
               </div>
             </div>
+            <div className="flex justify-evenly text-slate-200 text-3xl mt-4 mb-8 ">
+              <div
+                className="flex items-center justify-center gap-2 w-24 p-1 rounded-md font-num  bg-slate-500/[0.4] ease-in-out duration-300 group-hover:shadow-[0_0.2rem_1rem_0_rgba(0,0,0,0.5)]"
+                id="stat"
+                title="Tempo"
+              >
+                <span className="text-[1.4rem]">
+                  <FaListOl />
+                </span>
 
-            <div
-              className="mx-4 my-2 border-b-[1px]
-               border-slate-500/20"
-            ></div>
-
-            {/* TRACKS AND ALBUMS */}
-            <section className="m-2">
-              <ArtistTopTracks tracks={topTracks} />
-              <ArtistTopAlbums albums={topAlbums} artistId={artistId} />
-            </section>
+                <span>{tracks}</span>
+              </div>
+              <div
+                className="flex items-center justify-center gap-2 w-24 p-1 rounded-md font-num  bg-slate-500/[0.4] ease-in-out duration-300 group-hover:shadow-[0_0.2rem_1rem_0_rgba(0,0,0,0.5)]"
+                id="stat"
+                title="Length"
+              >
+                <span className="text-lg">
+                  <MdAccessTimeFilled />
+                </span>
+                <span>{albumLength}</span>
+              </div>
+            </div>
           </section>
 
           <footer className="pt-8">
             <CardButtons
-              cardDetails={cardDetails}
+              cardDetails={testAlbum}
               setShowConfirmRecommend={setShowConfirmRecommend}
-              handleFollowArtist={handleFollowArtist}
-              isFollowed={isFollowed}
+              //   handleFollowArtist={handleFollowArtist}
+              //   isFollowed={isFollowed}
             />
           </footer>
-          <ConfirmRecommend
-            showConfirmRecommend={showConfirmRecommend}
-            setShowConfirmRecommend={setShowConfirmRecommend}
-            name={cardDetails.name}
-            handleGetRelatedArtists={handleGetRelatedArtists}
-          />
-          <ConfirmFollowedArtist followedArtist={followedArtist} />
         </article>
       </div>
     </Tilt>
@@ -286,4 +276,4 @@ const ArtistTopAlbums = ({ albums, artistId }) => {
   );
 };
 
-export default ArtistDetails;
+export default AlbumDetails;

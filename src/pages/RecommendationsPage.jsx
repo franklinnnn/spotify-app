@@ -2,14 +2,11 @@ import { motion } from "framer-motion";
 import { FaRandom } from "react-icons/fa";
 
 import { pageMenu } from "../util/motion";
-import useRecommend from "../hooks/useRecommend";
 import CardsContainer from "../components/CardsContainer";
-import { useContext } from "react";
-import { MainContext } from "../MainContext";
+import useRandomRecommendations from "../hooks/useRandomRecommendations";
 
-const Recommendations = () => {
-  // const { list } = useContext(MainContext);
-  const { list, loading, getRandomTracks } = useRecommend();
+const RecommendationsPage = () => {
+  const { list, loading, getRandomTracks } = useRandomRecommendations();
   const type = "tracks";
 
   return (
@@ -41,4 +38,4 @@ const Recommendations = () => {
   );
 };
 
-export default Recommendations;
+export default RecommendationsPage;

@@ -1,29 +1,12 @@
 import React, { useContext } from "react";
-import CardsContainer from "../components/CardsContainer";
-// import { MainContext } from "./Home";
-import { MainContext } from "../MainContext";
-
 import { motion } from "framer-motion";
+import { MainContext } from "../MainContext";
+import { pageMenu } from "../util/motion";
+import CardsContainer from "../components/CardsContainer";
 
-const RelatedArtists = () => {
+const RelatedArtistsPage = () => {
   const { list, showDetails } = useContext(MainContext);
   const type = "artists";
-
-  const pageMenu = {
-    hidden: {
-      x: -10,
-      opacity: 0,
-    },
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        mass: 0.5,
-      },
-    },
-  };
 
   return (
     <section className="w-full my-6">
@@ -43,4 +26,4 @@ const RelatedArtists = () => {
   );
 };
 
-export default RelatedArtists;
+export default RelatedArtistsPage;
