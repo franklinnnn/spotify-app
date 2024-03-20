@@ -11,12 +11,15 @@ const useTrack = (details) => {
   const [length, setLength] = useState("");
   const [energy, setEnergy] = useState(0);
   const [trackPreview, setTrackPreview] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const getFeatures = () => {
+    setLoading(true);
     getAudioFeatures(details.type === "track" && details.id).then((data) => {
       setBpm(Math.round(data.tempo));
       setEnergy(Math.round(data.energy * 100) / 100);
     });
+    setLoading(false);
   };
 
   const getLength = () => {
@@ -49,6 +52,7 @@ const useTrack = (details) => {
     length,
     energy,
     trackPreview,
+    loading,
   };
 };
 

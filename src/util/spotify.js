@@ -52,7 +52,7 @@ export const getUserProfile = async () => {
 export const getNew = async (offset) => {
   const token = getUserToken();
   const response = await axios.get(
-    `https://api.spotify.com/v1/search?q=tag:new&type=album&market=JP&limit=7&offset=${offset}`,
+    `https://api.spotify.com/v1/search?q=tag:new&type=album&market=JP&limit=20&offset=${offset}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -88,6 +88,19 @@ export const getAlbum = async (albumId) => {
     }
   );
   return response.data;
+};
+
+export const getTracks = async (tracks) => {
+  const token = getUserToken();
+  const response = await axios.get(
+    `https://api.spotify.com/v1/tracks?ids=${tracks}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return response.data.tracks;
 };
 
 export const getRelatedArtists = async (artistId) => {

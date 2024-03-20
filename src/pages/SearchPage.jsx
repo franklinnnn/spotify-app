@@ -35,7 +35,7 @@ const SearchPage = () => {
   };
 
   const handleMoreNewReleases = () => {
-    setOffset(offset + 7);
+    setOffset(offset + 20);
   };
 
   return (
@@ -80,7 +80,7 @@ const SearchPage = () => {
           />
           {type === "albums" && (
             <div
-              className={`w-full flex justify-center ${
+              className={`w-full flex justify-center my-12 ${
                 cardHand === "fanned" && "mt-24"
               }`}
             >

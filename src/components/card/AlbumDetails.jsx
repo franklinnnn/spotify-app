@@ -1,14 +1,20 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { BsDiscFill } from "react-icons/bs";
 import { MdAccessTimeFilled } from "react-icons/md";
-import { FaCalendar, FaListOl } from "react-icons/fa";
+import { FaBolt, FaCalendar, FaListOl } from "react-icons/fa";
 
 import CardButtons from "./CardButtons";
 
-import { testAlbum } from "../../util/testData";
 import useAlbum from "../../hooks/useAlbum";
+import { MainContext } from "../../MainContext";
+import useDeck from "../../hooks/useDeck";
+import CardDetailView from "../CardDetailView";
+import CardsContainer from "../CardsContainer";
+import { RiRunFill } from "react-icons/ri";
+import useTrack from "../../hooks/useTrack";
+import { AiOutlineCheck, AiOutlinePlus } from "react-icons/ai";
 
 const AlbumDetails = ({ cardDetails }) => {
   const {
@@ -16,12 +22,44 @@ const AlbumDetails = ({ cardDetails }) => {
     album,
     albumImg,
     artists,
+    artistIds,
     releaseDate,
     tracks,
+    albumTracks,
     albumLength,
   } = useAlbum(cardDetails);
+  const { addSongsToDeck } = useDeck();
+  const { setList, setShowDetails } = useContext(MainContext);
   const [showConfirmRecommend, setShowConfirmRecommend] = useState(false);
+  const [showConfirmAddToDeck, setShowConfirmAddToDeck] = useState(false);
+  const [cardAdded, setCardAdded] = useState(false);
+
+  const [showAlbumTracks, setShowAlbumTracks] = useState(false);
+
+  const toggleAlbumTracks = () => {
+    setShowAlbumTracks((showAlbumTracks) => !showAlbumTracks);
+  };
+
   const navigate = useNavigate();
+
+  const handleAddTracksToDeck = () => {
+    // addSongsToDeck(albumTracks.map((track) => track));
+    // setCardAdded(true);
+    // setTimeout(() => {
+    //   setCardAdded(false);
+    // }, 1600);
+    // console.log(`${albumTracks.length} cards added to deck`);
+
+    // setShowConfirmAddToDeck(false);
+    navigate(`/album/${cardDetails.id}`);
+  };
+
+  const handleGetNewList = () => {
+    setShowConfirmRecommend(false);
+    setList([]);
+    setShowDetails(false);
+    navigate(`/recommendations/${artistIds[0]}/${cardDetails.id}`);
+  };
 
   const Tilt = (props) => {
     const { options, ...rest } = props;
@@ -51,7 +89,7 @@ const AlbumDetails = ({ cardDetails }) => {
         role="content container"
       >
         <article
-          className="bg-gradient-to-t from-black to-transparent backdrop-blur-sm rounded-lg duration-300 group-hover:backdrop-blur-md "
+          className="relative bg-gradient-to-t from-black to-transparent backdrop-blur-sm rounded-lg duration-300 group-hover:backdrop-blur-md "
           id="border"
         >
           {/* TOP BAR */}
@@ -87,7 +125,7 @@ const AlbumDetails = ({ cardDetails }) => {
           </section>
 
           {/* ALBUM INFO */}
-          <section className="px-4 flex flex-col justify-between mb-6">
+          <section className=" px-4 flex flex-col justify-between mb-6">
             <div className="flex flex-col w-full h-full px-4 font-disp ease-in-out duration-500 group-hover:translate-y-2 group-hover:z-10 group-hover:scale-105 ">
               <span className="text-center text-4xl mt-4 mb-2 truncate">
                 {album}
@@ -96,17 +134,20 @@ const AlbumDetails = ({ cardDetails }) => {
                 className="flex flex-col gap-2 text-2xl text-slate-300 items-center border-b-[1px]
                border-slate-500/20 pb-4"
               >
-                <span className="text-center truncate">{artists}</span>
+                <span className="text-center ">{artists}</span>
                 <span className="text-base text-center text-slate-400">
                   {releaseDate}
                 </span>
               </div>
             </div>
+
+            {showAlbumTracks && <AlbumTracks list={albumTracks} />}
             <div className="flex justify-evenly text-slate-200 text-3xl mt-4 mb-8 ">
               <div
+                onClick={toggleAlbumTracks}
                 className="flex items-center justify-center gap-2 w-24 p-1 rounded-md font-num  bg-slate-500/[0.4] ease-in-out duration-300 group-hover:shadow-[0_0.2rem_1rem_0_rgba(0,0,0,0.5)]"
                 id="stat"
-                title="Tempo"
+                title="Tracks"
               >
                 <span className="text-[1.4rem]">
                   <FaListOl />
@@ -129,12 +170,26 @@ const AlbumDetails = ({ cardDetails }) => {
 
           <footer className="pt-8">
             <CardButtons
-              cardDetails={testAlbum}
+              cardDetails={cardDetails}
+              handleAddCardToDeck={handleAddTracksToDeck}
               setShowConfirmRecommend={setShowConfirmRecommend}
-              //   handleFollowArtist={handleFollowArtist}
+              setShowConfirmAddToDeck={setShowConfirmAddToDeck}
               //   isFollowed={isFollowed}
             />
           </footer>
+          <ConfirmRecommend
+            showConfirmRecommend={showConfirmRecommend}
+            setShowConfirmRecommend={setShowConfirmRecommend}
+            name={cardDetails.name}
+            handleGetNewList={handleGetNewList}
+          />
+          <ConfirmAddToDeck
+            showConfirmAddToDeck={showConfirmAddToDeck}
+            setShowConfirmAddToDeck={setShowConfirmAddToDeck}
+            tracks={tracks}
+            handleAddTracksToDeck={handleAddTracksToDeck}
+          />
+          <ConfirmAddedToDeck cardAdded={cardAdded} />
         </article>
       </div>
     </Tilt>
@@ -145,7 +200,7 @@ const ConfirmRecommend = ({
   showConfirmRecommend,
   setShowConfirmRecommend,
   name,
-  handleGetRelatedArtists,
+  handleGetNewList,
 }) => {
   return (
     <AnimatePresence>
@@ -164,7 +219,7 @@ const ConfirmRecommend = ({
         <div className="flex justify-center gap-2 text-white">
           <button
             className="px-2  rounded-sm bg-slate-800/60 hover:bg-slate-500"
-            onClick={handleGetRelatedArtists}
+            onClick={handleGetNewList}
           >
             Yes
           </button>
@@ -180,97 +235,136 @@ const ConfirmRecommend = ({
   );
 };
 
-const ConfirmFollowedArtist = ({ followedArtist }) => {
+const ConfirmAddToDeck = ({
+  showConfirmAddToDeck,
+  setShowConfirmAddToDeck,
+  tracks,
+  handleAddTracksToDeck,
+}) => {
   return (
     <AnimatePresence>
       <motion.div
-        className={`absolute left-0 bottom-0 flex flex-col w-full bg-gradient-to-t from-black to-transparent text-sm px-4 py-6 gap-2 rounded-b-lg ${
-          followedArtist ? "block" : "hidden"
+        className={`absolute left-0 bottom-0 flex flex-col w-full bg-gradient-to-t from-black to-transparent text-sm px-4 py-2 gap-2 rounded-b-sm ${
+          showConfirmAddToDeck ? "block" : "hidden"
         }`}
         id="confirm"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 10 }}
       >
-        <span className="text-center">Artist followed!</span>
+        <div className="text-center">
+          Add <span className="font-bold">{tracks}</span> cards to deck?
+        </div>
+        <div className="flex justify-center gap-2 text-white">
+          <button
+            className="px-2  rounded-sm bg-slate-800/60 hover:bg-slate-500"
+            onClick={handleAddTracksToDeck}
+          >
+            Yes
+          </button>
+          <button
+            className="px-2 rounded-sm bg-slate-800/60 hover:bg-slate-500"
+            onClick={() => setShowConfirmAddToDeck(false)}
+          >
+            No
+          </button>
+        </div>
       </motion.div>
     </AnimatePresence>
   );
 };
 
-const ArtistTopTracks = ({ tracks }) => {
-  const [loaded, setLoaded] = useState(false);
-
+const ConfirmAddedToDeck = ({ cardAdded }) => {
   return (
-    <div>
-      <span className="pl-6">Top Tracks</span>
-      <div className="grid grid-cols-4 px-4 text-sm">
-        {tracks
-          .sort((a, b) => b.popularity - a.popularity)
-          .map((track) => (
-            <a
-              href={track.external_urls.spotify}
-              key={track.id}
-              target="_blank"
-            >
-              <div className="group/album relative flex  gap-2 m-1  box-border items-center justify-center  rounded-md hover:scale-105 ease-in-out duration-300">
-                <img
-                  src={track.album?.images[1].url}
-                  className="w-16 h-16 group-hover/album:scale-110"
-                  alt="album cover"
-                  onLoad={() => setLoaded(true)}
-                />
-                <div className="absolute top-[-1.6rem] left-4  whitespace-nowrap font-disp rounded-md bg-slate-600 p-1  hidden group-hover/album:block">
-                  <p className="text-[1.2rem]">{track.name}</p>
-                </div>
-              </div>
-            </a>
-          ))
-          .slice(0, 4)}
-      </div>
-    </div>
+    <AnimatePresence>
+      <motion.div
+        className={`absolute left-0 bottom-0 flex flex-col w-full bg-gradient-to-t from-black to-transparent text-sm px-4 py-6 gap-2 ${
+          cardAdded ? "block" : "hidden"
+        }`}
+        id="confirm"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 10 }}
+      >
+        <span className="text-center">Cards saved to deck</span>
+      </motion.div>
+    </AnimatePresence>
   );
 };
-const ArtistTopAlbums = ({ albums, artistId }) => {
-  const [loaded, setLoaded] = useState(false);
+
+const AlbumTracks = ({ list }) => {
   return (
-    <div className="mt-2">
-      <span className="ml-6">Latest Album</span>
-      <div className="grid grid-rows-1 px-4 text-sm">
-        {albums
-          .filter((type) => type.album_type.includes("al"))
-          .map((album) => (
-            <a
-              href={album.external_urls.spotify}
-              key={album.id}
-              target="_blank"
-            >
-              <div className="group/album relative flex justify-between gap-2 m-1 p-1 box-border items-center bg-slate-500/[0.6] rounded-md hover:scale-105 ease-in-out duration-300 ">
-                <div className="flex items-center max-w-[20rem] gap-2 overflow-hidden">
-                  <img
-                    src={album.images[2]?.url}
-                    className="w-8 h-8"
-                    alt="album cover"
-                    onLoad={() => setLoaded(true)}
-                  />
-                  <span className="text-xl font-disp  whitespace-nowrap">
-                    {album.name}
-                  </span>
-                </div>
-                <span>{album.release_date.substring(0, 4)}</span>
-              </div>
-            </a>
-          ))
-          .slice(0, 1)}
+    <div className="absolute left-0 top-10 w-full h-[75%] md:h-[35rem] overflow-y-scroll z-20 bg-zinc-800/95 p-2 bg-gradient-to-t from-black to-transparent backdrop-blur-sm">
+      <div className="fixed left-0 w-full bg-zinc-800 ">
+        <h1 className="text-2xl text-center font-num uppercase px-1 pb-1 border-b-2 border-zinc-700">
+          Tracklist
+        </h1>
       </div>
-      <div className="text-center text-sm m-1 mb-2">
-        <a
-          className="hover:underline"
-          href={`https://open.spotify.com/artist/${artistId}/discography/all`}
-          target="_blank"
-        >
-          more albums
-        </a>
+      <div className="mt-12 flex flex-col justify-between w-full">
+        {list.map((item, index) => {
+          const { bpm, length, energy, trackId, loading } = useTrack(item);
+          return (
+            <div
+              key={item.id}
+              className="flex items-start justify-between gap-4 font-mono rounded-md my-2 p-1 w-full border-2 border-zinc-700 "
+            >
+              <div className="flex gap-4">
+                <span className="text-sm pl-1 pt-1">{index + 1}</span>
+                <div>
+                  <div className="flex flex-col mb-1 truncate md:max-w-[500px] text-sm md:text-lg w-full">
+                    <span>{item.name}</span>
+                  </div>
+                  <div className="flex items-center gap-1 md:gap-2 text-sm md:text-base">
+                    <div
+                      className="flex items-center justify-center gap-2 w-[5rem] p-1 rounded-md font-num bg-slate-500/[0.4] ease-in-out duration-300"
+                      // style={statStyle}
+                      title="Tempo"
+                    >
+                      <span className="text-sm md:text-[1.4rem]">
+                        <RiRunFill />
+                      </span>
+                      <span>{loading ? "--" : bpm}</span>
+                    </div>
+                    <div
+                      className="flex items-center justify-center gap-2 w-[5rem] p-1 rounded-md font-num bg-slate-500/[0.4] ease-in-out duration-300"
+                      // style={statStyle}
+                      title="Length"
+                    >
+                      <span className="text-smj md:text-lg">
+                        <MdAccessTimeFilled />
+                      </span>
+                      <span>{loading ? "--" : length}</span>
+                    </div>
+                    <div
+                      className="flex items-center justify-center gap-2 w-[5rem] p-1 rounded-md font-num bg-slate-500/[0.4] ease-in-out duration-300"
+                      // style={statStyle}
+                      title="Energy"
+                    >
+                      <span className="text-sm md:text-lg">
+                        <FaBolt />
+                      </span>
+                      <span>{loading ? "--" : energy}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button className="relative flex items-center justify-center m-2 group/add">
+                <div className="absolute right-6 -top-6 z-10 hidden group-hover/add:block bg-zinc-500 text-xs rounded-md w-20 p-1">
+                  <p>Quick add to deck</p>
+                </div>
+                {/* {isInDeck ? (
+            <AiOutlineCheck size={20} className="text-green-500" />
+          ) : ( */}
+                <AiOutlinePlus
+                  onClick={() => {}}
+                  size={20}
+                  className="hover:text-primary"
+                />
+                {/* )} */}
+              </button>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

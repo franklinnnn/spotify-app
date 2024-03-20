@@ -1,30 +1,27 @@
 import { useEffect, useState } from "react";
-import { getAlbum } from "../util/spotify";
+import { getAlbum, getTracks } from "../util/spotify";
 
 const useAlbum = (details) => {
   const [albumType, setAlbumType] = useState("");
   const [album, setAlbum] = useState("");
   const [albumImg, setAlbumImg] = useState("");
   const [artists, setArtists] = useState([]);
+  const [artistIds, setArtistIds] = useState([]);
   const [releaseDate, setReleaseDate] = useState("");
   const [tracks, setTracks] = useState("");
+  const [albumTracks, setAlbumTracks] = useState([]);
   const [albumLength, setAlbumLength] = useState("");
 
-  const getAlbumInfo = () => {
+  const getAlbumTracks = () => {
     getAlbum(details.id).then((data) => {
-      // console.log(details);
-      // setAlbumType(data.album_type);
-      // setAlbum(data.name);
-      // setAlbumImg(data.images[0].url);
-      // setArtists(data.artists.map((artist) => artist.name).join(", "));
-      // setReleaseDate(data.release_date);
-      setTracks(data.tracks.items.length);
-      calculateAlbumLength(data.tracks.items);
-    });
-  };
+      const ids = [];
+      data.tracks.items.map((track) => ids.push(track.id));
 
-  const calculateAlbumLength = () => {
-    getAlbum(details.id).then((data) => {
+      getTracks(ids.join(",")).then((data) => {
+        const tracks = [];
+        data.map((track) => tracks.push(track));
+        setAlbumTracks(tracks);
+      });
       const totalMs = data.tracks.items.reduce(
         (n, { duration_ms }) => n + duration_ms,
         0
@@ -40,8 +37,11 @@ const useAlbum = (details) => {
     setAlbum(details.name);
     setAlbumImg(details.images[0].url);
     setArtists(details.artists.map((artist) => artist.name).join(", "));
+    const ids = [];
+    details.artists.map((artist) => ids.push(artist.id));
+    setArtistIds(ids);
     setReleaseDate(details.release_date);
-    calculateAlbumLength();
+    getAlbumTracks();
   }, [details]);
 
   // console.log(
@@ -59,10 +59,11 @@ const useAlbum = (details) => {
     album,
     albumImg,
     artists,
+    artistIds,
     releaseDate,
     tracks,
+    albumTracks,
     albumLength,
-    calculateAlbumLength,
   };
 };
 

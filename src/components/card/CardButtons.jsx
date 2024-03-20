@@ -11,6 +11,7 @@ const CardButtons = ({
   handleAddCardToDeck,
   handleFollowArtist,
   setShowConfirmRecommend,
+  setShowConfirmAddToDeck,
   isInDeck,
   isFollowed,
 }) => {
@@ -50,7 +51,7 @@ const CardButtons = ({
         </span>
       </button>
 
-      {cardDetails.type === "track" ? (
+      {cardDetails.type === "track" && (
         <button
           className="group/button relative"
           onClick={handleAddCardToDeck}
@@ -61,7 +62,9 @@ const CardButtons = ({
             {isInDeck ? "Already in deck" : "Add to deck"}
           </span>
         </button>
-      ) : (
+      )}
+
+      {cardDetails.type === "artist" && (
         <button
           className="group/button relative"
           onClick={handleFollowArtist}
@@ -71,6 +74,18 @@ const CardButtons = ({
           <span className="absolute left-[-2rem] top-[-1.6rem] ml-6 text-xs whitespace-nowrap bg-slate-600 p-1 rounded hidden group-hover/button:block group-hover/button:z-10">
             {isFollowed ? "Artist in followed list" : "Follow artist"}
           </span>
+        </button>
+      )}
+
+      {cardDetails.type === "album" && (
+        <button
+          className="group/button relative hidden"
+          onClick={() => setShowConfirmAddToDeck(true)}
+        >
+          <HiSaveAs className="text-slate-600  group-hover:text-slate-200 group-hover/button:hover:text-primary easy-in-out duration-150" />
+          {/* <span className="absolute left-[-2rem] top-[-1.6rem] ml-6 text-xs whitespace-nowrap bg-slate-600 p-1 rounded hidden group-hover/button:block group-hover/button:z-10">
+          {isInDeck ? "Already in deck" : "Add to deck"}
+        </span> */}
         </button>
       )}
     </div>

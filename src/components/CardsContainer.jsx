@@ -155,8 +155,8 @@ const CardsContainer = ({ list, type }) => {
                 setCardHand("detail");
                 const image =
                   item.type === "track"
-                    ? item.album.images[0].url
-                    : item.images[0].url;
+                    ? item.album?.images[0].url
+                    : item?.images[0]?.url;
                 return (
                   <>
                     {cardHand === "detail" && (
@@ -175,8 +175,8 @@ const CardsContainer = ({ list, type }) => {
                 ?.map((item, index) => {
                   const image =
                     item.type === "track"
-                      ? item.album.images[0].url
-                      : item.images[0].url;
+                      ? item.album?.images[0].url
+                      : item?.images[0]?.url;
                   return (
                     <>
                       {cardHand === "fanned" && (

@@ -17,7 +17,7 @@ const DeckPage = () => {
   const [showDeletePlaylist, setShowDeletePlaylist] = useState(false);
 
   const type = "tracks";
-
+  console.log(deck);
   const handleDeleteDeck = () => {
     deleteDeck();
     toast.success("Deck deleted");

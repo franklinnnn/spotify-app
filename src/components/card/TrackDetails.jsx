@@ -221,9 +221,9 @@ const ConfirmRecommend = ({
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 10 }}
       >
-        <span className="text-center">
+        <div className="text-center">
           Get new cards based on <span className="font-bold">{name}</span>?
-        </span>
+        </div>
         <div className="flex justify-center gap-2 text-white">
           <button
             className="px-2  rounded-sm bg-slate-800/60 hover:bg-slate-500"
