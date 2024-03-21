@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { MainContext } from "../MainContext";
 
 const useDeck = () => {
+  // const { deck, setDeck } = useContext(MainContext);
   const [deck, setDeck] = useState([]);
 
   useEffect(() => {
@@ -20,27 +22,24 @@ const useDeck = () => {
     localStorage.setItem("deck", JSON.stringify(updatedDeck));
   };
 
-  const addSongsToDeck = (songs) => {
-    let storedDeck = localStorage.getItem("deck");
-    if (!storedDeck || storedDeck === null) {
-      console.log("no stored deck, creating new deck");
-      console.log(songs);
-      let newDeck = [...deck, songs[0]];
-      localStorage.setItem("deck", JSON.stringify(newDeck));
-      console.log(`new deck created with ${songs.length} cards`);
-    }
-    songs.map((song) => {
-      const updateDeck = [...deck, song];
-      localStorage.setItem("deck", JSON.stringify(updateDeck));
-    });
-  };
+  // useEffect(() => {
+  //   const storedDeck = localStorage.getItem("deck");
+  //   if (!storedDeck || storedDeck === null || storedDeck.length < 1) {
+  //     localStorage.setItem("deck", JSON.stringify(deck));
+  //   }
+  //   setList(JSON.parse(localStorage.getItem("deck")));
+  // }, []);
+
+  // const addSongToDeck = (song) => {
+  //   setDeck((prev) => [...prev, song]);
+  // };
 
   const deleteDeck = () => {
     setDeck([]);
     localStorage.removeItem("deck");
   };
 
-  return { deck, addSongToDeck, addSongsToDeck, deleteDeck };
+  return { deck, addSongToDeck, deleteDeck };
 };
 
 export default useDeck;

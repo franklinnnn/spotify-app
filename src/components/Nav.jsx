@@ -57,7 +57,7 @@ const Nav = ({ setToken }) => {
       icon: <RiStackFill />,
       activeIcon: <RiStackLine />,
       activePage: "deck",
-      cardHand: "spread",
+      cardHand: "detail",
     },
     {
       name: "Search",

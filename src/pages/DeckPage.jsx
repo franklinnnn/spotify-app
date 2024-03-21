@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import { Dialog } from "@headlessui/react";
@@ -11,13 +11,12 @@ import SavePlaylist from "../components/SavePlaylist";
 import CardsContainer from "../components/CardsContainer";
 
 const DeckPage = () => {
-  const { deck, deleteDeck } = useDeck();
+  const { deck, list, deleteDeck } = useDeck();
   const { getRandomTracks } = useRecommend();
   const [showSavePlaylist, setShowSavePlaylist] = useState(false);
   const [showDeletePlaylist, setShowDeletePlaylist] = useState(false);
 
   const type = "tracks";
-  console.log(deck);
   const handleDeleteDeck = () => {
     deleteDeck();
     toast.success("Deck deleted");
@@ -146,7 +145,9 @@ const DeckPage = () => {
           </div>
         </div>
       ) : (
-        <CardsContainer list={deck} type={type} />
+        <>
+          <CardsContainer list={deck} type={type} />
+        </>
       )}
     </section>
   );

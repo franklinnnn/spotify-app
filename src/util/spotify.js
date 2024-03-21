@@ -338,5 +338,6 @@ export const searchForTrack = async (query) => {
     `https://api.spotify.com/v1/search?q=${query}&type=track%2Cartist&limit=10`,
     config
   );
+  console.log(response.data);
   return response.data;
 };

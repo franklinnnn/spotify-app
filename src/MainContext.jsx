@@ -5,6 +5,8 @@ export const MainContext = createContext("");
 const MainProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [list, setList] = useState([]);
+  const [deck, setDeck] = useState([]);
+
   const [type, setType] = useState("tracks");
   const [length, setLength] = useState("short_term");
   const [showDetails, setShowDetails] = useState(false);
@@ -19,6 +21,8 @@ const MainProvider = ({ children }) => {
         setUser,
         list,
         setList,
+        deck,
+        setDeck,
         type,
         setType,
         length,

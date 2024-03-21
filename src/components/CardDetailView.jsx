@@ -52,7 +52,7 @@ const CardDetailView = ({ item, index, image, setCardDetails }) => {
   };
 
   useEffect(() => {
-    const cardInDeck = deck.some((track) => track.name === item.name);
+    const cardInDeck = deck?.some((track) => track.name === item.name);
     if (cardInDeck) {
       setIsInDeck(true);
     }
