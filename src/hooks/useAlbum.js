@@ -35,7 +35,7 @@ const useAlbum = (details) => {
   useEffect(() => {
     setAlbumType(details.album_type);
     setAlbum(details.name);
-    setAlbumImg(details.images[0].url);
+    setAlbumImg(details.images[0]?.url);
     setArtists(details.artists.map((artist) => artist.name).join(", "));
     const ids = [];
     details.artists.map((artist) => ids.push(artist.id));
