@@ -327,6 +327,20 @@ export const getUserPlaylists = async () => {
   return response.data;
 };
 
+export const getUserPlaylist = async (playlistId) => {
+  const token = getUserToken();
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const response = await axios.get(
+    `https://api.spotify.com/v1/playlists/${playlistId}`,
+    config
+  );
+  return response.data;
+};
+
 export const searchForTrack = async (query) => {
   const token = getUserToken();
   const config = {

@@ -22,6 +22,16 @@ const useDeck = () => {
     localStorage.setItem("deck", JSON.stringify(updatedDeck));
   };
 
+  const removeSongFromDeck = (song) => {
+    let storedDeck = localStorage.getItem("deck");
+    if (storedDeck) {
+      setDeck(JSON.parse(storedDeck));
+    }
+    const updatedDeck = deck.filter((item) => item.id !== song.id);
+    console.log(deck);
+    localStorage.setItem("deck", JSON.stringify(updatedDeck));
+  };
+
   // useEffect(() => {
   //   const storedDeck = localStorage.getItem("deck");
   //   if (!storedDeck || storedDeck === null || storedDeck.length < 1) {
@@ -39,7 +49,7 @@ const useDeck = () => {
     localStorage.removeItem("deck");
   };
 
-  return { deck, addSongToDeck, deleteDeck };
+  return { deck, addSongToDeck, removeSongFromDeck, deleteDeck };
 };
 
 export default useDeck;

@@ -17,6 +17,7 @@ import RelatedArtistsPage from "./RelatedArtistsPage";
 import AboutPage from "./AboutPage";
 import SearchPage from "./SearchPage";
 import SongRecommendationsPage from "./SongRecommendationsPage";
+import PlaylistPage from "./PlaylistPage";
 
 const HomePage = ({ setToken }) => {
   const { setUser } = useContext(MainContext);
@@ -48,6 +49,7 @@ const HomePage = ({ setToken }) => {
             path="related-artists/:artistId"
             element={<RelatedArtistsPage />}
           />
+          <Route path="/playlist/:playlistId" element={<PlaylistPage />} />
           <Route path="about" element={<AboutPage />} />
         </Routes>
       </main>

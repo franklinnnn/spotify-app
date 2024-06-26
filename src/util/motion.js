@@ -159,7 +159,7 @@ export const dealDetailViewAnimation = (index) => {
     exit: {
       opacity: 0,
     },
-    whileHover: { scale: 1.05, transition: { type: "spring", duration: 0.05 } },
+    whileHover: { scale: 1.02, transition: { type: "spring", duration: 0.05 } },
   };
 };
 
@@ -177,6 +177,6 @@ export const myPlaylistsAnimation = (index) => {
     exit: {
       opacity: 0,
     },
-    whileHover: { scale: 1.05, transition: { type: "spring", duration: 0.05 } },
+    whileHover: { scale: 1.02, transition: { type: "spring", duration: 0.05 } },
   };
 };

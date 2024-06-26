@@ -19,7 +19,7 @@ import useArtist from "../hooks/useArtist";
 
 const CardDetailView = ({ item, index, image, setCardDetails }) => {
   const { setShowDetails } = useContext(MainContext);
-  const { deck, addSongToDeck } = useDeck();
+  const { deck, addSongToDeck, removeSongFromDeck } = useDeck();
   const [isPlaying, setIsPlaying] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isHover, setIsHover] = useState(false);
@@ -56,11 +56,11 @@ const CardDetailView = ({ item, index, image, setCardDetails }) => {
     if (cardInDeck) {
       setIsInDeck(true);
     }
-  }, [item.type, item.id]);
+  }, [deck]);
 
   const handleCardDetails = () => {
     setCardDetails(item);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    // window.scrollTo({ top: 0, behavior: "smooth" });
     setShowDetails(true);
   };
 
@@ -87,10 +87,21 @@ const CardDetailView = ({ item, index, image, setCardDetails }) => {
     !isInDeck && addSongToDeck(item);
     toast.success("Card saved to deck");
     setCardAdded(true);
-    setTimeout(() => {
-      setCardAdded(false);
-    }, 1600);
+    // setTimeout(() => {
+    //   setCardAdded(false);
+    // }, 1600);
     setIsInDeck(true);
+  };
+
+  const handleRemoveCardFromDeck = () => {
+    isInDeck && removeSongFromDeck(item);
+    toast.success("Card removed from deck");
+    setCardAdded(false);
+    setTimeout(() => {
+      setCardAdded(true);
+    }, 1600);
+    setIsInDeck(false);
+    location.reload();
   };
 
   return (
@@ -159,10 +170,14 @@ const CardDetailView = ({ item, index, image, setCardDetails }) => {
       {item.type === "track" ? (
         <button className="relative flex items-center justify-center m-2 group/add">
           <div className="absolute right-0 -top-6 z-10 hidden group-hover/add:block bg-zinc-500 text-xs rounded-md p-1">
-            {isInDeck ? <p>Card added</p> : <p>Quick add to deck</p>}
+            {isInDeck ? <p>Remove from deck</p> : <p>Quick add to deck</p>}
           </div>
           {isInDeck ? (
-            <AiOutlineCheck size={20} className="text-green-500" />
+            <AiOutlineCheck
+              onClick={handleRemoveCardFromDeck}
+              size={20}
+              className="text-green-500"
+            />
           ) : (
             <AiOutlinePlus
               onClick={handleAddCardToDeck}

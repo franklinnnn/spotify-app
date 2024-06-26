@@ -80,12 +80,10 @@ const Track = ({ item, index }) => {
       style={cardStyle}
       {...dealDetailViewAnimation(index)}
     >
-      <div className="flex gap-4">
+      <div className="flex gap-2">
         <span className="text-sm pl-1 pt-1">{index + 1}</span>
-        <div>
-          <div className="flex flex-col mb-1 truncate md:max-w-[500px] text-sm md:text-lg w-full">
-            <span>{item.name}</span>
-          </div>
+        <div className="flex flex-col mb-1 text-sm md:text-lg w-[350px]">
+          <p className="truncate ...">{item.name}</p>
           <div className="flex items-center gap-1 md:gap-2 text-sm md:text-base">
             <div
               className="flex items-center justify-center gap-2 w-[5rem] p-1 rounded-md font-num bg-slate-500/[0.4] ease-in-out duration-300"
