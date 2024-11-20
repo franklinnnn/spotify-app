@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import CardDetailView from "./CardDetailView";
 import { Dialog, Transition } from "@headlessui/react";
 import AlbumDetails from "./card/AlbumDetails";
+import albumPlaceholder from "../assets/album-placeholder.jpg";
 
 const CardsContainer = ({ list, type }) => {
   const { setList, showDetails, setShowDetails, cardHand, setCardHand } =
@@ -153,10 +154,18 @@ const CardsContainer = ({ list, type }) => {
           {list?.length > 7
             ? list?.map((item, index) => {
                 setCardHand("detail");
-                const image =
-                  item.type === "track"
-                    ? item.album?.images[0].url
-                    : item?.images[0]?.url;
+                // const image =
+                //   item.type === "track"
+                //     ? item.album?.images[0].url
+                //     : item?.images[0]?.url;
+                let image;
+                if (!item) {
+                  image = albumPlaceholder;
+                } else if (item && item.type === "track") {
+                  image = item.album?.images[0].url;
+                } else {
+                  image = item.images[0]?.url;
+                }
                 return (
                   <>
                     {cardHand === "detail" && (

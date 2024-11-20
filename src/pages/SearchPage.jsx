@@ -21,6 +21,8 @@ const SearchPage = () => {
     });
   }, [offset]);
 
+  console.log(list);
+
   const handleSearchQuery = (e) => {
     e.preventDefault();
     setLoading(true);

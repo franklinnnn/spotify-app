@@ -26,10 +26,10 @@ const CardDetailView = ({ item, index, image, setCardDetails }) => {
   const [isInDeck, setIsInDeck] = useState(false);
   const [cardAdded, setCardAdded] = useState(false);
 
-  // console.log(item);
+  if (!item) return;
 
   // item === "track"
-  const trackPreview = item.preview_url;
+  const trackPreview = item?.preview_url;
   const title = item.name;
   const artist = item.artists ? item.artists[0].name : null;
 
