@@ -84,45 +84,52 @@ const SavePlaylist = ({ deck, setShowSavePlaylist }) => {
         </button>
       </div>
       <div className="overflow-y-scroll overflow-x-hidden">
-        {playlists.items?.map((playlist, index) => (
-          <motion.div
-            className={`group/button flex gap-2 items-center justify-between m-2 p-2 rounded-sm hover:bg-slate-600/40 border-2 transition ${
-              selectPlaylistId === playlist.id
-                ? "border-primary bg-slate-600/20"
-                : "border-transparent"
-            }`}
-            key={playlist.id}
-            {...myPlaylistsAnimation(index)}
-          >
-            <img
-              src={
-                playlist.images[2]?.url
-                  ? playlist.images[2].url
-                  : playlistPlaceholder
-              }
-              alt="Playlist image"
-              className="h-12 w-12 md:h-24 md:w-24"
-            />
-            <div className="w-full truncate">
-              <p className="font-disp md:text-2xl truncate">{playlist.name}</p>
-              <p className="font-mono text-sm">{playlist.description}</p>
-            </div>
-            <div className="flex gap-2">
-              <button
-                className="p-2 w-24 bg-slate-600 hover:bg-primary rounded-sm font-mono text-sm  hover:cursor-pointer transition"
-                onClick={() => handleViewPlaylistTracks(playlist.id)}
-              >
-                View Tracks
-              </button>
-              <button
-                className="p-2 w-24 bg-slate-600 hover:bg-primary rounded-sm font-mono text-sm  hover:cursor-pointer transition"
-                onClick={() => handleSaveToPlaylist(playlist.id, playlist.name)}
-              >
-                Save to playlist
-              </button>
-            </div>
-          </motion.div>
-        ))}
+        {playlists.items?.map((playlist, index) => {
+          if (!playlist) return;
+          return (
+            <motion.div
+              className={`group/button flex gap-2 items-center justify-between m-2 p-2 rounded-sm hover:bg-slate-600/40 border-2 transition ${
+                selectPlaylistId === playlist.id
+                  ? "border-primary bg-slate-600/20"
+                  : "border-transparent"
+              }`}
+              key={playlist.id}
+              {...myPlaylistsAnimation(index)}
+            >
+              <img
+                src={
+                  playlist.images[2]?.url
+                    ? playlist.images[2].url
+                    : playlistPlaceholder
+                }
+                alt="Playlist image"
+                className="h-12 w-12 md:h-24 md:w-24"
+              />
+              <div className="w-full truncate">
+                <p className="font-disp md:text-2xl truncate">
+                  {playlist.name}
+                </p>
+                <p className="font-mono text-sm">{playlist.description}</p>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  className="p-2 w-24 bg-slate-600 hover:bg-primary rounded-sm font-mono text-sm  hover:cursor-pointer transition"
+                  onClick={() => handleViewPlaylistTracks(playlist.id)}
+                >
+                  View Tracks
+                </button>
+                <button
+                  className="p-2 w-24 bg-slate-600 hover:bg-primary rounded-sm font-mono text-sm  hover:cursor-pointer transition"
+                  onClick={() =>
+                    handleSaveToPlaylist(playlist.id, playlist.name)
+                  }
+                >
+                  Save to playlist
+                </button>
+              </div>
+            </motion.div>
+          );
+        })}
       </div>
     </motion.div>
   );
